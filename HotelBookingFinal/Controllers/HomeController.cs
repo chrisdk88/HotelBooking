@@ -1,11 +1,13 @@
-﻿using HotelBookingFinal.Models;
+﻿using HotelBooking.Data;
+using HotelBookingFinal.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using UMLHotel;
 
 namespace HotelBookingFinal.Controllers
 {
     public class HomeController : Controller
-    {
+    {        
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -15,6 +17,18 @@ namespace HotelBookingFinal.Controllers
 
         public IActionResult Index()
         {
+            using HotelBookingContext context = new();
+
+            Hotel hotel1 = new()
+            {
+                name = "abc",
+                phoneNumber = "123",
+                address = "abc123",
+                rooms = new(),
+            };
+            context.Hotel.Add(hotel1);
+            context.SaveChanges();
+
             return View();
         }
 
