@@ -13,15 +13,13 @@ namespace HotelBookingFinal.Controllers
             return View();
         }
 
-        [HttpPost]
         public IActionResult bookingUpdate()
         {
-            HotelBookingContext context = new HotelBookingContext();
+            HotelBookingContext context = new();
 
             string query = context.Booking.ToList().ToString();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
-
     }
 }
