@@ -17,7 +17,7 @@ namespace HotelBookingFinal.Controllers
 
         public IActionResult Index()
         {
-            using HotelBookingContext context = new();
+            HotelBookingContext context = new();
 
             Hotel hotel1 = new()
             {

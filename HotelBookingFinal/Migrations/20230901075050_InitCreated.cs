@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HotelBookingFinal.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitCreated : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,7 +77,6 @@ namespace HotelBookingFinal.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    roomNum = table.Column<int>(type: "int", nullable: false),
                     startDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     endDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     customerid = table.Column<int>(type: "int", nullable: false)
@@ -99,21 +98,21 @@ namespace HotelBookingFinal.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    roomNum = table.Column<int>(type: "int", nullable: false),
                     vacancy = table.Column<bool>(type: "bit", nullable: false),
                     type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     price = table.Column<int>(type: "int", nullable: false),
-                    bookingsid = table.Column<int>(type: "int", nullable: false),
+                    bookingid = table.Column<int>(type: "int", nullable: true),
                     Hotelid = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Room", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Room_Booking_bookingsid",
-                        column: x => x.bookingsid,
+                        name: "FK_Room_Booking_bookingid",
+                        column: x => x.bookingid,
                         principalTable: "Booking",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_Room_Hotel_Hotelid",
                         column: x => x.Hotelid,
@@ -137,9 +136,9 @@ namespace HotelBookingFinal.Migrations
                 column: "Hotelid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Room_bookingsid",
+                name: "IX_Room_bookingid",
                 table: "Room",
-                column: "bookingsid");
+                column: "bookingid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Room_Hotelid",

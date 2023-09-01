@@ -66,9 +66,6 @@ namespace HotelBookingFinal.Migrations
                     b.Property<DateTime>("endDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("roomNum")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("startDate")
                         .HasColumnType("datetime2");
 
@@ -155,10 +152,13 @@ namespace HotelBookingFinal.Migrations
                     b.Property<int?>("Hotelid")
                         .HasColumnType("int");
 
-                    b.Property<int>("bookingsid")
+                    b.Property<int?>("bookingid")
                         .HasColumnType("int");
 
                     b.Property<int>("price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("roomNum")
                         .HasColumnType("int");
 
                     b.Property<string>("type")
@@ -172,7 +172,7 @@ namespace HotelBookingFinal.Migrations
 
                     b.HasIndex("Hotelid");
 
-                    b.HasIndex("bookingsid");
+                    b.HasIndex("bookingid");
 
                     b.ToTable("Room");
                 });
@@ -208,13 +208,11 @@ namespace HotelBookingFinal.Migrations
                         .WithMany("rooms")
                         .HasForeignKey("Hotelid");
 
-                    b.HasOne("UMLHotel.Booking", "bookings")
+                    b.HasOne("UMLHotel.Booking", "booking")
                         .WithMany()
-                        .HasForeignKey("bookingsid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("bookingid");
 
-                    b.Navigation("bookings");
+                    b.Navigation("booking");
                 });
 
             modelBuilder.Entity("UMLHotel.Hotel", b =>
