@@ -5,7 +5,7 @@ namespace HotelBooking.Data
 {
     public class HotelBookingContext : DbContext
     {
-        string conn = @"Data Source=192.168.148.128\MSSQL;User ID=andengruppe;Password=********;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        string conn = @"Data Source=192.168.148.128\MSSQL;Database=AndenGruppeHotelH2;User ID=andengruppe;Password=Password1;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
         public DbSet<Booking> Booking { get; set; } = null;
         public DbSet<Hotel> Hotel { get; set; } = null;
