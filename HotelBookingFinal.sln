@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBookingFinal", "HotelBookingFinal\HotelBookingFinal.csproj", "{D22156E6-7971-4BE5-BC0E-66D333CAE331}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{05D7B538-6393-4758-840A-59B80DE4D028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{05D7B538-6393-4758-840A-59B80DE4D028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{4FCA6E4B-FBA4-47FE-B841-2AE54D5C6D17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{4FCA6E4B-FBA4-47FE-B841-2AE54D5C6D17}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{26C231E0-8C99-485A-A3B8-44BD2774472F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{26C231E0-8C99-485A-A3B8-44BD2774472F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D22156E6-7971-4BE5-BC0E-66D333CAE331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D22156E6-7971-4BE5-BC0E-66D333CAE331}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D22156E6-7971-4BE5-BC0E-66D333CAE331}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D22156E6-7971-4BE5-BC0E-66D333CAE331}.Release|Any CPU.Build.0 = Release|Any CPU
 		{05D7B538-6393-4758-840A-59B80DE4D028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{05D7B538-6393-4758-840A-59B80DE4D028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05D7B538-6393-4758-840A-59B80DE4D028}.Release|Any CPU.ActiveCfg = Release|Any CPU
