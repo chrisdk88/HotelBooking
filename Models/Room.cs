@@ -1,8 +1,7 @@
-﻿namespace UMLHotel
+﻿namespace Models
 {
-    public class Room
+    public class Room : Common
     {
-        public int id { get; set; }
         public int roomNum { get; set; }
         public bool vacancy { get; set; }
         public String type { get; set; }

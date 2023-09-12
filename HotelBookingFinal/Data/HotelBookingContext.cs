@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UMLHotel;
+using Models;
 
 namespace HotelBooking.Data
 {

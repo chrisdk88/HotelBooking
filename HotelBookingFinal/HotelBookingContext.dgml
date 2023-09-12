@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Admin" Category="EntityType" Annotations="Relational:TableName: Admin RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" BaseClass="" Bounds="-49.2934255722423,623.951177668481,249.290000457764,197.8804" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="Admin" Name="Admin" UseManualLocation="True" />
+    <Node Id="Admin.Hotelid" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="54.9699493916829,663.951394234752,88.4433333333333,25.96" Field="nofield" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="False" IsShadow="True" IsUnicode="True" Label="Hotelid (int?)" MaxLength="None" Name="Hotelid" PropertyAccessMode="PropertyAccessMode.Default" Type="int?" ValueGenerated="None" />
+    <Node Id="Admin.email" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-29.2933945210775,719.911416207408,89.1566666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="email (string)" MaxLength="None" Name="email" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Admin.id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-29.2934022013346,663.951333199596,54.2633333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="id (int)" MaxLength="None" Name="id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="Admin.name" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="89.8632764180501,719.911477242565,90.1333333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="name (string)" MaxLength="None" Name="name" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Admin.password" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-29.2934262339274,775.871499215221,110.913333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="password (string)" MaxLength="None" Name="password" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Booking" Category="EntityType" Annotations="Relational:TableName: Booking RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" BaseClass="" Bounds="300.812658013238,336.587628921426,299.766690266927,197.880413525391" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="Booking" Name="Booking" />
+    <Node Id="Booking.customer" Category="Navigation Property" Bounds="405.076021525065,376.587728921427,86.3066666666667,25.96" Dependent="" Field="" Inverse="" Label="customer (1)" Name="customer" Principal="Customer" PropertyAccessMode="PropertyAccessMode.Default" Type="Customer" />
+    <Node Id="Booking.customerid" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="320.812681613498,432.547828921426,103.573333333333,25.96" Field="nofield" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="True" IsShadow="True" IsUnicode="True" Label="customerid (int)" MaxLength="None" Name="customerid" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="Booking.endDate" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="454.386014946832,432.547828921426,126.193333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="endDate (DateTime)" MaxLength="None" Name="endDate" PropertyAccessMode="PropertyAccessMode.Default" Type="DateTime" ValueGenerated="None" />
+    <Node Id="Booking.id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="320.812684529622,376.587745913614,54.2633333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="id (int)" MaxLength="None" Name="id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="Booking.startDate" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="320.812659708659,488.507942446817,129.566666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="startDate (DateTime)" MaxLength="None" Name="startDate" PropertyAccessMode="PropertyAccessMode.Default" Type="DateTime" ValueGenerated="None" />
+    <Node Id="Customer" Category="EntityType" Annotations="Relational:TableName: Customer RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" BaseClass="" Bounds="288.913031957302,583.639773828127,306.446704915365,253.840561035156" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="Customer" Name="Customer" />
+    <Node Id="Customer.Hotelid" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="486.916403539333,623.639903564453,88.4433333333334,25.96" Field="nofield" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="False" IsShadow="True" IsUnicode="True" Label="Hotelid (int?)" MaxLength="None" Name="Hotelid" PropertyAccessMode="PropertyAccessMode.Default" Type="int?" ValueGenerated="None" />
+    <Node Id="Customer.address" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="308.913031957302,735.560134863283,101.5,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="address (string)" MaxLength="None" Name="address" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Customer.age" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="393.176364883734,623.639890820315,63.74,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="age (int)" MaxLength="None" Name="age" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="Customer.email" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="308.91305840587,679.599990820315,89.1566666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="email (string)" MaxLength="None" Name="email" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Customer.id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="308.91303500906,623.639886572265,54.2633333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="id (int)" MaxLength="None" Name="id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="Customer.name" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="428.069725072537,679.599986572266,90.1333333333335,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="name (string)" MaxLength="None" Name="name" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Customer.password" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="440.413031957302,735.560130615234,110.913333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="password (string)" MaxLength="None" Name="password" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Customer.phoneNumber" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="308.913065730089,791.520234863283,121.836666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="phoneNumber (int)" MaxLength="None" Name="phoneNumber" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="Hotel" Category="EntityType" Annotations="Relational:TableName: Hotel RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" BaseClass="" Bounds="297.809997897678,884.510700942911,309.669991455078,197.8804" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="Hotel" Name="Hotel" />
+    <Node Id="Hotel.address" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="317.809997558594,1036.43100094291,101.5,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="address (string)" MaxLength="None" Name="address" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Hotel.admins" Category="Navigation Collection" Bounds="501.266671481662,924.510800942911,73.83,25.96" Dependent="Admin" Field="" Inverse="" Label="admins (*)" Name="admins" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="List&lt;Admin&gt;" />
+    <Node Id="Hotel.customers" Category="Navigation Collection" Bounds="317.810005696615,980.470900942911,89.9333333333333,25.96" Dependent="Customer" Field="" Inverse="" Label="customers (*)" Name="customers" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="List&lt;Customer&gt;" />
+    <Node Id="Hotel.id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="317.809999321832,924.510800942911,54.2633333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="id (int)" MaxLength="None" Name="id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="Hotel.name" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="437.743361409505,980.470900942911,90.1333333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="name (string)" MaxLength="None" Name="name" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Hotel.phoneNumber" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="449.309989013672,1036.43100094291,138.17,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="phoneNumber (string)" MaxLength="None" Name="phoneNumber" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Hotel.rooms" Category="Navigation Collection" Bounds="402.073331502279,924.510800942911,69.1933333333333,25.96" Dependent="Room" Field="" Inverse="" Label="rooms (*)" Name="rooms" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="List&lt;Room&gt;" />
+    <Node Id="IModel" Category="Model" Annotations="BaseTypeDiscoveryConvention:DerivedTypes: System.Collections.Generic.Dictionary`2[System.Type,System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.IConventionEntityType]] Relational:MaxIdentifierLength: 128 RelationshipDiscoveryConvention:InverseNavigationCandidates: System.Collections.Generic.Dictionary`2[System.Type,System.Collections.Generic.SortedSet`1[System.Type]] SqlServer:ValueGenerationStrategy: IdentityColumn" Bounds="-69.2934574236643,296.58752324568,1074.80291624528,805.803693969725" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" Label="HotelBookingContext" ProductVersion="7.0.10" PropertyAccessMode="PropertyAccessMode.Default" />
+    <Node Id="Room" Category="EntityType" Annotations="" BaseClass="" Bounds="680.165735060705,597.35174135964,305.343579101562,253.840544042969" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="Room" Name="Room" UseManualLocation="True" />
+    <Node Id="Room.Hotelid" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="813.992810872396,693.312055472279,88.4433333333334,25.96" Field="nofield" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="False" IsShadow="True" IsUnicode="True" Label="Hotelid (int?)" MaxLength="None" Name="Hotelid" PropertyAccessMode="PropertyAccessMode.Default" Type="int?" ValueGenerated="None" />
+    <Node Id="Room.booking" Category="Navigation Property" Bounds="884.672792154948,637.351972464467,80.8366666666667,25.96" Dependent="" Field="" Inverse="" Label="booking (1)" Name="booking" Principal="Booking" PropertyAccessMode="PropertyAccessMode.Default" Type="Booking" />
+    <Node Id="Room.bookingid" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="700.166017659505,805.23228252306,103.483333333333,25.96" Field="nofield" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="False" IsShadow="True" IsUnicode="True" Label="bookingid (int?)" MaxLength="None" Name="bookingid" PropertyAccessMode="PropertyAccessMode.Default" Type="int?" ValueGenerated="None" />
+    <Node Id="Room.id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="700.165452473958,637.351972464467,54.2633333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="id (int)" MaxLength="None" Name="id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="Room.price" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="784.429450276693,637.351972464467,70.2433333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="price (int)" MaxLength="None" Name="price" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="Room.roomNum" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="826.355705159505,749.272199515248,98.9633333333334,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="roomNum (int)" MaxLength="None" Name="roomNum" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="Room.type" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="700.165768229167,693.312055472279,83.8266666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="type (string)" MaxLength="None" Name="type" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Room.vacancy" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="700.166077880859,749.272199515248,96.1900000000001,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="vacancy (bool)" MaxLength="None" Name="vacancy" PropertyAccessMode="PropertyAccessMode.Default" Type="bool" ValueGenerated="None" />
+  </Nodes>
+  <Links>
+    <Link Source="Admin" Target="Admin.Hotelid" Category="Contains" />
+    <Link Source="Admin" Target="Admin.email" Category="Contains" />
+    <Link Source="Admin" Target="Admin.id" Category="Contains" />
+    <Link Source="Admin" Target="Admin.name" Category="Contains" />
+    <Link Source="Admin" Target="Admin.password" Category="Contains" />
+    <Link Source="Admin" Target="Hotel" Category="Foreign Key" Annotations="" Bounds="199.996574885521,808.971442163015,101.976145854918,70.4249123187969" From="Admin.Hotelid" IsUnique="False" Label="1:*" LabelBounds="252.12116924878,826.578201197798,14.0733333333333,15.96" Name="Admin -&gt; Hotel" To="Hotel.id" />
+    <Link Source="Booking" Target="Booking.customer" Category="Contains" />
+    <Link Source="Booking" Target="Booking.customerid" Category="Contains" />
+    <Link Source="Booking" Target="Booking.endDate" Category="Contains" />
+    <Link Source="Booking" Target="Booking.id" Category="Contains" />
+    <Link Source="Booking" Target="Booking.startDate" Category="Contains" />
+    <Link Source="Booking" Target="Customer" Category="Foreign Key" Annotations="" Bounds="446.366392460254,534.468042446817,1.25036982060521,40.1760868897429" From="Booking.customerid" IsUnique="False" Label="1:*" LabelBounds="450.99157783919,546.638300248868,14.0733333333333,15.96" Name="Booking -&gt; Customer" To="Customer.id" />
+    <Link Source="Customer" Target="Customer.Hotelid" Category="Contains" />
+    <Link Source="Customer" Target="Customer.address" Category="Contains" />
+    <Link Source="Customer" Target="Customer.age" Category="Contains" />
+    <Link Source="Customer" Target="Customer.email" Category="Contains" />
+    <Link Source="Customer" Target="Customer.id" Category="Contains" />
+    <Link Source="Customer" Target="Customer.name" Category="Contains" />
+    <Link Source="Customer" Target="Customer.password" Category="Contains" />
+    <Link Source="Customer" Target="Customer.phoneNumber" Category="Contains" />
+    <Link Source="Customer" Target="Hotel" Category="Foreign Key" Annotations="" Bounds="447.023890337017,837.480334863283,1.46474792733864,38.0370317276349" From="Customer.Hotelid" IsUnique="False" Label="1:*" LabelBounds="451.756265398558,848.441890826279,14.0733333333333,15.96" Name="Customer -&gt; Hotel" To="Hotel.id" />
+    <Link Source="Hotel" Target="Hotel.address" Category="Contains" />
+    <Link Source="Hotel" Target="Hotel.admins" Category="Contains" />
+    <Link Source="Hotel" Target="Hotel.customers" Category="Contains" />
+    <Link Source="Hotel" Target="Hotel.id" Category="Contains" />
+    <Link Source="Hotel" Target="Hotel.name" Category="Contains" />
+    <Link Source="Hotel" Target="Hotel.phoneNumber" Category="Contains" />
+    <Link Source="Hotel" Target="Hotel.rooms" Category="Contains" />
+    <Link Source="IModel" Target="Admin" Category="Contains" />
+    <Link Source="IModel" Target="Booking" Category="Contains" />
+    <Link Source="IModel" Target="Customer" Category="Contains" />
+    <Link Source="IModel" Target="Hotel" Category="Contains" />
+    <Link Source="IModel" Target="Room" Category="Contains" />
+    <Link Source="Room" Target="Booking" Category="Foreign Key" Annotations="" Bounds="588.820131379686,539.893720013768,91.3456036810185,69.0202706055395" From="Room.bookingid" IsUnique="False" Label="1:*" LabelBounds="619.213893760873,575.999559780952,14.0733333333334,15.96" Name="Room -&gt; Booking" To="Booking.id" />
+    <Link Source="Room" Target="Hotel" Category="Foreign Key" Annotations="" Bounds="605.217966384735,828.349030557634,74.9477686759693,51.0922170414162" From="Room.Hotelid" IsUnique="False" Label="1:*" LabelBounds="643.818395910245,855.547681344206,14.0733333333334,15.96" Name="Room -&gt; Hotel" To="Hotel.id" />
+    <Link Source="Room" Target="Room.Hotelid" Category="Contains" />
+    <Link Source="Room" Target="Room.booking" Category="Contains" />
+    <Link Source="Room" Target="Room.bookingid" Category="Contains" />
+    <Link Source="Room" Target="Room.id" Category="Contains" />
+    <Link Source="Room" Target="Room.price" Category="Contains" />
+    <Link Source="Room" Target="Room.roomNum" Category="Contains" />
+    <Link Source="Room" Target="Room.type" Category="Contains" />
+    <Link Source="Room" Target="Room.vacancy" Category="Contains" />
+  </Links>
+  <Categories>
+    <Category Id="Contains" Label="Contains" Description="Whether the source of the link contains the target object" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
+    <Category Id="EntityType" />
+    <Category Id="Foreign Key" />
+    <Category Id="Model" />
+    <Category Id="Navigation Collection" />
+    <Category Id="Navigation Property" />
+    <Category Id="Property Foreign" />
+    <Category Id="Property Primary" />
+    <Category Id="Property Required" />
+  </Categories>
+  <Properties>
+    <Property Id="AfterSaveBehavior" Group="Property Flags" DataType="System.String" />
+    <Property Id="Annotations" Description="Annotations" Group="Model Properties" DataType="System.String" />
+    <Property Id="BaseClass" Description="Base class" Group="Model Properties" DataType="System.String" />
+    <Property Id="BeforeSaveBehavior" Group="Property Flags" DataType="System.String" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="ChangeTrackingStrategy" Description="Change tracking strategy" Group="Model Properties" DataType="System.String" />
+    <Property Id="Dependent" Description="Dependent entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="Field" Description="Backing field" Group="Model Properties" DataType="System.String" />
+    <Property Id="From" Description="Target property" Group="Model Properties" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="Group" Label="Group" Description="Display the node as a group" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="Inverse" Description="Inverse entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="IsAbstract" Label="IsAbstract" Description="IsAbstract" Group="Model Properties" DataType="System.Boolean" />
+    <Property Id="IsAlternateKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsConcurrencyToken" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="IsForeignKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsIndexed" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsPrimaryKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsRequired" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsShadow" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsUnicode" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsUnique" Group="Model Properties" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="LabelBounds" DataType="System.Windows.Rect" />
+    <Property Id="MaxLength" DataType="System.String" />
+    <Property Id="Name" Group="Model Properties" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="Principal" Description="Principal entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="ProductVersion" Label="Product Version" Description="EF Core product version" Group="Model Properties" DataType="System.String" />
+    <Property Id="PropertyAccessMode" Group="Property Flags" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="To" Description="Source property" Group="Model Properties" DataType="System.String" />
+    <Property Id="Type" Description="CLR data type" Group="Model Properties" DataType="System.String" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueGenerated" Group="Property Flags" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="EntityType" ValueLabel="True">
+      <Condition Expression="HasCategory('EntityType')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Required" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Required')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Navigation Property" ValueLabel="True">
+      <Condition Expression="HasCategory('Navigation Property')" />
+      <Setter Property="Background" Value="#FF990000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Navigation Collection" ValueLabel="True">
+      <Condition Expression="HasCategory('Navigation Collection')" />
+      <Setter Property="Background" Value="#FFFF3232" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Model" ValueLabel="True">
+      <Condition Expression="HasCategory('Model')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+</DirectedGraph>

@@ -1,8 +1,6 @@
-﻿using HotelBooking.Data;
-using HotelBookingFinal.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using UMLHotel;
+using Models;
 
 namespace HotelBookingFinal.Controllers
 {

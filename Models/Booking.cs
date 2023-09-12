@@ -1,8 +1,7 @@
-﻿namespace UMLHotel
+﻿namespace Models
 {
-    public class Booking 
+    public class Booking : Common
     {
-        public int id { get; set; }
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
         public Customer customer { get; set; }
