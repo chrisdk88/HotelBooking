@@ -17,17 +17,17 @@ namespace HotelBookingFinal.Controllers
 
         public IActionResult Index()
         {
-            HotelBookingContext context = new();
+            //HotelBookingContext context = new();
 
-            Hotel hotel1 = new()
-            {
-                name = "abc",
-                phoneNumber = "123",
-                address = "abc123",
-                rooms = new(),
-            };
-            context.Hotel.Add(hotel1);
-            context.SaveChanges();
+            //Hotel hotel1 = new()
+            //{
+            //    name = "abc",
+            //    phoneNumber = "123",
+            //    address = "abc123",
+            //    rooms = new(),
+            //};
+            //context.Hotel.Add(hotel1);
+            //context.SaveChanges();
 
             return View();
         }
