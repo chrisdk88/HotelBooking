@@ -1,4 +1,4 @@
-﻿namespace UMLHotel
+﻿namespace Models
 {
     public class Admin : User
     {

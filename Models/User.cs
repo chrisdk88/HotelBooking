@@ -1,11 +1,12 @@
-﻿namespace UMLHotel
+﻿namespace Models
 {
-    public class User
+    public class User : Common
     {
-        public int id { get; set; }
         public String email { get; set; }
         public String password { get; set; }
         public String name { get; set; }
+        //TODO: lave mange til mange mellem hotel og users
+        //public List<Hotel> hotels { get; set; }
         void login() { }
     }
 }
