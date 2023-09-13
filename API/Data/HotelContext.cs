@@ -10,5 +10,6 @@ namespace API.Data
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Hotel> Hotel { get; set; }
         public DbSet<Room> Room { get; set; }
+        public HotelContext(DbContextOptions options) : base(options) { }
     }
 }

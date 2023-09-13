@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("abc");
+var connectionString = builder.Configuration.GetConnectionString("DbCon");
 builder.Services.AddDbContext<HotelContext>(options =>
 {
     options.UseSqlServer(connectionString);
