@@ -2,58 +2,48 @@
 @inject HttpClient Http
 @using Models;
 
-<PageTitle>Weather forecast</PageTitle>
+<PageTitle>Andet Hotel Booking</PageTitle>
 
-<h1>Weather forecast</h1>
+<h1>Booking</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
 
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Address</th>
-                <th>Name</th>
-                <th>phoneNumber</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
+<table>
+    <p>abc</p>
+
+    @if (response == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@forecast.id</td>
-                    <td>@forecast.address</td>
-                    <td>@forecast.name</td>
-                    <td>@forecast.phoneNumber</td>
+                    <th>Id</th>
+                    <th>Address</th>
+                    <th>Name</th>
+                    <th>phoneNumber</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (Hotel hotel in response)
+                {
+                    <tr>
+                        <td>@response</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</table>
 
 @code {
-    private Hotel[]? forecasts;
+    private Hotel[]? response;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<Hotel[]>("https://localhost:7285/api/Hotels");
-        var a = "";
-    }
-
-    public class WeatherForecast
-    {
-        public DateTime Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public string? Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        var a = Abc();
+        Console.WriteLine(a);
+        //response = await Http.GetFromJsonAsync<Hotel[]>("https://localhost:7285/api/Rooms");
     }
 }
