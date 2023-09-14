@@ -55,8 +55,16 @@ a {
     margin: 0 20px;
 }
 
+.showLogin {
+    display: block;
+}
+
 @media (min-width: 641px) {
     .navbar-toggler {
+        display: none;
+    }
+
+    .showLogin {
         display: none;
     }
 
