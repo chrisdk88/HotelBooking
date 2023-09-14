@@ -1,5 +1,6 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
+@using Models;
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -16,20 +17,20 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>Id</th>
+                <th>Address</th>
+                <th>Name</th>
+                <th>phoneNumber</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var forecast in forecasts)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@forecast.id</td>
+                    <td>@forecast.address</td>
+                    <td>@forecast.name</td>
+                    <td>@forecast.phoneNumber</td>
                 </tr>
             }
         </tbody>
@@ -37,11 +38,12 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private Hotel[]? forecasts;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        forecasts = await Http.GetFromJsonAsync<Hotel[]>("https://localhost:7285/api/Hotels");
+        var a = "";
     }
 
     public class WeatherForecast
