@@ -9,5 +9,8 @@
         public Booking? booking { get; set; }
         void cancelBooking() { }
         void createBooking() { }
+        public Room()
+        {
+        }
     }
 }
