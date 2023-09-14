@@ -11,17 +11,27 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-home" aria-hidden="true"></span> Forside
+            </NavLink>
+        </div>
+        <div class="dropdown nav-item px-3">
+            <NavLink class="nav-link" @onclick="ToggleDropdown">
+                <span class="oi oi-plus" aria-hidden="true"></span> Værelser
+            </NavLink>
+            <ul class="@dropdownCssClass text-white bg-dark" @onclick="ToggleDropdown">
+                <li><a href="standard">Standard</a></li>
+                <li><a href="premium">Premium</a></li>
+                <li><a href="deluxe">Deluxe</a></li>
+            </ul>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="book">
+                <span class="oi oi-calendar" aria-hidden="true"></span> Book
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            <NavLink class="nav-link" href="login">
+                <span class="oi oi-person" aria-hidden="true"></span> Log ind
             </NavLink>
         </div>
     </nav>
@@ -35,5 +45,16 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+}
+
+@code {
+    private bool isDropdownVisible = false;
+
+    private string dropdownCssClass => isDropdownVisible ? "dropdown-menu show" : "dropdown-menu";
+
+    private void ToggleDropdown()
+    {
+        isDropdownVisible = !isDropdownVisible;
     }
 }
