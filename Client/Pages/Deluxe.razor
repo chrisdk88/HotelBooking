@@ -1,6 +1,140 @@
 ﻿@page "/deluxe"
 <h3>Deluxe</h3>
 
+@* Grid start *@
+<div class="container text-center mb-4">
+    <div class="row">
+        @* Grid left side *@
+        <div class="col-12 col-sm-8">
+            @* Image Carousel *@
+            <div id="imageCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" class="d-block w-100" alt="Hotel deluxe bed">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.theislandhotel.eu/wp-content/uploads/sites/4/MG_9249-b-1.jpg" class="d-block w-100" alt="Hotel deluxe toilet">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBTPlSDl-R_2Ij6NS49nNm-Nq9J4asusQ0FQ&usqp=CAU" class="d-block w-100" alt="Hotel deluxe workspace">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            @* deluxe information *@
+            <h2>Deluxe værelse</h2>
+            <p class="text-start mb-3">
+                Vores deluxe er store lejligheder på 60m2 med særskilt soveafdeling, stue, køkken kæmpe badeværelser med eget dobbelt spabad, sauna og bruseniche.
+                <br /><br />
+                Disse deluxe er ideelle for den uforglemmelig brudenatsoplevelse eller det romantiske ophold, hvor man bare ikke har lyst til at checke ud dagen derpå. Da suiterne er placeret midt i centrum, er man indenfor gå afstand til alle byens bedste restauranter og cafeer.
+                <br /><br />
+                Deluxe kan også danne den perfekte ramme for familieferien, idet de kan have op til 4 personer boende og der er rig mulighed for at lave mad i det fuldt udstyrede køkken. Deluxe værelserne har naturligvis fri adgang til internet, flatscreen TV i både stue og soveværelse, køleskab, komfur, kaffe/the, strygebræt og strygejern og hårtørrer, samt safety deposit boks.
+            </p>
+            @* deluxe room facilities *@
+            <h2>Værelsesfaciliteter</h2>
+            @* room facilities grid with icons *@
+            <div class="col-12 mb-3 bg-secondary bg-opacity-25 p-3 rounded-3">
+                <div class="row">
+                    <div class="col-sm-4 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/pictogrammers/material/32/bed-icon.png" width="32" height="32">
+                        <span class="oi" aria-hidden="true"></span> Dobbeltværelse
+                    </div>
+                    <div class="col-sm-4 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/pictogrammers/material/32/parking-icon.png" width="32" height="32">
+                        <span class="oi" aria-hidden="true"></span> Gratis parkering
+                    </div>
+                    <div class="col-sm-4 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/icons8/windows-8/32/Network-Wifi-icon.png" width="32" height="32">
+                        <span class="oi" aria-hidden="true"></span> Gratis WIFI
+                    </div>
+                    <div class="col-sm-4 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/iconoir-team/iconoir/32/closet-icon.png" width="32" height="32">
+
+                        <span class="oi" aria-hidden="true"></span> Garderobe
+                    </div>
+                    <div class="col-sm-4 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/icons8/windows-8/32/Food-Bar-icon.png" width="32" height="32">
+                        <span class="oi" aria-hidden="true"></span> Minibar
+                    </div>
+                    <div class="col-sm-4 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/aniket-suvarna/box/32/bxs-fridge-icon.png" width="32" height="32">
+                        <span class="oi" aria-hidden="true"></span> Køleskab
+                    </div>
+                    <div class="col-sm-4 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/icons8/windows-8/32/Household-Toilet-Pan-icon.png" width="32" height="32">
+                        <span class="oi" aria-hidden="true"></span> Eget badeværelse
+                    </div>
+                    <div class="col-sm-4 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/ionic/ionicons/32/tv-sharp-icon.png" width="32" height="32">
+                        <span class="oi" aria-hidden="true"></span> Fladskærms-tv
+                    </div>
+                    <div class="col-sm-4 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/pictogrammers/material/32/desk-icon.png" width="32" height="32">
+                        <span class="oi" aria-hidden="true"></span> Skrivebord
+                    </div>
+                </div>
+            </div>
+            @* toilet *@
+            <h2>På det private badeværelse</h2>
+            @* toilet grid with icons *@
+            <div class="col-12 mb-3 bg-secondary bg-opacity-25 p-3 rounded-3">
+                <div class="row">
+                    <div class="col-sm-6 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/icons8/windows-8/32/Very-Basic-Ok-icon.png" width="32" height="32">
+                        <span aria-hidden="true"></span> Gratis toiletartikler
+                    </div>
+                    <div class="col-sm-6 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/icons8/windows-8/32/Very-Basic-Ok-icon.png" width="32" height="32">
+                        <span aria-hidden="true"></span> Håndklæder
+                    </div>
+                    <div class="col-sm-6 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/icons8/windows-8/32/Very-Basic-Ok-icon.png" width="32" height="32">
+                        <span aria-hidden="true"></span> Toilet
+                    </div>
+                    <div class="col-sm-6 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/icons8/windows-8/32/Very-Basic-Ok-icon.png" width="32" height="32">
+                        <span aria-hidden="true"></span> Hårtørrer
+                    </div>
+                    <div class="col-sm-6 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/icons8/windows-8/32/Very-Basic-Ok-icon.png" width="32" height="32">
+                        <span aria-hidden="true"></span> Badekar eller brusebad
+                    </div>
+                    <div class="col-sm-6 col-12 text-start">
+                        <img src="https://icons.iconarchive.com/icons/icons8/windows-8/32/Very-Basic-Ok-icon.png" width="32" height="32">
+                        <span aria-hidden="true"></span> Toiletpapir
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* Grid right side *@
+        <div class="col-12 col-sm-4">
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-success mb-2">
+                        <a class="text-white text-decoration-none" href="/book">Tjek ledighed</a>
+                    </button>
+                </div>
+                <div class="col-12">
+                    <h3>Prisgaranti</h3>
+                    <p class="text-start">Når du booker din overnatning direkte på vores hjemmeside, garanterer vi, at du får dit ophold på Palads Hotel Viborg til den bedste online pris.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @code {
 
 }
