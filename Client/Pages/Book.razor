@@ -7,43 +7,79 @@
 <h1>Booking</h1>
 
 
-<table>
-    <p>abc</p>
 
-    @if (response == null)
+<p>abc</p>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+        <div class="card">
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
+                            @*<span>Check In</span><br/>
+                            <input type="date" required>*@
+                        </div>
+                        <div class="col-sm">
+                            <span>Check Out</span><br/>
+                            <input type="date" required>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary">abc</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm">
+    @if (rooms == null)
     {
         <p><em>Loading...</em></p>
     }
     else
     {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Address</th>
-                    <th>Name</th>
-                    <th>phoneNumber</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (Hotel hotel in response)
-                {
-                    <tr>
-                        <td>@response</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @foreach (Room room in rooms)
+        {
+            <div class="card">
+                <form>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
+                            </div>
+                            <div class="col-sm">
+                                <div>
+                                    @room.type
+                                    @room.price
+                                    size
+                                    maxpeople
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <button class="btn btn-primary">abc</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
     }
-</table>
+    </div>
+  </div>
+</div>
 
 @code {
-    private Hotel[]? response;
+    private List<Room>? rooms;
 
     protected override async Task OnInitializedAsync()
     {
-        var a = Abc();
-        Console.WriteLine(a);
-        //response = await Http.GetFromJsonAsync<Hotel[]>("https://localhost:7285/api/Rooms");
+        var now = DateTime.Now.ToShortDateString();
+        String shortDate = now;
+        char[] charArray = shortDate.Reverse().ToArray();
+        shortDate = new string(charArray);
+        Console.WriteLine();
+        rooms = await GetListOfTypes();
     }
 }
