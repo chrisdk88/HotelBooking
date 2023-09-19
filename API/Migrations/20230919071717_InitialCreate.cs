@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,6 +56,8 @@ namespace API.Migrations
                     age = table.Column<int>(type: "int", nullable: false),
                     phoneNumber = table.Column<int>(type: "int", nullable: false),
                     address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    city = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    zipcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Hotelid = table.Column<int>(type: "int", nullable: true),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -72,6 +74,27 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Room",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    roomNum = table.Column<int>(type: "int", nullable: false),
+                    type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    price = table.Column<int>(type: "int", nullable: false),
+                    Hotelid = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Room", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Room_Hotel_Hotelid",
+                        column: x => x.Hotelid,
+                        principalTable: "Hotel",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Booking",
                 columns: table => new
                 {
@@ -79,7 +102,8 @@ namespace API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     startDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     endDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    customerid = table.Column<int>(type: "int", nullable: false)
+                    customerid = table.Column<int>(type: "int", nullable: false),
+                    Roomid = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,33 +114,10 @@ namespace API.Migrations
                         principalTable: "Customer",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Room",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    roomNum = table.Column<int>(type: "int", nullable: false),
-                    vacancy = table.Column<bool>(type: "bit", nullable: false),
-                    type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    price = table.Column<int>(type: "int", nullable: false),
-                    bookingid = table.Column<int>(type: "int", nullable: true),
-                    Hotelid = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Room", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Room_Booking_bookingid",
-                        column: x => x.bookingid,
-                        principalTable: "Booking",
-                        principalColumn: "id");
-                    table.ForeignKey(
-                        name: "FK_Room_Hotel_Hotelid",
-                        column: x => x.Hotelid,
-                        principalTable: "Hotel",
+                        name: "FK_Booking_Room_Roomid",
+                        column: x => x.Roomid,
+                        principalTable: "Room",
                         principalColumn: "id");
                 });
 
@@ -131,14 +132,14 @@ namespace API.Migrations
                 column: "customerid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Booking_Roomid",
+                table: "Booking",
+                column: "Roomid");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customer_Hotelid",
                 table: "Customer",
                 column: "Hotelid");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Room_bookingid",
-                table: "Room",
-                column: "bookingid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Room_Hotelid",
@@ -153,13 +154,13 @@ namespace API.Migrations
                 name: "Admin");
 
             migrationBuilder.DropTable(
-                name: "Room");
-
-            migrationBuilder.DropTable(
                 name: "Booking");
 
             migrationBuilder.DropTable(
                 name: "Customer");
+
+            migrationBuilder.DropTable(
+                name: "Room");
 
             migrationBuilder.DropTable(
                 name: "Hotel");
