@@ -99,6 +99,10 @@ namespace API.Migrations
                     b.Property<int>("age")
                         .HasColumnType("int");
 
+                    b.Property<string>("city")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -113,6 +117,10 @@ namespace API.Migrations
 
                     b.Property<int>("phoneNumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("zipcode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20230913092954_updateHotel")]
-    partial class updateHotel
+    [Migration("20230919071717_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,9 @@ namespace API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("Roomid")
+                        .HasColumnType("int");
+
                     b.Property<int>("customerid")
                         .HasColumnType("int");
 
@@ -73,6 +76,8 @@ namespace API.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
+
+                    b.HasIndex("Roomid");
 
                     b.HasIndex("customerid");
 
@@ -97,6 +102,10 @@ namespace API.Migrations
                     b.Property<int>("age")
                         .HasColumnType("int");
 
+                    b.Property<string>("city")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -111,6 +120,10 @@ namespace API.Migrations
 
                     b.Property<int>("phoneNumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("zipcode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
@@ -155,9 +168,6 @@ namespace API.Migrations
                     b.Property<int?>("Hotelid")
                         .HasColumnType("int");
 
-                    b.Property<int?>("bookingid")
-                        .HasColumnType("int");
-
                     b.Property<int>("price")
                         .HasColumnType("int");
 
@@ -168,14 +178,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("vacancy")
-                        .HasColumnType("bit");
-
                     b.HasKey("id");
 
                     b.HasIndex("Hotelid");
-
-                    b.HasIndex("bookingid");
 
                     b.ToTable("Room");
                 });
@@ -189,6 +194,10 @@ namespace API.Migrations
 
             modelBuilder.Entity("Models.Booking", b =>
                 {
+                    b.HasOne("Models.Room", null)
+                        .WithMany("booking")
+                        .HasForeignKey("Roomid");
+
                     b.HasOne("Models.Customer", "customer")
                         .WithMany()
                         .HasForeignKey("customerid")
@@ -210,12 +219,6 @@ namespace API.Migrations
                     b.HasOne("Models.Hotel", null)
                         .WithMany("rooms")
                         .HasForeignKey("Hotelid");
-
-                    b.HasOne("Models.Booking", "booking")
-                        .WithMany()
-                        .HasForeignKey("bookingid");
-
-                    b.Navigation("booking");
                 });
 
             modelBuilder.Entity("Models.Hotel", b =>
@@ -225,6 +228,11 @@ namespace API.Migrations
                     b.Navigation("customers");
 
                     b.Navigation("rooms");
+                });
+
+            modelBuilder.Entity("Models.Room", b =>
+                {
+                    b.Navigation("booking");
                 });
 #pragma warning restore 612, 618
         }
