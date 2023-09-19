@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace API.Migrations
                 name: "Hotel",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     phoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -30,9 +30,9 @@ namespace API.Migrations
                 name: "Admin",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Hotelid = table.Column<int>(type: "int", nullable: true),
+                    Hotelid = table.Column<long>(type: "bigint", nullable: true),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -51,14 +51,14 @@ namespace API.Migrations
                 name: "Customer",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     age = table.Column<int>(type: "int", nullable: false),
                     phoneNumber = table.Column<int>(type: "int", nullable: false),
                     address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     city = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     zipcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Hotelid = table.Column<int>(type: "int", nullable: true),
+                    Hotelid = table.Column<long>(type: "bigint", nullable: true),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -77,12 +77,12 @@ namespace API.Migrations
                 name: "Room",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     roomNum = table.Column<int>(type: "int", nullable: false),
                     type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     price = table.Column<int>(type: "int", nullable: false),
-                    Hotelid = table.Column<int>(type: "int", nullable: true)
+                    Hotelid = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,12 +98,12 @@ namespace API.Migrations
                 name: "Booking",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     startDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     endDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    customerid = table.Column<int>(type: "int", nullable: false),
-                    Roomid = table.Column<int>(type: "int", nullable: true)
+                    customerid = table.Column<long>(type: "bigint", nullable: false),
+                    roomid = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,10 +115,11 @@ namespace API.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Booking_Room_Roomid",
-                        column: x => x.Roomid,
+                        name: "FK_Booking_Room_roomid",
+                        column: x => x.roomid,
                         principalTable: "Room",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -132,9 +133,9 @@ namespace API.Migrations
                 column: "customerid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Booking_Roomid",
+                name: "IX_Booking_roomid",
                 table: "Booking",
-                column: "Roomid");
+                column: "roomid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customer_Hotelid",

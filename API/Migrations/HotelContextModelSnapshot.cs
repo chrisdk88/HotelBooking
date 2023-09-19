@@ -24,14 +24,14 @@ namespace API.Migrations
 
             modelBuilder.Entity("Models.Admin", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<long>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
 
-                    b.Property<int?>("Hotelid")
-                        .HasColumnType("int");
+                    b.Property<long?>("Hotelid")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("email")
                         .IsRequired()
@@ -54,43 +54,43 @@ namespace API.Migrations
 
             modelBuilder.Entity("Models.Booking", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<long>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
 
-                    b.Property<int?>("Roomid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("customerid")
-                        .HasColumnType("int");
+                    b.Property<long>("customerid")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("endDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("roomid")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("startDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
-                    b.HasIndex("Roomid");
-
                     b.HasIndex("customerid");
+
+                    b.HasIndex("roomid");
 
                     b.ToTable("Booking");
                 });
 
             modelBuilder.Entity("Models.Customer", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<long>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
 
-                    b.Property<int?>("Hotelid")
-                        .HasColumnType("int");
+                    b.Property<long?>("Hotelid")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("address")
                         .IsRequired()
@@ -131,11 +131,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("Models.Hotel", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<long>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
 
                     b.Property<string>("address")
                         .IsRequired()
@@ -156,14 +156,14 @@ namespace API.Migrations
 
             modelBuilder.Entity("Models.Room", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<long>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
 
-                    b.Property<int?>("Hotelid")
-                        .HasColumnType("int");
+                    b.Property<long?>("Hotelid")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("price")
                         .HasColumnType("int");
@@ -191,17 +191,21 @@ namespace API.Migrations
 
             modelBuilder.Entity("Models.Booking", b =>
                 {
-                    b.HasOne("Models.Room", null)
-                        .WithMany("booking")
-                        .HasForeignKey("Roomid");
-
                     b.HasOne("Models.Customer", "customer")
                         .WithMany()
                         .HasForeignKey("customerid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Models.Room", "room")
+                        .WithMany()
+                        .HasForeignKey("roomid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("customer");
+
+                    b.Navigation("room");
                 });
 
             modelBuilder.Entity("Models.Customer", b =>
@@ -225,11 +229,6 @@ namespace API.Migrations
                     b.Navigation("customers");
 
                     b.Navigation("rooms");
-                });
-
-            modelBuilder.Entity("Models.Room", b =>
-                {
-                    b.Navigation("booking");
                 });
 #pragma warning restore 612, 618
         }

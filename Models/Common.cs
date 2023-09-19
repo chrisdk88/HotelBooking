@@ -2,6 +2,6 @@
 {
     public class Common
     {
-        public int id { get; set; }
+        public uint id { get; set; }
     }
 }

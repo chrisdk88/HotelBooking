@@ -29,7 +29,7 @@ namespace API.Controllers
           {
               return NotFound();
           }
-            return await _context.Booking.ToListAsync();
+            return await _context.Booking.Include(item => item.customer).ToListAsync();
         }
 
         // GET: api/Bookings/5
@@ -90,6 +90,10 @@ namespace API.Controllers
           {
               return Problem("Entity set 'HotelContext.Booking'  is null.");
           }
+            if (_context.Customer.FirstOrDefault(item => item.id == booking.customerid) == null)
+            {
+                return BadRequest("Customer does not exist");
+            }
             _context.Booking.Add(booking);
             await _context.SaveChangesAsync();
 
