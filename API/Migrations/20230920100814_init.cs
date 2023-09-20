@@ -27,6 +27,21 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoomType",
+                columns: table => new
+                {
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    price = table.Column<long>(type: "bigint", nullable: false),
+                    amount = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomType", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Admin",
                 columns: table => new
                 {
@@ -80,8 +95,7 @@ namespace API.Migrations
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     roomNum = table.Column<int>(type: "int", nullable: false),
-                    type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    price = table.Column<int>(type: "int", nullable: false),
+                    typeId = table.Column<long>(type: "bigint", nullable: false),
                     Hotelid = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
@@ -92,6 +106,12 @@ namespace API.Migrations
                         column: x => x.Hotelid,
                         principalTable: "Hotel",
                         principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_Room_RoomType_typeId",
+                        column: x => x.typeId,
+                        principalTable: "RoomType",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,6 +166,11 @@ namespace API.Migrations
                 name: "IX_Room_Hotelid",
                 table: "Room",
                 column: "Hotelid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Room_typeId",
+                table: "Room",
+                column: "typeId");
         }
 
         /// <inheritdoc />
@@ -165,6 +190,9 @@ namespace API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Hotel");
+
+            migrationBuilder.DropTable(
+                name: "RoomType");
         }
     }
 }

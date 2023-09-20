@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20230920071921_init")]
+    [Migration("20230920100814_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -168,21 +168,42 @@ namespace API.Migrations
                     b.Property<long?>("Hotelid")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("price")
-                        .HasColumnType("int");
-
                     b.Property<int>("roomNum")
                         .HasColumnType("int");
 
-                    b.Property<string>("type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("typeId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("id");
 
                     b.HasIndex("Hotelid");
 
+                    b.HasIndex("typeId");
+
                     b.ToTable("Room");
+                });
+
+            modelBuilder.Entity("Models.RoomType", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
+
+                    b.Property<long>("amount")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("price")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("id");
+
+                    b.ToTable("RoomType");
                 });
 
             modelBuilder.Entity("Models.Admin", b =>
@@ -223,6 +244,14 @@ namespace API.Migrations
                     b.HasOne("Models.Hotel", null)
                         .WithMany("rooms")
                         .HasForeignKey("Hotelid");
+
+                    b.HasOne("Models.RoomType", "type")
+                        .WithMany()
+                        .HasForeignKey("typeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("type");
                 });
 
             modelBuilder.Entity("Models.Hotel", b =>
