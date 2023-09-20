@@ -30,7 +30,7 @@ namespace Client.Pages
 				if (user != null)
 				{
 					// Handle a successful login, e.g., navigate to the user's dashboard.
-					//works idk why the error the code can still run
+					//works idk why the error the code can still run 
 					await JSRuntime.InvokeVoidAsync("eval", "window.location.href = '/';");
 				}
 				else
