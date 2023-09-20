@@ -1,13 +1,18 @@
-﻿namespace Client.Pages
+﻿using Models;
+
+namespace Client.Pages
 {
     public partial class Login
     {
-		 string email;
-		 string password;
-		 string errorMessage;
-		protected override async Task OnAfterRenderAsync(bool firstRender)
+		private User user = new User();
+
+		protected async Task handleLogin(bool firstRender)
 		{
+			//skal nok ændres til admin og customer
+			string email = user.email;
+			string password = user.password;
 			
+
 		}
 	}
 }
