@@ -9,7 +9,7 @@ namespace Client.Pages
         {
             var tempList = await Http.GetFromJsonAsync<Room[]>("https://localhost:7285/api/Rooms");
             List<Room> all = new List<Room> {};
-
+            
             if (tempList != null)
             {
                 foreach(var item in tempList)

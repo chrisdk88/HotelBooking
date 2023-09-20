@@ -50,6 +50,26 @@ namespace API.Controllers
             return customer;
         }
 
+        // GET: api/Customers/5
+        [HttpGet("{email}/{password}")]
+        public async Task<ActionResult<Customer>> GetCustomerEmailPassword(String email, String password)
+        {
+            if (_context.Customer == null)
+            {
+                return NotFound();
+            }
+            
+            var customer = _context.Customer.Where(item => item.email == email && item.password == password).ToArray();
+
+            if (customer == null || customer.Length != 1)
+            {
+                Console.WriteLine("abac");
+                return NotFound();
+            }
+
+            return customer.First();
+        }
+
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
