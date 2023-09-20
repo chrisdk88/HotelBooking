@@ -6,6 +6,6 @@ namespace Models
     {
         public String name { get; set; }
         public uint price { get; set; }
-        public uint amount { get; set; }
+        public uint bedAmount { get; set; }
     }
 }
