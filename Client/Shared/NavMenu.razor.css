@@ -59,6 +59,10 @@ a {
     display: block;
 }
 
+.roomSelect {
+    margin-left: 20px !important;
+}
+
 @media (min-width: 641px) {
     .navbar-toggler {
         display: none;
