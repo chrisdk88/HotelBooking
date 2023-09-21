@@ -47,6 +47,13 @@
                     <!-- Login button -->
                     <button type="button" class="btn btn-primary btn-block mb-4" @onclick="HandleLogin">Login</button>
                 </form>
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @errorMessage
+                    </div>
+                }
+
            </div>
         </div>
     </div>

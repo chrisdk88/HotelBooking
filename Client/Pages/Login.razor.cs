@@ -8,16 +8,12 @@ namespace Client.Pages
 {
 	public partial class Login
 	{
-	
 		private User LoginUser = new User();
 		public string errorMessage;
 		private async Task HandleLogin()
 		{
-			
 			if (!string.IsNullOrWhiteSpace(LoginUser.email) && !string.IsNullOrWhiteSpace(LoginUser.password))
 			{
-
-				// Replace the hardcoded values with user input.
 				string email = LoginUser.email;
 				string password = LoginUser.password;
 
@@ -26,11 +22,9 @@ namespace Client.Pages
 
 				if (user != null)
 				{
-				
 					// Handle a successful login, navigate to the users dashboard.
 					
 					 NavigationManager.NavigateTo("/");
-
 				}
 				else
 				{
