@@ -1,64 +1,55 @@
 ﻿@page "/login"
+@inject HttpClient Http
+@using System.Net.Http.Json
+@using Models
+@inject IJSRuntime JSRuntime
+
+
 <h3>Login</h3>
 
-<section class=" text-center text-lg-start">
-	<style>
-		.rounded-t-5 {
-			border-top-left-radius: 0.5rem;
-			border-top-right-radius: 0.5rem;
-		}
+<section class="text-center text-lg-start">
 
-		(min-width: 992px) {
-			.rounded-tr-lg-0;}
 
-		{
-			border-top-right-radius: 0;
-		}
+    <div class="row g-0 d-flex align-items-center">
+        <div class="col-lg-4 d-none d-lg-flex">
+            <img src="https://estate.mindworking.eu/resources/shops/N270228/cases/1834/casemedia/images/4398d80275fffeacce56607205c01d54/customsize.jpg?deviceid=xxx&bgcolor=ffffff&dpi=72&jq=70&tp=rgb&fo=1&w=2100"
+                 alt="Trendy Pants and Shoes" class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
+        </div>
+        <div class="col-lg-8">
+            <div class="card-body py-5 px-md-5">
+                <form>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" id="email" class="form-control" @bind="LoginUser.email" />
+                        <label class="form-label" for="email">Email address</label>
+                    </div>
 
-		.rounded-bl-lg-5 {
-			border-bottom-left-radius: 0.5rem;
-		}
-		
-	</style>
-		<div class="row g-0 d-flex align-items-center">
-			<div class="col-lg-4 d-none d-lg-flex">
-				<img src="https://estate.mindworking.eu/resources/shops/N270228/cases/1834/casemedia/images/4398d80275fffeacce56607205c01d54/customsize.jpg?deviceid=xxx&bgcolor=ffffff&dpi=72&jq=70&tp=rgb&fo=1&w=2100" alt="Trendy Pants and Shoes"
-					 class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
-			</div>
-			<div class="col-lg-8">
-				<div class="card-body py-5 px-md-5">
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="password" class="form-control" @bind="LoginUser.password" />
+                        <label class="form-label" for="password">Password</label>
+                    </div>
 
-					<form>
-						<!-- Email input -->
-						<div class="form-outline mb-4">
-							<input type="email" id="form2Example1" class="form-control" />
-							<label class="form-label" for="form2Example1">Email address</label>
-						</div>
+                    <div class="row mb-4">
+                        <div class="col d-flex justify-content-center">
+                            <!-- Checkbox -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rememberMe" checked />
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                        </div>
 
-						<!-- Password input -->
-						<div class="form-outline mb-4">
-							<input type="password" id="form2Example2" class="form-control" />
-							<label class="form-label" for="form2Example2">Password</label>
-						</div>
+                        <div class="col">
+                            <a href="/signup">Create an account</a>
+                        </div>
+                    </div>
 
-						<div class="row mb-4">
-							<div class="col d-flex justify-content-center">
-								<!-- Checkbox -->
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-									<label class="form-check-label" for="form2Example31"> Remember me </label>
-								</div>
-							</div>
-
-							<div class="col">
-								<a href="/signup">Opret konto</a>
-							</div>
-						</div>
-						<a href="/" class="btn btn-primary btn-block mb-4">Login</a>
-					</form>
-
-				</div>
-			</div>
-		</div>
-	
+                    <!-- Login button -->
+                    <button type="button" class="btn btn-primary btn-block mb-4" @onclick="HandleLogin">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </section>
+
+

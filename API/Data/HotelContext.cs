@@ -11,5 +11,6 @@ namespace API.Data
         public DbSet<Hotel> Hotel { get; set; }
         public DbSet<Room> Room { get; set; }
         public HotelContext(DbContextOptions options) : base(options) { }      
+        public DbSet<Models.RoomType>? RoomType { get; set; }
     }
 }

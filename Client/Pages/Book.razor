@@ -20,8 +20,10 @@
                     <div class="row">
                         <div class="col-sm">
                             <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
-                            @*<span>Check In</span><br/>
-                            <input type="date" required>*@
+                        </div>
+                        <div class="col-sm">
+                            <span>Check In</span><br/>
+                            <input type="date" required>
                         </div>
                         <div class="col-sm">
                             <span>Check Out</span><br/>
@@ -46,19 +48,18 @@
                 <form>
                     <div class="container">
                         <div class="row">
-                            <div class="col-sm">
-                                <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
-                            </div>
-                            <div class="col-sm">
-                                <div>
-                                    @room.type
-                                    @room.price
-                                    size
-                                    maxpeople
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
+                                    </div>
+                                    <div class="col-sm">
+                                        text
+                                    </div>
+                                    <div class="col-sm">
+                                        <button class="btn btn-primary">abc</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm">
-                                <button class="btn btn-primary">abc</button>
                             </div>
                         </div>
                     </div>
@@ -75,10 +76,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var now = DateTime.Now.ToShortDateString();
-        String shortDate = now;
-        char[] charArray = shortDate.Reverse().ToArray();
-        shortDate = new string(charArray);
+        var now = DateTime.Now;
+        String shortDate = $"{now.Date}";
         Console.WriteLine(shortDate);
         rooms = await GetListOfTypes();
     }
