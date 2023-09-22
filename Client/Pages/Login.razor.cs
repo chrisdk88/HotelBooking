@@ -1,26 +1,19 @@
 ﻿using Microsoft.JSInterop;
 using Models;
 using System.Net.Http.Json;
+using Microsoft.JSInterop;
+
 
 namespace Client.Pages
 {
 	public partial class Login
 	{
-		// Initialize any required resources or services in the constructor if needed.
-		public Login()
-		{
-			// Example: _context = new HotelContext();
-		}
-
 		private User LoginUser = new User();
-
+		public string errorMessage;
 		private async Task HandleLogin()
 		{
-
 			if (!string.IsNullOrWhiteSpace(LoginUser.email) && !string.IsNullOrWhiteSpace(LoginUser.password))
 			{
-
-				// Replace the hardcoded values with user input.
 				string email = LoginUser.email;
 				string password = LoginUser.password;
 
@@ -29,14 +22,14 @@ namespace Client.Pages
 
 				if (user != null)
 				{
-					// Handle a successful login, e.g., navigate to the user's dashboard.
-					//works idk why the error the code can still run 
-					await JSRuntime.InvokeVoidAsync("eval", "window.location.href = '/';");
+					// Handle a successful login, navigate to the users dashboard.
+					
+					 NavigationManager.NavigateTo("/");
 				}
 				else
 				{
 					// Invalid credentials. Display an error message.
-					string errorMessage = "Invalid credentials. Please check your email and password.";
+					 errorMessage = "Invalid credentials. Please check your email and password.";
 				}
 			}
 		}

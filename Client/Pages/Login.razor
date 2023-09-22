@@ -2,8 +2,9 @@
 @inject HttpClient Http
 @using System.Net.Http.Json
 @using Models
-@inject IJSRuntime JSRuntime
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 
+<PageTitle>Login</PageTitle>
 
 <h3>Login</h3>
 
@@ -47,7 +48,14 @@
                     <!-- Login button -->
                     <button type="button" class="btn btn-primary btn-block mb-4" @onclick="HandleLogin">Login</button>
                 </form>
-            </div>
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @errorMessage
+                    </div>
+                }
+
+           </div>
         </div>
     </div>
 </section>
