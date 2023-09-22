@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var connectionString = builder.Configuration.GetConnectionString("DbCon");
+var connectionString = builder.Configuration.GetConnectionString("DBlocal");
 
 builder.Services.AddDbContext<HotelContext>(options =>
 {
