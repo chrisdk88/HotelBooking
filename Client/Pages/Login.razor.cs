@@ -31,10 +31,11 @@ namespace Client.Pages
                 {
                     // Handle a successful login, navigate to the users dashboard.
                     NavigationManager.NavigateTo("/");
-                    customerId = (int)customeruser.id;
                     isLoggedIn = true;
                     GlobalAuthState.IsLoggedIn = true;
-                }
+					GlobalAuthState.UserId = (int)customeruser.id;
+
+				}
                 else
                 {
                     // Invalid credentials. Display an error message.
