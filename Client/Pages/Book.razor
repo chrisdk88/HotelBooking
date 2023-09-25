@@ -7,44 +7,36 @@
 
 <h1>Booking</h1>
 
-<p>abc</p>
-
-
+<form>
 <div class="container">
-  <div class="row">
+<div class="row">
     <div class="col-sm">
         <div class="card">
-            <form>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm">
-                            <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
-                        </div>
-                        <div class="col-sm">
-                            <span>Check In</span><br/>
-                            <input type="date" required>
-                        </div>
-                        <div class="col-sm">
-                            <span>Check Out</span><br/>
-                            <input type="date" required>
-                        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <span>Check In</span><br/>
+                            <input type="date" required min="2023-09-21">
+                    </div>
+                    <div class="col-sm">
+                        <span>Check Out</span><br/>
+                        <input type="date" required min="2023-09-22">
                     </div>
                 </div>
-                <button class="btn btn-primary">abc</button>
-            </form>
+            </div>
         </div>
     </div>
-    <div class="col-sm">
+    <br/>
+<div class="col-sm">
     @if (rooms == null)
     {
         <p><em>Loading...</em></p>
     }
     else
     {
-        @foreach (Room room in rooms)
+        @foreach (RoomType room in rooms)
         {
             <div class="card">
-                <form>
                     <div class="container">
                         <div class="row">
                             <div class="container">
@@ -53,31 +45,35 @@
                                         <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
                                     </div>
                                     <div class="col-sm">
-                                        text
+                                        @room.name
+                                        @room.bedAmount
+                                        @room.price
                                     </div>
                                     <div class="col-sm">
-                                        <button class="btn btn-primary">abc</button>
+                                        <button type="button" class="btn btn-primary" onclick="@sendRequest" value="Book">Book</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
+            <br/>
         }
     }
-    </div>
-  </div>
 </div>
+</div>
+</div>
+</form>
+
 
 @code {
-    private List<Room>? rooms;
+private List<RoomType>? rooms;
 
-    protected override async Task OnInitializedAsync()
-    {
-        var now = DateTime.Now;
-        String shortDate = $"{now.Date}";
-        Console.WriteLine(shortDate);
-        rooms = await GetListOfTypes();
-    }
+protected override async Task OnInitializedAsync()
+{
+    //var now = DateTime.Now;
+    //String shortDate = $"{now.Date}:{now.Year}";
+    //Console.WriteLine(shortDate);
+    rooms = await GetListOfTypes();
+}
 }

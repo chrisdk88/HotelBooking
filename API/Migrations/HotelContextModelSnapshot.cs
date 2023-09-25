@@ -66,17 +66,12 @@ namespace API.Migrations
                     b.Property<DateTime>("endDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("roomid")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("startDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
                     b.HasIndex("customerid");
-
-                    b.HasIndex("roomid");
 
                     b.ToTable("Booking");
                 });
@@ -165,6 +160,9 @@ namespace API.Migrations
                     b.Property<long?>("Hotelid")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("bookingId")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("roomNum")
                         .HasColumnType("int");
 
@@ -174,6 +172,8 @@ namespace API.Migrations
                     b.HasKey("id");
 
                     b.HasIndex("Hotelid");
+
+                    b.HasIndex("bookingId");
 
                     b.HasIndex("typeId");
 
@@ -218,15 +218,7 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Room", "room")
-                        .WithMany()
-                        .HasForeignKey("roomid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("customer");
-
-                    b.Navigation("room");
                 });
 
             modelBuilder.Entity("Models.Customer", b =>
@@ -242,11 +234,17 @@ namespace API.Migrations
                         .WithMany("rooms")
                         .HasForeignKey("Hotelid");
 
+                    b.HasOne("Models.Booking", "booking")
+                        .WithMany()
+                        .HasForeignKey("bookingId");
+
                     b.HasOne("Models.RoomType", "type")
                         .WithMany()
                         .HasForeignKey("typeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("booking");
 
                     b.Navigation("type");
                 });
