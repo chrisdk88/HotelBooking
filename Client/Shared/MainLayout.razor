@@ -12,7 +12,7 @@
 		@* Login *@
 		<div class="nav-item px-3 top-row">
 
-			@if (GlobalAuthState.IsLoggedIn)
+			@if (GlobalAuthState.UserId != null)
 			{
 				
 				<NavLink class="nav-link">

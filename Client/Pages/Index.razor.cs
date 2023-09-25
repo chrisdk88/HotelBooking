@@ -2,9 +2,6 @@
 {
     public partial class Index 
     {
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            
-        }
+
     }
 }

@@ -9,13 +9,10 @@ namespace Client.Pages
     {
         private User LoginUser = new User();
         public string errorMessage;
-        private int customerId;
         public Customer customeruser;
-        public bool isLoggedIn { get; set; }
         public static class GlobalAuthState
         {
-            public static bool IsLoggedIn { get; set; } = false;
-            public static int UserId { get; set; } = -1; // Example: You can store the user ID if needed
+            public static uint? UserId { get; set; } = null;
         }
         private async Task HandleLogin()
         {
@@ -31,9 +28,7 @@ namespace Client.Pages
                 {
                     // Handle a successful login, navigate to the users dashboard.
                     NavigationManager.NavigateTo("/");
-                    isLoggedIn = true;
-                    GlobalAuthState.IsLoggedIn = true;
-					GlobalAuthState.UserId = (int)customeruser.id;
+					GlobalAuthState.UserId =customeruser.id;
 
 				}
                 else
@@ -51,10 +46,8 @@ namespace Client.Pages
 
         public void Logout()
         {
-            isLoggedIn = false;
             customeruser = null; // Clear the authenticated user
-            GlobalAuthState.IsLoggedIn = false;
-            GlobalAuthState.UserId = -1;
+            GlobalAuthState.UserId = null;
         }
     }
 }

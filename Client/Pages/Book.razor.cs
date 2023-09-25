@@ -20,7 +20,6 @@ namespace Client.Pages
             {
                 foreach (var item in tempList)
                 {
-                    GlobalAuthState.id;
                     bool isBooked = item.booking != null && isBookedInPeriod(item.booking.startDate, item.booking.endDate, inputStart, inputEnd);
                     if (!isBooked && all.Where(element => element.id == item.typeId).Count() <= 0)
                     {
@@ -39,20 +38,25 @@ namespace Client.Pages
 
         public async Task sendRequest()
         {
-            var booking = new Booking()
+            var userId = GlobalAuthState.UserId;
+            if (userId != null)
             {
-                startDate = DateTime.Now,
-                endDate = DateTime.Now,
-                customerid = 1
-            };
 
-            var client = new HttpClient() { BaseAddress = new Uri("https://localhost:7285/api/") };
-            var a = JsonSerializer.Serialize(booking);
-            var content = new StringContent(a, Encoding.UTF8, "application/json");
+                var booking = new Booking()
+                {
+                    startDate = DateTime.Now,
+                    endDate = DateTime.Now,
+                    customerid = (uint)userId
+                };
 
-            var response = await client.PostAsync("Bookings", content);
-            
-            Console.WriteLine(response.ReasonPhrase);
+                var client = new HttpClient() { BaseAddress = new Uri("https://localhost:7285/api/") };
+                var a = JsonSerializer.Serialize(booking);
+                var content = new StringContent(a, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync("Bookings", content);
+                
+                Console.WriteLine(response.ReasonPhrase);
+            }
         }
 
         private bool isBookedInPeriod(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
