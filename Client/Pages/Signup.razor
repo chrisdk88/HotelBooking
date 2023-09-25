@@ -1,5 +1,8 @@
 ﻿@page "/signup"
+@inject HttpClient Http
+@using Models;
 @inherits LayoutComponentBase
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 
 <PageTitle>Opret</PageTitle>
 
@@ -16,15 +19,15 @@
                         <form class="px-md-2">
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formName">Navn</label>
-                                <input type="text" id="formName" class="form-control" placeholder="Navn"/>
+                                <input type="text" id="formName" class="form-control" placeholder="Navn" @bind="userModel.name" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formEmail">Email</label>
-                                <input type="email" id="formEmail" class="form-control" placeholder="Email" />
+                                <input type="email" id="formEmail" class="form-control" placeholder="Email" @bind="userModel.email"/>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formPassword">Password</label>
-                                <input type="password" id="formPassword" class="form-control" placeholder="Password" />
+                                <input type="password" id="formPassword" class="form-control" placeholder="Password" @bind="userModel.password"/>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formPasswordConfirm">Bekræft password</label>
@@ -32,25 +35,25 @@
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formPhoneNumber">Tlf. nr.</label>
-                                <input type="tel" id="formPhoneNumber" class="form-control" placeholder="Tlf. nr." />
+                                <input type="tel" id="formPhoneNumber" class="form-control" placeholder="Tlf. nr." @bind="userModel.phoneNumber"/>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formAge">Alder</label>
-                                <input type="number" id="formAge" class="form-control" placeholder="Alder" />
+                                <input type="number" id="formAge" class="form-control" placeholder="Alder" @bind="userModel.age"/>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formAddress">Adresse</label>
-                                <input type="text" id="formAddress" class="form-control" placeholder="Adresse" />
+                                <input type="text" id="formAddress" class="form-control" placeholder="Adresse" @bind="userModel.address"/>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formZipCode">Post nr.</label>
-                                <input type="number" id="formZipCode" class="form-control" placeholder="Post nr." />
+                                <input type="number" id="formZipCode" class="form-control" placeholder="Post nr." @bind="userModel.zipcode"/>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formCity">By</label>
-                                <input type="text" id="formCity" class="form-control" placeholder="By" />
+                                <input type="text" id="formCity" class="form-control" placeholder="By" @bind="userModel.city"/>
                             </div>
-                            <button type="submit" class="btn btn-success btn-lg mb-1">Opret</button>
+                            <button type="submit" class="btn btn-success btn-lg mb-1" @onclick="RegisterUser">Opret</button>
                         </form>
                     </div>
                 </div>
