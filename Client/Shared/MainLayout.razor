@@ -1,55 +1,69 @@
 ﻿@inherits LayoutComponentBase
+@using Pages;
+
+@using Client.Shared.Utilities
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+	<div class="sidebar">
+		<NavMenu />
+	</div>
 
-    <main>
-        @* Login *@
-        <div class="nav-item px-3 top-row">
-            <NavLink class="nav-link" href="login">
-                <span class="oi oi-person" aria-hidden="true"></span> Log ind
-            </NavLink>
-        </div>
+	<main>
+		@* Login *@
+		<div class="nav-item px-3 top-row">
 
-        <article class="content px-4">
-                @Body
-        </article>
-        <footer class="bg-light text-center text-lg-start">
-            <div class="container p-4">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
-                        <h5 class="text-uppercase">Kontakt</h5>
+			@if (GlobalAuthState.IsLoggedIn)
+			{
+				
+				<NavLink class="nav-link">
+					<span class="oi oi-person" aria-hidden="true"></span> Log ud
+				</NavLink>
+			}
+			else
+			{
+				<NavLink class="nav-link" href="login">
+					<span class="oi oi-person" aria-hidden="true"></span> Log ind
+				</NavLink>
+			}
+		</div>
 
-                        <p>
-                            Andet Hotel <br>
-                            Sct. Andetgade 5<br>
-                            DK-8800 Viborg<br>
-                            Telefon +45 88 88 88 88<br>
-                            Mail info@andethotel.com<br>
-                            CVR.nr. 30511948
-                        </p>
-                    </div>
-                 
-                    <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
-                        <h5 class="text-uppercase">Receptionen</h5>
+		<article class="content px-4">
+			@Body
+		</article>
+		<footer class="bg-light text-center text-lg-start">
+			<div class="container p-4">
+				<div class="row">
+					<div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+						<h5 class="text-uppercase">Kontakt</h5>
 
-                        <p>
-                            Check-ind fra kl. 14:00 <br>
-                            Check-ud seneste kl. 11:00<br>
-                            Receptionen har åben dagligt fra 06.30 - 22.00 (jonas)<br>
-                            Vi kan træffes på telefonen døgnet rundt.
-                        </p>
-                    </div>
-                   
-                </div>
-          
-            </div>
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                <h5> © 2020 Copyright:</h5>
-                <a class="text-white" href="/">Andethotel.com</a>
-            </div>
-        </footer>
-    </main>
+						<p>
+							Andet Hotel <br>
+							Sct. Andetgade 5<br>
+							DK-8800 Viborg<br>
+							Telefon +45 88 88 88 88<br>
+							Mail info@andethotel.com<br>
+							CVR.nr. 30511948
+						</p>
+					</div>
+
+					<div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+						<h5 class="text-uppercase">Receptionen</h5>
+
+						<p>
+							Check-ind fra kl. 14:00 <br>
+							Check-ud seneste kl. 11:00<br>
+							Receptionen har åben dagligt fra 06.30 - 22.00 (jonas)<br>
+							Vi kan træffes på telefonen døgnet rundt.
+						</p>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+				<h5> © 2020 Copyright:</h5>
+				<a class="text-white" href="/">Andethotel.com</a>
+			</div>
+		</footer>
+	</main>
 </div>
