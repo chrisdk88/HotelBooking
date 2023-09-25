@@ -15,7 +15,7 @@ namespace API.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly HotelContext _context;
-
+       
         public CustomersController(HotelContext context)
         {
             _context = context;
