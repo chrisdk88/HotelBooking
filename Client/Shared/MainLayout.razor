@@ -12,12 +12,12 @@
 		@* Login *@
 		<div class="nav-item px-3 top-row">
 
-			@if (GlobalAuthState.IsLoggedIn)
+			@if (GlobalAuthState.UserId != -1)
 			{
-				
-				<NavLink class="nav-link">
+				<NavLink class="nav-link" href="/">
 					<span class="oi oi-person" aria-hidden="true"></span> Log ud
-				</NavLink>
+				</NavLink> 
+				Console.WriteLine("hej");
 			}
 			else
 			{

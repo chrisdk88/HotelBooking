@@ -3,6 +3,7 @@
 @using System.Net.Http.Json
 @using Models
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Login</PageTitle>
 
@@ -39,7 +40,9 @@
                     </div>
 
                     <!-- Login button -->
-                    <button type="button" class="btn btn-primary btn-block mb-4" @onclick="HandleLogin">Login</button>
+                    <button type="button" class="btn btn-primary btn-block mb-4"@onclick="HandleLogin">
+                        Login
+                    </button>
                 </form>
                 @if (!string.IsNullOrEmpty(errorMessage))
                 {

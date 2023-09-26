@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
 using System.Net.Http.Json;
@@ -11,10 +12,8 @@ namespace Client.Pages
         public string errorMessage;
         private int customerId;
         public Customer customeruser;
-        public bool isLoggedIn { get; set; }
         public static class GlobalAuthState
         {
-            public static bool IsLoggedIn { get; set; } = false;
             public static int UserId { get; set; } = -1; // Example: You can store the user ID if needed
         }
         private async Task HandleLogin()
@@ -23,7 +22,6 @@ namespace Client.Pages
             {
                 string email = LoginUser.email;
                 string password = LoginUser.password;
-
                 // Make an HTTP request to authenticate the user.
                 customeruser = await Http.GetFromJsonAsync<Customer>($"https://localhost:7285/api/Customers/{email}/{password}");
 
@@ -31,11 +29,10 @@ namespace Client.Pages
                 {
                     // Handle a successful login, navigate to the users dashboard.
                     NavigationManager.NavigateTo("/");
-                    isLoggedIn = true;
-                    GlobalAuthState.IsLoggedIn = true;
-					GlobalAuthState.UserId = (int)customeruser.id;
+                    GlobalAuthState.UserId = (int)customeruser.id;
+                    Console.WriteLine(GlobalAuthState.UserId);
 
-				}
+                }
                 else
                 {
                     // Invalid credentials. Display an error message.
@@ -51,11 +48,10 @@ namespace Client.Pages
 
         public void Logout()
         {
-            isLoggedIn = false;
             customeruser = null; // Clear the authenticated user
-            GlobalAuthState.IsLoggedIn = false;
             GlobalAuthState.UserId = -1;
         }
+      
     }
 }
 
