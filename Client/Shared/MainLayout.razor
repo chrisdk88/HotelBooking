@@ -12,7 +12,7 @@
 		@* Login *@
 		<div class="nav-item px-3 top-row">
 
-			@if (GlobalAuthState.UserId != -1)
+			@if (GlobalAuthState.UserId != null)
 			{
 				<NavLink class="nav-link" href="/">
 					<span class="oi oi-person" aria-hidden="true"></span> Log ud

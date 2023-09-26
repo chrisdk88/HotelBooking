@@ -7,7 +7,7 @@
 
 <h1>Booking</h1>
 
-<form>
+<EditForm Model="@booking">
 <div class="container">
 <div class="row">
     <div class="col-sm">
@@ -16,11 +16,11 @@
                 <div class="row">
                     <div class="col-sm">
                         <span>Check In</span><br/>
-                            <input type="date" required min="2023-09-21">
+                            <InputDate required min="2023-09-21" Value="@booking.startDate"> </InputDate>
                     </div>
                     <div class="col-sm">
                         <span>Check Out</span><br/>
-                        <input type="date" required min="2023-09-22">
+                        <InputDate required min="2023-09-22" Value="@booking.endDate"> </InputDate>
                     </div>
                 </div>
             </div>
@@ -63,17 +63,17 @@
 </div>
 </div>
 </div>
-</form>
-
+</EditForm>
 
 @code {
-private List<RoomType>? rooms;
-
-protected override async Task OnInitializedAsync()
-{
-    //var now = DateTime.Now;
-    //String shortDate = $"{now.Date}:{now.Year}";
-    //Console.WriteLine(shortDate);
-    rooms = await GetListOfTypes();
-}
+    private Booking booking = new Booking();
+    private List<RoomType>? rooms;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        //var now = DateTime.Now;
+        //String shortDate = $"{now.Date}:{now.Year}";
+        //Console.WriteLine(shortDate);
+        rooms = await GetListOfTypes();
+    }
 }

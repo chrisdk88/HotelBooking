@@ -1,6 +1,9 @@
 ﻿using Models;
 using System.Net.Http.Json;
 using System.Net.Http;
+using System.Text.Json;
+using System.Text;
+using Client.Shared.Utilities;
 
 namespace Client.Pages
 {
@@ -33,12 +36,27 @@ namespace Client.Pages
 
         }
 
-        public void sendRequest()
+        public async Task sendRequest()
         {
-            string json = "{\"startDate\":\"2023-09-21T08:04:08.714Z\",\"endDate\":\"2023-09-21T08:04:08.714Z\",\"customerid\":1}";
+            var userId = GlobalAuthState.UserId;
+            if (userId != null)
+            {
 
-            var tempList = Http.PostAsJsonAsync<String>("https://localhost:7285/api/Bookings", json);
-            Console.WriteLine(tempList);
+                var booking = new Booking()
+                {
+                    startDate = DateTime.Now,
+                    endDate = DateTime.Now,
+                    customerid = (uint)userId
+                };
+
+                var client = new HttpClient() { BaseAddress = new Uri("https://localhost:7285/api/") };
+                var a = JsonSerializer.Serialize(booking);
+                var content = new StringContent(a, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync("Bookings", content);
+                
+                Console.WriteLine(response.ReasonPhrase);
+            }
         }
 
         private bool isBookedInPeriod(DateTime start1, DateTime end1, DateTime start2, DateTime end2)

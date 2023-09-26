@@ -1,8 +1,12 @@
 ﻿@page "/signup"
+@inject HttpClient Http
+@using Models;
 @inherits LayoutComponentBase
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 
 <PageTitle>Opret</PageTitle>
 
+<EditForm Model="@customer">
 <section class="h-100 h-custom">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -16,41 +20,41 @@
                         <form class="px-md-2">
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formName">Navn</label>
-                                <input type="text" id="formName" class="form-control" placeholder="Navn"/>
+                                    <InputText required type="text" id="formName" class="form-control" placeholder="Navn" @bind-Value="customer.name" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formEmail">Email</label>
-                                <input type="email" id="formEmail" class="form-control" placeholder="Email" />
+                                    <InputText required type="email" id="formEmail" class="form-control" placeholder="Email" @bind="customer.email" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formPassword">Password</label>
-                                <input type="password" id="formPassword" class="form-control" placeholder="Password" />
+                                    <InputText required type="password" id="formPassword" class="form-control" placeholder="Password" @bind="customer.password" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formPasswordConfirm">Bekræft password</label>
-                                <input type="password" id="formPasswordConfirm" class="form-control" placeholder="Bekræft password" />
+                                <InputText required type="password" id="formPasswordConfirm" class="form-control" placeholder="Bekræft password" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formPhoneNumber">Tlf. nr.</label>
-                                <input type="tel" id="formPhoneNumber" class="form-control" placeholder="Tlf. nr." />
+                                    <InputText required type="tel" id="formPhoneNumber" class="form-control" placeholder="Tlf. nr." @bind="customer.phoneNumber" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formAge">Alder</label>
-                                <input type="number" id="formAge" class="form-control" placeholder="Alder" />
+                                    <InputText required type="number" id="formAge" class="form-control" placeholder="Alder" @bind="customer.age" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formAddress">Adresse</label>
-                                <input type="text" id="formAddress" class="form-control" placeholder="Adresse" />
+                                    <InputText required type="text" id="formAddress" class="form-control" placeholder="Adresse" @bind="customer.address" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formZipCode">Post nr.</label>
-                                <input type="number" id="formZipCode" class="form-control" placeholder="Post nr." />
+                                    <InputText required type="number" id="formZipCode" class="form-control" placeholder="Post nr." @bind="customer.zipcode" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formCity">By</label>
-                                <input type="text" id="formCity" class="form-control" placeholder="By" />
+                                    <InputText required type="text" id="formCity" class="form-control" placeholder="By" @bind="customer.city" />
                             </div>
-                            <button type="submit" class="btn btn-success btn-lg mb-1">Opret</button>
+                            <button type="submit" class="btn btn-success btn-lg mb-1" @onclick="RegisterUser">Opret</button>
                         </form>
                     </div>
                 </div>
@@ -58,7 +62,8 @@
         </div>
     </div>
 </section>
+</EditForm>
 
 @code {
-
+    private Customer customer = new Customer();
 }
