@@ -50,6 +50,34 @@ namespace API.Controllers
             return room;
         }
 
+        // GET api/Rooms/RoomWithType/1
+        [HttpGet("GetType/{typeId}")]
+        public async Task<ActionResult<Room>> GetAvailableRoomWithType(int typeId)
+        {
+            if (_context.Booking == null || _context.Room == null)
+            {
+                return NotFound();
+            }
+            List<Booking>? allBookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).Where(item => item.room.type.id == typeId).ToListAsync();
+            List<Room>? allRooms = await _context.Room.Include(item => item.type).Where(item => item.typeId == typeId).ToListAsync();
+
+            for (int i = 0; i < allBookings.Count; i++)
+            {
+                var tempBooking = allBookings[i];
+                if (allRooms.Contains(tempBooking.room!))
+                {
+                    allRooms.Remove(tempBooking.room);
+                }
+            }
+
+            if (allRooms.Count <= 0)
+            {
+                return NotFound();
+            }
+
+            return allRooms[0];
+        }
+
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -93,7 +121,7 @@ namespace API.Controllers
             _context.Room.Add(room);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRoom", new { id = room.id }, room);
+            return CreatedAtAction("GetRoom", new { room.id }, room);
         }
 
         // DELETE: api/Rooms/5
