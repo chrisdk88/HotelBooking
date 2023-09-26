@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
 using System.Net.Http.Json;
-
+using Client.Shared.Utilities;
 namespace Client.Pages
 {
     public partial class Login
@@ -11,10 +11,7 @@ namespace Client.Pages
         private User LoginUser = new User();
         public string errorMessage;
         public Customer customeruser;
-        public static class GlobalAuthState
-        {
-            public static uint? UserId { get; set; } = null;
-        }
+    
         private async Task HandleLogin()
         {
             if (!string.IsNullOrWhiteSpace(LoginUser.email) && !string.IsNullOrWhiteSpace(LoginUser.password))
@@ -28,10 +25,9 @@ namespace Client.Pages
                 {
                     // Handle a successful login, navigate to the users dashboard.
                     NavigationManager.NavigateTo("/");
-					GlobalAuthState.UserId =customeruser.id;
-
-                }
-                else
+					GlobalAuthState.UserId = customeruser.id;
+				}
+				else
                 {
                     // Invalid credentials. Display an error message.
                     errorMessage = "Invalid credentials. Please check your email and password.";
@@ -49,7 +45,7 @@ namespace Client.Pages
             customeruser = null; // Clear the authenticated user
             GlobalAuthState.UserId = null;
         }
-      
+
     }
 }
 
