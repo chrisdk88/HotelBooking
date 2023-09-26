@@ -43,10 +43,5 @@ namespace Client.Pages
                 NavigationManager.NavigateTo("/signup");
             }
         }
-
-        private void checkPassword()
-        {
-
-        } 
     }
 }
