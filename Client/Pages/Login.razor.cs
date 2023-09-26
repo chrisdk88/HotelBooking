@@ -26,6 +26,8 @@ namespace Client.Pages
                     // Handle a successful login, navigate to the users dashboard.
                     NavigationManager.NavigateTo("/");
 					GlobalAuthState.UserId = customeruser.id;
+					StateHasChanged();
+
 				}
 				else
                 {
@@ -42,10 +44,11 @@ namespace Client.Pages
 
         public void Logout()
         {
-            customeruser = null; // Clear the authenticated user
-            GlobalAuthState.UserId = null;
-        }
-
-    }
+			customeruser = null; // Clear the authenticated user
+			GlobalAuthState.UserId = null;
+			StateHasChanged();
+		}
+	
+	}
 }
 

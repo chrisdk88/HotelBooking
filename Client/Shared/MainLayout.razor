@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
-@using Pages;
-
+@using Client.Pages;
 @using Client.Shared.Utilities
+@inject IJSRuntime JSRuntime
 
 <div class="page">
 	<div class="sidebar">
@@ -11,21 +11,23 @@
 	<main>
 		@* Login *@
 		<div class="nav-item px-3 top-row">
-
+			@code{
+				Login login = new ();
+			}
 			@if (GlobalAuthState.UserId != null)
 			{
-				<NavLink class="nav-link" href="/">
+				<NavLink class="nav-link" href="/" @onclick="() => login.Logout()">
+					<!-- Replace 'login' with the actual @ref name -->
 					<span class="oi oi-person" aria-hidden="true"></span> Log ud
-				</NavLink> 
-				Console.WriteLine("hej");
+				</NavLink>
 			}
 			else
 			{
 				<NavLink class="nav-link" href="login">
 					<span class="oi oi-person" aria-hidden="true"></span> Log ind
 				</NavLink>
-				Console.WriteLine(GlobalAuthState.UserId);
 			}
+
 		</div>
 
 		<article class="content px-4">
