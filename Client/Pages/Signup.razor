@@ -24,35 +24,31 @@
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formEmail">Email</label>
-                                    <InputText required type="email" id="formEmail" class="form-control" placeholder="Email" @bind="customer.email" />
+                                    <InputText required type="email" id="formEmail" class="form-control" placeholder="Email" @bind-Value="customer.email" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formPassword">Password</label>
-                                    <InputText required type="password" id="formPassword" class="form-control" placeholder="Password" @bind="customer.password" />
-                            </div>
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="formPasswordConfirm">Bekræft password</label>
-                                <InputText required type="password" id="formPasswordConfirm" class="form-control" placeholder="Bekræft password" />
+                                    <InputText required type="password" id="formPassword" class="form-control" placeholder="Password" @bind-Value="customer.password" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formPhoneNumber">Tlf. nr.</label>
-                                    <InputText required type="tel" id="formPhoneNumber" class="form-control" placeholder="Tlf. nr." @bind="customer.phoneNumber" />
+                                    <InputNumber required type="tel" id="formPhoneNumber" class="form-control" placeholder="Tlf. nr." @bind-Value="customer.phoneNumber" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formAge">Alder</label>
-                                    <InputText required type="number" id="formAge" class="form-control" placeholder="Alder" @bind="customer.age" />
+                                    <InputNumber required type="number" id="formAge" class="form-control" placeholder="Alder" @bind-Value="customer.age" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formAddress">Adresse</label>
-                                    <InputText required type="text" id="formAddress" class="form-control" placeholder="Adresse" @bind="customer.address" />
+                                    <InputText required type="text" id="formAddress" class="form-control" placeholder="Adresse" @bind-Value="customer.address" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formZipCode">Post nr.</label>
-                                    <InputText required type="number" id="formZipCode" class="form-control" placeholder="Post nr." @bind="customer.zipcode" />
+                                    <InputText required type="number" id="formZipCode" class="form-control" placeholder="Post nr." @bind-Value="customer.zipcode" />
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formCity">By</label>
-                                    <InputText required type="text" id="formCity" class="form-control" placeholder="By" @bind="customer.city" />
+                                    <InputText required type="text" id="formCity" class="form-control" placeholder="By" @bind-Value="customer.city" />
                             </div>
                             <button type="submit" class="btn btn-success btn-lg mb-1" @onclick="RegisterUser">Opret</button>
                         </form>

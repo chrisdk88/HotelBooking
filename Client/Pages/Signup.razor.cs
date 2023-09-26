@@ -12,17 +12,8 @@ namespace Client.Pages
 
         private async Task RegisterUser()
         {
-            userModel.name = "abc";
-            userModel.email = "abc@hotmail.com";
-            userModel.password = "abc";
-            userModel.phoneNumber = 123;
-            userModel.age = 30;
-            userModel.address = "abc";
-            userModel.zipcode = "abc";
-            userModel.city = "abc";
-
             // Serialize the userModel to JSON
-            string json = System.Text.Json.JsonSerializer.Serialize(userModel);
+            string json = System.Text.Json.JsonSerializer.Serialize(customer);
 
             // Create HttpContent with JSON data
             var content = new StringContent(json, Encoding.UTF8, "application/json");
