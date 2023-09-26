@@ -2,6 +2,6 @@
 {
     public static class GlobalAuthState
     {
-        public static uint? UserId { get; set; } = null;
+        public static uint? UserId { get; set; }
     }
 }

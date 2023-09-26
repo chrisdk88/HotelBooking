@@ -2,12 +2,14 @@
 @inject HttpClient Http
 @using Models;
 @using Client.Shared.Utilities
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
 
 <PageTitle>Andet Hotel Booking</PageTitle>
 
 <h1>Booking</h1>
 
-<EditForm Model="@booking">
+<EditForm Model="@booking" OnValidSubmit="@sendRequest">
 <div class="container">
 <div class="row">
     <div class="col-sm">
@@ -16,11 +18,11 @@
                 <div class="row">
                     <div class="col-sm">
                         <span>Check In</span><br/>
-                            <InputDate required min="2023-09-21" Value="@booking.startDate"> </InputDate>
+                                <InputDate required min="@booking.startDate.ToString("yyyy-MM-dd")" @bind-Value="booking.startDate"></InputDate>
                     </div>
                     <div class="col-sm">
                         <span>Check Out</span><br/>
-                        <InputDate required min="2023-09-22" Value="@booking.endDate"> </InputDate>
+                        <InputDate required min="@booking.endDate.ToString("yyyy-MM-dd")" @bind-Value="@booking.endDate"></InputDate>
                     </div>
                 </div>
             </div>
@@ -50,7 +52,7 @@
                                         @room.price
                                     </div>
                                     <div class="col-sm">
-                                        <button type="button" class="btn btn-primary" onclick="@sendRequest" value="Book">Book</button>
+                                        <button type="submit" class="btn btn-primary" value="Book">Book</button>
                                     </div>
                                 </div>
                             </div>
@@ -66,14 +68,11 @@
 </EditForm>
 
 @code {
-    private Booking booking = new Booking();
+    private Booking booking = new Booking() { startDate = DateTime.Now, endDate = DateTime.Now.AddDays(1) };
     private List<RoomType>? rooms;
     
     protected override async Task OnInitializedAsync()
     {
-        //var now = DateTime.Now;
-        //String shortDate = $"{now.Date}:{now.Year}";
-        //Console.WriteLine(shortDate);
         rooms = await GetListOfTypes();
     }
 }

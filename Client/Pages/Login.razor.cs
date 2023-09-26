@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Client.Shared.Utilities;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
@@ -10,11 +11,7 @@ namespace Client.Pages
     {
         private User LoginUser = new User();
         public string errorMessage;
-        public Customer customeruser;
-        public static class GlobalAuthState
-        {
-            public static uint? UserId { get; set; } = null;
-        }
+        public Customer? customeruser;
         private async Task HandleLogin()
         {
             if (!string.IsNullOrWhiteSpace(LoginUser.email) && !string.IsNullOrWhiteSpace(LoginUser.password))
@@ -28,8 +25,9 @@ namespace Client.Pages
                 {
                     // Handle a successful login, navigate to the users dashboard.
                     NavigationManager.NavigateTo("/");
-					GlobalAuthState.UserId =customeruser.id;
-
+                    //GlobalAuthState.UserId.Value = customeruser.id;
+					GlobalAuthState.UserId = customeruser.id;
+                    Console.WriteLine(GlobalAuthState.UserId);
                 }
                 else
                 {
