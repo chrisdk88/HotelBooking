@@ -29,7 +29,7 @@ namespace API.Controllers
           {
               return NotFound();
           }
-            return await _context.Booking.Include(item => item.customer).ToListAsync();
+            return await _context.Booking.Include(item => item.customer).Include(item => item.room).ToListAsync();
         }
 
         // GET: api/Bookings/5
