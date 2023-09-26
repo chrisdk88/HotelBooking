@@ -12,8 +12,14 @@ namespace Client.Pages
 
         private async Task RegisterUser()
         {
-            // Serialize the userModel to JSON
-            string json = System.Text.Json.JsonSerializer.Serialize(customer);
+			//hash the password
+			var sha = SHA256.Create();
+			var passwordBytes = Encoding.Default.GetBytes(customer.password);
+			var hashedPasswordBytes = sha.ComputeHash(passwordBytes);
+			customer.password = BitConverter.ToString(hashedPasswordBytes);
+
+			// Serialize the userModel to JSON
+			string json = System.Text.Json.JsonSerializer.Serialize(customer);
 
             // Create HttpContent with JSON data
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -21,12 +27,7 @@ namespace Client.Pages
             // Use HttpClient to send a POST request to your Swagger API
             var response = await client.PostAsync("api/Customers", content);
 
-			//hash the password
-			var sha = SHA256.Create();
-			var passwordBytes = Encoding.Default.GetBytes(customer.password);
-			var hashedPasswordBytes = sha.ComputeHash(passwordBytes);
-			customer.password = BitConverter.ToString(hashedPasswordBytes).Replace("-", "").ToLower();
-
+			
 			if (response.IsSuccessStatusCode)
             {
                 // Registration successful

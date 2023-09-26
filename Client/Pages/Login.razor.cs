@@ -12,10 +12,11 @@ namespace Client.Pages
         private User LoginUser = new User();
         public string errorMessage;
         public Customer customeruser;
-    
+       
         private async Task HandleLogin()
         {
-            if (!string.IsNullOrWhiteSpace(LoginUser.email) && !string.IsNullOrWhiteSpace(LoginUser.password))
+
+			if (!string.IsNullOrWhiteSpace(LoginUser.email) && !string.IsNullOrWhiteSpace(LoginUser.password))
             {
                 string email = LoginUser.email;
                 string password = LoginUser.password;
