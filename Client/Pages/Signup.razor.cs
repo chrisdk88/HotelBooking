@@ -16,7 +16,7 @@ namespace Client.Pages
 			var sha = SHA256.Create();
 			var passwordBytes = Encoding.Default.GetBytes(customer.password);
 			var hashedPasswordBytes = sha.ComputeHash(passwordBytes);
-			customer.password = BitConverter.ToString(hashedPasswordBytes);
+			customer.password = BitConverter.ToString(hashedPasswordBytes).Replace("-", "").ToLower();
 
 			// Serialize the userModel to JSON
 			string json = System.Text.Json.JsonSerializer.Serialize(customer);
