@@ -9,70 +9,79 @@
 
 <h1>Booking</h1>
 
-<EditForm Model="@booking" OnValidSubmit="@sendRequest">
-<div class="container">
-<div class="row">
-    <div class="col-sm">
-        <div class="card">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <span>Check In</span><br/>
-                                <InputDate required min="@booking.startDate.ToString("yyyy-MM-dd")" @bind-Value="booking.startDate"></InputDate>
-                    </div>
-                    <div class="col-sm">
-                        <span>Check Out</span><br/>
-                        <InputDate required min="@booking.endDate.ToString("yyyy-MM-dd")" @bind-Value="@booking.endDate"></InputDate>
+<EditForm Model="@input" OnValidSubmit="@sendRequest">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="container, card">
+                    <div class="row">
+                        <div class="col-sm">
+                            <span>Check In</span><br/>
+                            <InputDate required min="@input.inputBooking.startDate.ToString("yyyy-MM-dd")" @bind-Value="input.inputBooking.startDate"></InputDate>
+                        </div>
+                        <div class="col-sm">
+                            <span>Check Out</span><br/>
+                            <InputDate required min="@input.inputBooking.endDate.ToString("yyyy-MM-dd")" @bind-Value="@input.inputBooking.endDate"></InputDate>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <br/>
-<div class="col-sm">
-    @if (rooms == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        @foreach (RoomType room in rooms)
-        {
-            <div class="card">
-                    <div class="container">
-                        <div class="row">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
-                                    </div>
-                                    <div class="col-sm">
-                                        @room.name
-                                        @room.bedAmount
-                                        @room.price
-                                    </div>
-                                    <div class="col-sm">
-                                        <button type="submit" class="btn btn-primary" value="Book">Book</button>
-                                    </div>
+            <br/>
+            <div class="col-sm">
+                @if (types == null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    @foreach (RoomType room in types)
+                    {
+                        <div class="container, card">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
+                                </div>
+                                <div class="col-sm">
+                                    @room.name
+                                    @room.bedAmount
+                                    @room.price
+                                </div>
+                                <div class="col-sm">
+                                <button type="submit" class="btn btn-primary" value="Book" @onclick="()=>input.typeId = room.id">Book</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <br/>
+                    }
+                }
             </div>
-            <br/>
-        }
-    }
-</div>
-</div>
-</div>
+        </div>
+    </div>
 </EditForm>
 
 @code {
-    private Booking booking = new Booking() { startDate = DateTime.Now, endDate = DateTime.Now.AddDays(1) };
-    private List<RoomType>? rooms;
-    
+    private Input input = new() 
+    { 
+        inputBooking = new Booking() { 
+            startDate = DateTime.Now, 
+            endDate = DateTime.Now.AddDays(1) 
+        },
+    };
+    private List<RoomType>? types;
+
+    private class Input
+    {
+        public Booking inputBooking;
+        public uint typeId;
+    }
+
     protected override async Task OnInitializedAsync()
     {
-        rooms = await GetListOfTypes();
+        types = await GetListOfTypes();
+    }
+
+    private void setId(uint id)
+    {
+        input.typeId = id;
     }
 }
