@@ -21,15 +21,24 @@ namespace API.Controllers
             _context = context;
         }
 
-        // GET: api/Admins
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Admin>>> GetAdmin()
+		// GET: api/Admins
+		[HttpGet("{email}/{password}")]
+		public async Task<ActionResult<Admin>> GetAdmin(String email, String password)
         {
-          if (_context.Admin == null)
-          {
-              return NotFound();
-          }
-            return await _context.Admin.ToListAsync();
+            if (_context.Admin == null)
+            {
+                return NotFound();
+            }
+
+            var admin = _context.Admin.Where(item => item.email == email && item.password == password).ToArray();
+
+            if (admin == null || admin.Length != 1)
+            {
+                Console.WriteLine("abac");
+                return NotFound();
+            }
+
+            return admin.First();
         }
 
         // GET: api/Admins/5
