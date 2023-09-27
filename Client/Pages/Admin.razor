@@ -1,0 +1,145 @@
+﻿@using Models;
+@using System;
+
+@page "/admin"
+
+<PageTitle>Admin</PageTitle>
+
+<h3>Admin panel</h3>
+
+<div class="text-center">
+    <h1 class="display-4" style="font-weight: bold;">Status</h1>
+
+    <div class="container col-12">
+        <div class="row ">
+            <h1>Reserved</h1>
+            <div class="col" style="min-height: 100px;">
+                <h3>Standard</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Room number</th>
+                            <th>Available</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rooms in room)
+                        {
+                            @if (@rooms.type.name == "standard")
+                            {
+                                <tr>
+                                    <td>
+                                        @if (@rooms.typeId == 0)
+                                        {
+                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (@rooms.typeId == 0)
+                                        {
+                                            <div style="height: 25px; width: 40px; background-color: green; margin: 0 auto;"></div>
+                                        }
+                                        else
+                                        {
+                                            <div style="height: 25px; width: 40px; background-color: red; margin: 0 auto;"></div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col" style="min-height: 100px;">
+                <h3>Premium</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Room number</th>
+                            <th>Available</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rooms in room)
+                        {
+                            @if (@rooms.type.name == "Premium")
+                            {
+                                <tr>
+                                    <td>
+                                        @if (@rooms.typeId == 0)
+                                        {
+                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (@rooms.typeId == 0)
+                                        {
+                                            <div style="height: 25px; width: 40px; background-color: green; margin: 0 auto;"></div>
+                                        }
+                                        else
+                                        {
+                                            <div style="height: 25px; width: 40px; background-color: red; margin: 0 auto;"></div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col" style="min-height: 100px;">
+                <h3>Deluxe</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Room number</th>
+                            <th>Available</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rooms in room)
+                        {
+                            @if (@rooms.type.name == "Deluxe")
+                            {
+                                <tr>
+                                    <td>
+                                        @if (@rooms.typeId == 0)
+                                        {
+                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (@rooms.typeId == 0)
+                                        {
+                                            <div style="height: 25px; width: 40px; background-color: green; margin: 0 auto;"></div>
+                                        }
+                                        else
+                                        {
+                                            <div style="height: 25px; width: 40px; background-color: red; margin: 0 auto;"></div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Room>? room;
+}
