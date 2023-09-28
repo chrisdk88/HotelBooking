@@ -1,9 +1,10 @@
 ﻿using Client.Shared.Utilities;
 using Microsoft.AspNetCore.Components;
-
 using Models;
 using System.Net.Http.Json;
-using Client.Shared.Utilities;
+using System.Security.Cryptography;
+using System.Text;
+
 namespace Client.Pages
 {
 	public partial class Login

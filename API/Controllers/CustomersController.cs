@@ -59,7 +59,7 @@ namespace API.Controllers
                 return NotFound();
             }
             
-            Customer customer = await _context.Customer.Where(item => item.email == email && item.password == password).ToArray();
+            var customer = _context.Customer.Where(item => item.email == email && item.password == password).ToArray();
 
             return customer == null || customer.Length != 1 ? NotFound() : customer.First();
         }

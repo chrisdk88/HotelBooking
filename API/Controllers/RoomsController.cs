@@ -50,9 +50,9 @@ namespace API.Controllers
             return room;
         }
 
-        // GET api/Rooms/RoomWithType/1
-        [HttpGet("GetType/{typeId}")]
-        public async Task<ActionResult<Room>> GetAvailableRoomWithType(int typeId)
+        // GET api/Rooms/RoomWithType/1/01-01-0001/01-01-0001
+        [HttpGet("GetType/{typeId}/{start}/{end}")]
+        public async Task<ActionResult<Room>> GetAvailableRoomWithType(int typeId, DateTime start, DateTime end)
         {
             if (_context.Booking == null || _context.Room == null)
             {
@@ -64,6 +64,14 @@ namespace API.Controllers
             for (int i = 0; i < allBookings.Count; i++)
             {
                 var tempBooking = allBookings[i];
+                for (int index = 0; index < allRooms.Count(); index++)
+                {
+                    var tempRoom = allRooms[index];
+                    if (tempRoom == tempBooking.room && start > tempBooking.endDate && tempBooking.startDate > end)
+                    {
+                        allRooms.RemoveAt(index);
+                    }
+                }
                 if (allRooms.Contains(tempBooking.room!))
                 {
                     allRooms.Remove(tempBooking.room!);

@@ -1,6 +1,5 @@
 ﻿using Models;
 using System.Net.Http.Json;
-using System.Net.Http;
 using System.Text.Json;
 using System.Text;
 using Client.Shared.Utilities;
@@ -33,6 +32,7 @@ namespace Client.Pages
                     return;
                 }
 
+                // Create booking to post
                 Booking booking = new()
                 {
                     startDate = input.inputBooking.startDate,
@@ -47,7 +47,9 @@ namespace Client.Pages
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
-                var response = await client.PostAsync("Bookings", content);
+                Console.WriteLine(input.inputBooking.startDate.ToShortDateString);
+                Console.WriteLine(input.inputBooking.endDate.ToShortDateString);
+                //var response = await client.PostAsync("Bookings", content);
 
                 await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
             } else

@@ -31,7 +31,6 @@ namespace API.Controllers
             }
 
             List<Booking> bookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
-
             return bookings;
         }
 
