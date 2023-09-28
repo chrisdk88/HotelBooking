@@ -25,11 +25,14 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBooking()
         {
-          if (_context.Booking == null)
-          {
-              return NotFound();
-          }
-            return await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
+            if (_context.Booking == null) 
+            {
+                return NotFound();
+            }
+
+            List<Booking> bookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
+
+            return bookings;
         }
 
         // GET: api/Bookings/5

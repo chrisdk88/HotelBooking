@@ -59,15 +59,9 @@ namespace API.Controllers
                 return NotFound();
             }
             
-            var customer = _context.Customer.Where(item => item.email == email && item.password == password).ToArray();
+            Customer customer = await _context.Customer.Where(item => item.email == email && item.password == password).ToArray();
 
-            if (customer == null || customer.Length != 1)
-            {
-                Console.WriteLine("abac");
-                return NotFound();
-            }
-
-            return customer.First();
+            return customer == null || customer.Length != 1 ? NotFound() : customer.First();
         }
 
         // PUT: api/Customers/5

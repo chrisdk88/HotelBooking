@@ -21,8 +21,19 @@ namespace API.Controllers
             _context = context;
         }
 
-		// GET: api/Admins
-		[HttpGet("{email}/{password}")]
+        // GET: api/Admins
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Admin>>> GetCustomer()
+        {
+            if (_context.Admin == null)
+            {
+                return NotFound();
+            }
+            return await _context.Admin.ToListAsync();
+        }
+
+        // GET: api/Admins
+        [HttpGet("{email}/{password}")]
 		public async Task<ActionResult<Admin>> GetAdmin(String email, String password)
         {
             if (_context.Admin == null)
