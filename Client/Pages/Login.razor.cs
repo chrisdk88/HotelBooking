@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 using Models;
 using System.Net.Http.Json;
+using Client.Shared.Utilities;
 namespace Client.Pages
 {
 	public partial class Login
@@ -23,39 +24,47 @@ namespace Client.Pages
 					adminuser = await Http.GetFromJsonAsync<Admin>($"https://localhost:7285/api/Admins/{email}/{password}");
 					if (adminuser != null)
 					{
-						NavigationManager.NavigateTo("/");
 						GlobalAuthState.UserId = adminuser.id;
-						Console.WriteLine(adminuser);
-
+						GlobalAuthState.Name = adminuser.name;
 						StateHasChanged();
-						return;
+                        NavigationManager.NavigateTo("/admin");
+
+                        return;
 					}
 				}
-				catch (Exception ex)
+				catch 
 				{
-					Console.WriteLine($"Exception: {ex.Message}");
-					errorMessage = "invalid email or username";
+					errorMessage = "Invalid credentials. Please check your email and password.";
 				}
 
 				try
 				{
+					// Hash the provided password.
+					var sha256 = SHA256.Create();
+					var passwordBytes = Encoding.Default.GetBytes(password);
+					var hashedPasswordBytes = sha256.ComputeHash(passwordBytes);
+					var hashedPassword = BitConverter.ToString(hashedPasswordBytes).Replace("-", "").ToLower();
+					password = hashedPassword;
 					// Admin authentication failed; let's try customer authentication.
 					customeruser = await Http.GetFromJsonAsync<Customer>($"https://localhost:7285/api/Customers/{email}/{password}");
+				    
 					if (customeruser != null)
-					{
-						NavigationManager.NavigateTo("/");
+					{  
+						GlobalAuthState.Name = customeruser.name;
 						GlobalAuthState.UserId = customeruser.id;
-						StateHasChanged();
-						Console.WriteLine(customeruser);
+						Console.WriteLine(GlobalAuthState.Name);
+
+                        StateHasChanged();
+						NavigationManager.NavigateTo("/");
+
+						return;
 					}
 				}
-				catch (Exception ex)
+				catch 
 				{
-					Console.WriteLine($"Exception: {ex.Message}");
-					errorMessage = "invalid email or username";
+					errorMessage = "Invalid credentials. Please check your email and password.";
 				}
 			}
-
 			else
 			{
 				// Handle empty or invalid input
@@ -68,6 +77,7 @@ namespace Client.Pages
 			try
 			{
 				customeruser = null; // Clear the authenticated user
+				adminuser = null; // Clear the authenticated user
 				GlobalAuthState.UserId = null;
 				StateHasChanged();
 			}
