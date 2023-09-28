@@ -21,34 +21,35 @@ namespace Client.Pages
 
         public async Task sendRequest()
         {
-            var userId = GlobalAuthState.UserId;
-            if (userId != null)
+            uint? UserId = GlobalAuthState.UserId;
+            if (UserId != null)
             {
+                Room availableRoom;
+                try
+                {
+                    availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId!}"))!;
+                } catch {
+                    await JsRuntime.InvokeVoidAsync("alert", "Der er ingen ledige rum!"); // Alert
+                    return;
+                }
+
                 Booking booking = new()
                 {
-                    startDate = DateTime.Now,
-                    endDate = DateTime.Now.AddDays(1),
-                    customerid = (uint)userId
+                    startDate = input.inputBooking.startDate,
+                    endDate = input.inputBooking.endDate,
+                    roomId = availableRoom.id,
+                    customerid = (uint)UserId
                 };
 
-                HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
+
                 /*****CREATE BOOKING*****/
-                String json = JsonSerializer.Serialize(booking);
+                var json = JsonSerializer.Serialize(booking);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                Console.WriteLine(content);
-                var postResponse = await client.PostAsync("Bookings", content);
-                /*****PUT BOOKING IN ROOM*****/
-                //Room? avaliableRoom = allRooms.Where(room => !isBookedInPeriod(booking.startDate, booking.endDate, room.booking.startDate, room.booking.endDate)).First();
-                //if (avaliableRoom != null)
-                //{
-                //    json = JsonSerializer.Serialize(avaliableRoom);
-                //    Console.WriteLine(json);
-                //}
-                //var putResponse = await client.PutAsync("bookings", content);
+                HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
+                var response = await client.PostAsync("Bookings", content);
 
-
-                Console.WriteLine(postResponse.ReasonPhrase);
+                await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
             } else
             {
                 await JsRuntime.InvokeVoidAsync("alert", "Du skal være logget ind!"); // Alert
