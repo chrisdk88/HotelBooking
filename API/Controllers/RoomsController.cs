@@ -66,7 +66,7 @@ namespace API.Controllers
                 var tempBooking = allBookings[i];
                 if (allRooms.Contains(tempBooking.room!))
                 {
-                    allRooms.Remove(tempBooking.room);
+                    allRooms.Remove(tempBooking.room!);
                 }
             }
 
