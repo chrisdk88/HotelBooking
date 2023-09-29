@@ -1,4 +1,6 @@
-﻿@page "/customerview"
+﻿@using Models;
+
+@page "/customerview"
 
 <PageTitle>Customer view</PageTitle>
 
@@ -7,8 +9,8 @@
         @* Get all current and future reservations. *@
         @if (true)
         {
-            <h3>Her kan du se nuværende og fremtidige reservationer</h3>
-            @for (int i = 0; i < 5; i++)
+            <h3>Her kan du se fremtidige reservationer</h3>
+            @foreach (var item in bookings.Where(item => item.startDate < DateTime.Today))
             {
                 <div class="mb-3 w-100 p-3 rounded bg-light">
                     <div class="left">
@@ -25,23 +27,10 @@
                 </div>
             }   
         }
-        @* Get all previous reservations. *@
-        @if (true)
-        {
-            <h3>Her kan du se tidligere reservationer</h3>
-            @for (int i = 0; i < 5; i++)
-            {
-                <div class="mb-3 w-100 p-3 rounded bg-light">
-                    <div class="left">
-                        <p class="">Du har haft booket et "ROOMTYPE" værelse</p>
-                        <p class="">Det var booket fra d. "STARTDATO" til d. "SLUTDATO"</p>
-                    </div>
-                </div>
-            }     
-        }
     </div>
 </div>
 
 @code {
+    private List<Booking>? bookings;
 
 }
