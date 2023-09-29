@@ -34,7 +34,7 @@ namespace API.Controllers
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<Customer>> GetCustomer(uint id)
         {
           if (_context.Customer == null)
           {
@@ -59,15 +59,15 @@ namespace API.Controllers
                 return NotFound();
             }
             
-            var customer = _context.Customer.Where(item => item.email == email && item.password == password).ToArray();
+            var customer = await _context.Customer.Where(item => item.email == email && item.password == password).ToListAsync();
 
-            return customer == null || customer.Length != 1 ? NotFound() : customer.First();
+            return customer == null || customer.Count() != 1 ? NotFound() : customer.First();
         }
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutCustomer(uint id, Customer customer)
         {
             if (id != customer.id)
             {
@@ -112,7 +112,7 @@ namespace API.Controllers
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCustomer(uint id)
         {
             if (_context.Customer == null)
             {
@@ -130,7 +130,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool CustomerExists(uint id)
         {
             return (_context.Customer?.Any(e => e.id == id)).GetValueOrDefault();
         }

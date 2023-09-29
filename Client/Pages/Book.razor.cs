@@ -10,10 +10,24 @@ namespace Client.Pages
 {
     public partial class Book
     {
+        public Input input = new()
+        {
+            inputBooking = new Booking()
+            {
+                startDate = DateTime.Now,
+                endDate = DateTime.Now.AddDays(1)
+            },
+        };
+
+        public class Input
+        {
+            public Booking inputBooking;
+            public uint typeId;
+        }
+
         public async Task<List<RoomType>?> GetListOfTypes()
         {
             var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
-            allTypes.ForEach((a) => Console.WriteLine(a));
 
             return allTypes;
         }
@@ -23,6 +37,9 @@ namespace Client.Pages
             uint? UserId = GlobalAuthState.UserId;
             if (UserId != null)
             {
+                //String startString = input.inputBooking.startDate.ToShortDateString().Replace("/", "-");
+                //String endString = input.inputBooking.endDate.ToShortDateString().Replace("/", "-");
+                //Console.WriteLine(startString.ToString());
                 Room availableRoom;
                 try
                 {
@@ -47,9 +64,7 @@ namespace Client.Pages
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
-                Console.WriteLine(input.inputBooking.startDate.ToShortDateString);
-                Console.WriteLine(input.inputBooking.endDate.ToShortDateString);
-                //var response = await client.PostAsync("Bookings", content);
+                var response = await client.PostAsync("Bookings", content);
 
                 await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
             } else

@@ -34,7 +34,7 @@ namespace API.Controllers
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public async Task<ActionResult<Room>> GetRoom(uint id)
         {
           if (_context.Room == null)
           {
@@ -51,13 +51,17 @@ namespace API.Controllers
         }
 
         // GET api/Rooms/RoomWithType/1/01-01-0001/01-01-0001
-        [HttpGet("GetType/{typeId}/{start}/{end}")]
-        public async Task<ActionResult<Room>> GetAvailableRoomWithType(int typeId, DateTime start, DateTime end)
+        [HttpGet("GetType/{typeId}")]
+        public async Task<ActionResult<Room>> GetAvailableRoomWithType(uint typeId)
         {
             if (_context.Booking == null || _context.Room == null)
             {
                 return NotFound();
             }
+
+
+            DateTime start = DateTime.Now;
+            DateTime end = DateTime.Now;
             List<Booking>? allBookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).Where(item => item.room.type.id == typeId).ToListAsync();
             List<Room>? allRooms = await _context.Room.Include(item => item.type).Where(item => item.typeId == typeId).ToListAsync();
 
@@ -67,7 +71,9 @@ namespace API.Controllers
                 for (int index = 0; index < allRooms.Count(); index++)
                 {
                     var tempRoom = allRooms[index];
-                    if (tempRoom == tempBooking.room && start > tempBooking.endDate && tempBooking.startDate > end)
+                    if (tempRoom == tempBooking.room 
+                        //&& start > tempBooking.endDate && tempBooking.startDate > end
+                        )
                     {
                         allRooms.RemoveAt(index);
                     }
@@ -89,7 +95,7 @@ namespace API.Controllers
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(int id, Room room)
+        public async Task<IActionResult> PutRoom(uint id, Room room)
         {
             if (id != room.id)
             {
@@ -134,7 +140,7 @@ namespace API.Controllers
 
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRoom(int id)
+        public async Task<IActionResult> DeleteRoom(uint id)
         {
             if (_context.Room == null)
             {
@@ -152,7 +158,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        private bool RoomExists(int id)
+        private bool RoomExists(uint id)
         {
             return (_context.Room?.Any(e => e.id == id)).GetValueOrDefault();
         }

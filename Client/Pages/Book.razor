@@ -1,7 +1,6 @@
 ﻿@page "/book"
 @inject HttpClient Http
 @using Models;
-@using Client.Shared.Utilities
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 
@@ -60,28 +59,10 @@
 </EditForm>
 
 @code {
-    private Input input = new() 
-    { 
-        inputBooking = new Booking() { 
-            startDate = DateTime.Now, 
-            endDate = DateTime.Now.AddDays(1) 
-        },
-    };
     private List<RoomType>? types;
-
-    private class Input
-    {
-        public Booking inputBooking;
-        public uint typeId;
-    }
 
     protected override async Task OnInitializedAsync()
     {
         types = await GetListOfTypes();
-    }
-
-    private void setId(uint id)
-    {
-        input.typeId = id;
     }
 }

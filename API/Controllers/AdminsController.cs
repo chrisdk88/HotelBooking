@@ -41,11 +41,10 @@ namespace API.Controllers
                 return NotFound();
             }
 
-            var admin = _context.Admin.Where(item => item.email == email && item.password == password).ToArray();
+            var admin = await _context.Admin.Where(item => item.email == email && item.password == password).ToListAsync();
 
-            if (admin == null || admin.Length != 1)
+            if (admin == null || admin.Count() != 1)
             {
-                Console.WriteLine("abac");
                 return NotFound();
             }
 
@@ -54,7 +53,7 @@ namespace API.Controllers
 
         // GET: api/Admins/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Admin>> GetAdmin(int id)
+        public async Task<ActionResult<Admin>> GetAdmin(uint id)
         {
           if (_context.Admin == null)
           {
@@ -73,7 +72,7 @@ namespace API.Controllers
         // PUT: api/Admins/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdmin(int id, Admin admin)
+        public async Task<IActionResult> PutAdmin(uint id, Admin admin)
         {
             if (id != admin.id)
             {
@@ -118,7 +117,7 @@ namespace API.Controllers
 
         // DELETE: api/Admins/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdmin(int id)
+        public async Task<IActionResult> DeleteAdmin(uint id)
         {
             if (_context.Admin == null)
             {
@@ -136,7 +135,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        private bool AdminExists(int id)
+        private bool AdminExists(uint id)
         {
             return (_context.Admin?.Any(e => e.id == id)).GetValueOrDefault();
         }

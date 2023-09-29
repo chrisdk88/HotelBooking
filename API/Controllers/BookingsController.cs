@@ -36,7 +36,7 @@ namespace API.Controllers
 
         // GET: api/Bookings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Booking>> GetBooking(int id)
+        public async Task<ActionResult<Booking>> GetBooking(uint id)
         {
           if (_context.Booking == null)
           {
@@ -52,10 +52,35 @@ namespace API.Controllers
             return booking;
         }
 
+        // GET: api/Bookings/user/5
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<Booking>>> GetBookingFromUserID(uint id)
+        {
+            if (_context.Booking == null)
+            {
+                return NotFound();
+            }
+
+            var bookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
+            if (bookings == null || bookings.Count <= 0)
+            {
+                return NotFound();
+            }
+
+            var bookingsFromCustomer = bookings.Where(item => item.customerid == id).ToList();
+
+            if (bookingsFromCustomer == null || bookingsFromCustomer.Count() <= 0)
+            {
+                return NotFound();
+            }
+
+            return bookingsFromCustomer;
+        }
+
         // PUT: api/Bookings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBooking(int id, Booking booking)
+        public async Task<IActionResult> PutBooking(uint id, Booking booking)
         {
             if (id != booking.id)
             {
@@ -104,7 +129,7 @@ namespace API.Controllers
 
         // DELETE: api/Bookings/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBooking(int id)
+        public async Task<IActionResult> DeleteBooking(uint id)
         {
             if (_context.Booking == null)
             {
@@ -122,7 +147,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        private bool BookingExists(int id)
+        private bool BookingExists(uint id)
         {
             return (_context.Booking?.Any(e => e.id == id)).GetValueOrDefault();
         }
