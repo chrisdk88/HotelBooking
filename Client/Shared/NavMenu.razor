@@ -1,8 +1,8 @@
 ﻿@using Client.Shared.Utilities;
-
+@using Client.Pages;
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/"><p>hej @GlobalAuthState.Name </p></a>
+        <a class="navbar-brand" href="/"><p>@GlobalAuthState.Name </p></a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,9 +36,23 @@
             </NavLink>
         </div>
         <div class="nav-item px-3 top-row showLogin">
-            <NavLink class="nav-link" href="login">
-                <span class="oi oi-person" aria-hidden="true"></span> Log ind
-            </NavLink>
+            @code {
+                Login login = new();
+            }
+            @if (GlobalAuthState.UserId != null)
+            {
+                <NavLink class="nav-link" href="/" @onclick="() => login.Logout()">
+                    <!-- Replace 'login' with the actual @ref name -->
+                    <span class="oi oi-person" aria-hidden="true"></span> Log ud
+                </NavLink>
+            }
+            else
+            {
+                <NavLink class="nav-link" href="login">
+                    <span class="oi oi-person" aria-hidden="true"></span> Log ind
+                </NavLink>
+            }
+
         </div>
     </nav>
 </div>

@@ -11,6 +11,7 @@ namespace Client.Pages
 {
     public partial class Book
     {
+
         public async Task<List<RoomType>?> GetListOfTypes()
         {
             var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
@@ -61,5 +62,6 @@ namespace Client.Pages
         {
             return start1 > end2 && start2 > end1;
         }
+ 
     }
 }
