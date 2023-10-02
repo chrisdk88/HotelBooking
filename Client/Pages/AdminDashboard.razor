@@ -1,5 +1,6 @@
 ﻿@using Models;
 @using System;
+@inject HttpClient Http
 
 @page "/admin"
 
@@ -7,140 +8,42 @@
 
 <h3>Admin panel</h3>
 
-<div class="text-center">
-    <h1 class="display-4" style="font-weight: bold;">Status</h1>
-
-    <div class="container col-12">
-        <div class="row ">
-            <h1>Reserved</h1>
-            <div class="col" style="min-height: 100px;">
-                <h3>Standard</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Room number</th>
-                            <th>Available</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var rooms in room)
-                        {
-                            @if (@rooms.type.name == "standard")
-                            {
-                                <tr>
-                                    <td>
-                                        @if (@rooms.typeId == 0)
-                                        {
-                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (@rooms.typeId == 0)
-                                        {
-                                            <div style="height: 25px; width: 40px; background-color: green; margin: 0 auto;"></div>
-                                        }
-                                        else
-                                        {
-                                            <div style="height: 25px; width: 40px; background-color: red; margin: 0 auto;"></div>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div class="col" style="min-height: 100px;">
-                <h3>Premium</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Room number</th>
-                            <th>Available</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var rooms in room)
-                        {
-                            @if (@rooms.type.name == "Premium")
-                            {
-                                <tr>
-                                    <td>
-                                        @if (@rooms.typeId == 0)
-                                        {
-                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (@rooms.typeId == 0)
-                                        {
-                                            <div style="height: 25px; width: 40px; background-color: green; margin: 0 auto;"></div>
-                                        }
-                                        else
-                                        {
-                                            <div style="height: 25px; width: 40px; background-color: red; margin: 0 auto;"></div>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div class="col" style="min-height: 100px;">
-                <h3>Deluxe</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Room number</th>
-                            <th>Available</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var rooms in room)
-                        {
-                            @if (@rooms.type.name == "Deluxe")
-                            {
-                                <tr>
-                                    <td>
-                                        @if (@rooms.typeId == 0)
-                                        {
-                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="" class="btn btn-primary">@rooms.roomNum</a>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (@rooms.typeId == 0)
-                                        {
-                                            <div style="height: 25px; width: 40px; background-color: green; margin: 0 auto;"></div>
-                                        }
-                                        else
-                                        {
-                                            <div style="height: 25px; width: 40px; background-color: red; margin: 0 auto;"></div>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
+<div class="container text-center mb-4">
+    <div class="row">
+        <div>
+            @if (rooms == null)
+            {
+                <p>Loading...</p>
+            }
+            else
+            {
+                @foreach (var room in rooms.Where(item => item.type.name == "Standard"))
+                {
+                    <p>@room.roomNum</p>
+                    <button class="btn btn-success">Test</button>
+                }
+                @foreach (var room in rooms.Where(item => item.type.name == "Premium"))
+                {
+                    <p>@room.roomNum</p>
+                    <button class="btn btn-success">Test2</button>
+                }
+                @foreach (var room in rooms.Where(item => item.type.name == "Deluxe"))
+                {
+                    <p>@room.roomNum</p>
+                    <button class="btn btn-success">Test3</button>
+                }
+            }
         </div>
     </div>
 </div>
 
+
 @code 
 {
-    private List<Room>? room;
+    private List<Room>? rooms;
+
+    protected override async Task OnInitializedAsync()
+    {
+        rooms = await GetListOfRooms();
+    }
 }

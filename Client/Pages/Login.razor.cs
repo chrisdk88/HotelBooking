@@ -2,18 +2,17 @@
 using Microsoft.AspNetCore.Components;
 using Models;
 using System.Net.Http.Json;
-using Client.Shared.Utilities;
-using System.Text;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Client.Pages
 {
 	public partial class Login
 	{
-		private User LoginUser = new User();
+		private User? LoginUser = new User();
 		public string errorMessage;
-		public Customer customeruser;
-		public Admin adminuser;
+		public Customer? customeruser;
+		public Admin? adminuser;
 		private async Task HandleLogin()
 		{
 			if (!string.IsNullOrWhiteSpace(LoginUser.email) && !string.IsNullOrWhiteSpace(LoginUser.password))

@@ -1,47 +1,48 @@
-﻿@page "/customerview"
+﻿@using Models;
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+
+@page "/profile"
 
 <PageTitle>Customer view</PageTitle>
 
 <div class="container text-center mb-4">
     <div class="row">
         @* Get all current and future reservations. *@
-        @if (true)
+        @if (bookings == null)
         {
-            <h3>Her kan du se nuværende og fremtidige reservationer</h3>
-            @for (int i = 0; i < 5; i++)
-            {
-                <div class="mb-3 w-100 p-3 rounded bg-light">
-                    <div class="left">
-                        <p class="">Du har booket et "ROOMTYPE" værelse</p>
-                        <p class="">Det er booket fra d. "STARTDATO" til d. "SLUTDATO"</p>
-                    </div>
-                    <div>
-                        @* If startdate is in the future, they have ability to cancel the reservation *@
-                        @if (true)
-                        {
-                            <button class="btn btn-success">Annullere bookingen</button>
-                        }
-                    </div>
-                </div>
-            }   
+            <p><em>Loading...</em></p>
         }
-        @* Get all previous reservations. *@
-        @if (true)
+        else
         {
-            <h3>Her kan du se tidligere reservationer</h3>
-            @for (int i = 0; i < 5; i++)
-            {
-                <div class="mb-3 w-100 p-3 rounded bg-light">
-                    <div class="left">
-                        <p class="">Du har haft booket et "ROOMTYPE" værelse</p>
-                        <p class="">Det var booket fra d. "STARTDATO" til d. "SLUTDATO"</p>
+            <em>
+                <h3>Her kan du se fremtidige reservationer</h3>
+                @foreach (var item in bookings!.Where(item => item.startDate > DateTime.Today))
+                {
+                    <div class="mb-3 w-100 p-3 rounded bg-light">
+                        <div class="left">
+                            <p class="">Du har booket et @item.room!.type!.name værelse</p>
+                            <p class="">Det er booket fra d. @item.startDate.ToShortDateString() til d. @item.endDate.ToShortDateString()</p>
+                        </div>
+                        <div>
+                            @* If startdate is in the future, they have ability to cancel the reservation *@
+                            @if (true)
+                            {
+                                <button class="btn btn-success" @onclick="()=>cancelBooking(item.id)">Annullere bookingen</button>
+                            }
+                        </div>
                     </div>
-                </div>
-            }     
+                }
+            </em>
         }
     </div>
 </div>
 
 @code {
+    private List<Booking>? bookings;
 
+    protected override async Task OnInitializedAsync()
+    {
+        bookings = await GetUserBookings();
+    }
 }
