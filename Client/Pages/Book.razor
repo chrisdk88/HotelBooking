@@ -3,96 +3,84 @@
 @using Models;
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
+@using Client.Shared.Utilities
 
 
 <PageTitle>Andet Hotel Booking</PageTitle>
 
 <h1>Booking</h1>
-@if(GlobalAuthState.UserId == null)
+@if (GlobalAuthState.UserId == null)
 {
-    <p class="btn btn-danger">Man skal være logget ind for at kunne booke <a class="text-white" href="/login">log på her</a></p>
+	<p class="btn btn-danger">Man skal være logget ind for at kunne booke <a class="text-white" href="/login">log på her</a></p>
 }
 <EditForm Model="@input" OnValidSubmit="@sendRequest">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <div class="container, card">
-                    <div class="row">
-                        <div class="col-sm">
-                            <span>Check In</span><br/>
-                            <InputDate required min="@input.inputBooking.startDate.ToString("yyyy-MM-dd")" @bind-Value="input.inputBooking.startDate"></InputDate>
-                        </div>
-                        <div class="col-sm">
-                            <span>Check Out</span><br/>
-                            <InputDate required min="@input.inputBooking.endDate.ToString("yyyy-MM-dd")" @bind-Value="@input.inputBooking.endDate"></InputDate>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <div class="col-sm">
-                @if (types == null)
-                {
-                    <p><em>Loading...</em></p>
-                }
-                else
-                {
-                    @foreach (RoomType room in types)
-                    {
-                        <div class="container, card">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
-                                </div>
-                                <div class="col-sm">
-                                    @room.name
-                                    @room.bedAmount
-                                    @room.price
-                                </div>
-                                <div class="col-sm">
-                                  @if(GlobalAuthState.UserId != null)
-                                    {
-                                         
-                                        @*<button type="submit" class="btn btn-primary" value="Book"@* @onclick="ShowModal"*@ @*@onclick="()=>input.typeId = room.id">Book</button>*@
-                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Launch demo modal
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ...
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                                    }
-                            
-                                </div>
-                            </div>
-                        </div>
-                        <br/>
-                    }
-                }
-            </div>
-        </div>
-    </div>
-  
+	<div class="container">
+		<div class="row">
+			<div class="col-sm">
+				<div class="container, card">
+					<div class="row">
+						<div class="col-sm">
+							<span>Check In</span><br />
+							<InputDate required min="@input.inputBooking.startDate.ToString("yyyy-MM-dd")" @bind-Value="input.inputBooking.startDate"></InputDate>
+						</div>
+						<div class="col-sm">
+							<span>Check Out</span><br />
+							<InputDate required min="@input.inputBooking.endDate.ToString("yyyy-MM-dd")" @bind-Value="@input.inputBooking.endDate"></InputDate>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="col-sm">
+				@if (types == null)
+				{
+					<p><em>Loading...</em></p>
+				}
+				else
+				{
+					@foreach (RoomType room in types)
+					{
+						<div class="container, card">
+							<div class="row">
+								<div class="col-sm">
+									<img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
+								</div>
+								<div class="col-sm">
+									@room.name
+									@room.bedAmount
+									@room.price
+								</div>
+								<div class="col-sm">
+									@if (GlobalAuthState.UserId != null)
+									{
+
+										<button type="submit" class="btn btn-primary" value="Book" onclick="()=>input.typeId = room.id">Book</button>
+									if (!string.IsNullOrEmpty(bookerrormsg))
+										{
+											<div class="alert alert-danger">
+												@bookerrormsg
+											</div>
+										}
+
+									}
+
+								</div>
+							</div>
+						</div>
+						<br />
+					}
+				}
+			</div>
+		</div>
+	</div>
 </EditForm>
 
 @code {
-    private List<RoomType>? types;
+	private List<RoomType>? types;
+	private uint? roomWithMessage;
+	protected override async Task OnInitializedAsync()
+	{
+		types = await GetListOfTypes();
+	}
 
-    protected override async Task OnInitializedAsync()
-    {
-        types = await GetListOfTypes();
-    }
 }
