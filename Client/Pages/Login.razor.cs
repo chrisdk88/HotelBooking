@@ -35,7 +35,7 @@ namespace Client.Pages
 				}
 				catch 
 				{
-					errorMessage = "Invalid credentials. Please check your email and password.";
+					errorMessage = "Ugyldige legitimationsoplysninger. Venligst tjek din e-mail og adgangskode.";
 				}
 
 				try
@@ -62,13 +62,13 @@ namespace Client.Pages
 				}
 				catch 
 				{
-					errorMessage = "Invalid credentials. Please check your email and password.";
+					errorMessage = "Ugyldige legitimationsoplysninger. Venligst tjek din e-mail og adgangskode.";
 				}
 			}
 			else
 			{
 				// Handle empty input
-				errorMessage = "Please enter your email and password.";
+				errorMessage = "Indtast venligst din e-mail og adgangskode.";
 			}
 		}
 

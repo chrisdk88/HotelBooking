@@ -49,6 +49,7 @@ namespace Client.Pages
                 } catch {
                    // await JsRuntime.InvokeVoidAsync("alert", "Der er ingen ledige rum!"); // Alert
                     bookerrormsg = "Der er ingen ledige rum!";
+                    StateHasChanged();
 					return;
                 }
 
@@ -71,6 +72,8 @@ namespace Client.Pages
 
               //  await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
                 bookerrormsg = "Booking oprettet!";
+				NavigationManager.NavigateTo("/payment");
+				StateHasChanged();
 
 			} else
             {
