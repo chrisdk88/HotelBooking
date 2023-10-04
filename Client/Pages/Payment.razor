@@ -2,7 +2,7 @@
 @inject HttpClient Http
 @using Models;
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
-@inject IJSRuntime JsRuntime
+@inject IJSRuntime JSRuntime
 @using Client.Shared.Utilities
 @code{
     RoomType roomType = new();
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="col-12">
-                <div class="btn btn-primary mb-3">
+                <div class="btn btn-primary mb-3" @onclick="ShowAlert">
                     <span class="ps-3">Pris: @roomType.price</span>
                     <span class="fas fa-arrow-right"></span>
                 </div>
