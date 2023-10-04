@@ -5,12 +5,14 @@ using System.Text;
 using Client.Shared.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Reflection.Metadata;
 
 namespace Client.Pages
 {
     public partial class Book
     {
-        public Input input = new()
+
+		public Input input = new()
         {
             inputBooking = new Booking()
             {
@@ -18,8 +20,8 @@ namespace Client.Pages
                 endDate = DateTime.Now.AddDays(1)
             },
         };
-
-        public class Input
+	
+		public class Input
         {
             public Booking inputBooking;
             public uint typeId;
@@ -31,8 +33,9 @@ namespace Client.Pages
 
             return allTypes;
         }
-
-        public async Task sendRequest()
+		Room availableRoom;
+        string bookerrormsg;
+		public async Task sendRequest()
         {
             uint? UserId = GlobalAuthState.UserId;
             if (UserId != null)
@@ -40,13 +43,14 @@ namespace Client.Pages
                 //String startString = input.inputBooking.startDate.ToShortDateString().Replace("/", "-");
                 //String endString = input.inputBooking.endDate.ToShortDateString().Replace("/", "-");
                 //Console.WriteLine(startString.ToString());
-                Room availableRoom;
                 try
                 {
                     availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId!}"))!;
                 } catch {
-                    await JsRuntime.InvokeVoidAsync("alert", "Der er ingen ledige rum!"); // Alert
-                    return;
+                   // await JsRuntime.InvokeVoidAsync("alert", "Der er ingen ledige rum!"); // Alert
+                    bookerrormsg = "Der er ingen ledige rum!";
+                    StateHasChanged();
+					return;
                 }
 
                 var a = (await Http.GetFromJsonAsync<dynamic>($"https://localhost:7285/api/Admins/getFromEmail/k@k.k/k"))!;
@@ -70,15 +74,19 @@ namespace Client.Pages
                 //HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
                 //var response = await client.PostAsync("Bookings", content);
 
-                //await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
-            } else
+              //  await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
+                bookerrormsg = "Booking oprettet!";
+				NavigationManager.NavigateTo("/payment");
+				StateHasChanged();
+
+			} else
             {
                 await JsRuntime.InvokeVoidAsync("alert", "Du skal være logget ind!"); // Alert
                 NavigationManager.NavigateTo("/login");
             }
         }
-
-        public bool isBookedInPeriod(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+		
+		public bool isBookedInPeriod(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
         {
             return start1 > end2 && start2 > end1;
         }
