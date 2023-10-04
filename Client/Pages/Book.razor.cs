@@ -49,24 +49,28 @@ namespace Client.Pages
                     return;
                 }
 
+                var a = (await Http.GetFromJsonAsync<dynamic>($"https://localhost:7285/api/Admins/getFromEmail/k@k.k/k"))!;
+                Console.WriteLine(a);
+                var b = JsonSerializer.Serialize<Dictionary<Dictionary<String, bool>, Dictionary<String, dynamic>>>(a);
+                Console.WriteLine(b);
                 // Create booking to post
-                Booking booking = new()
-                {
-                    startDate = input.inputBooking.startDate,
-                    endDate = input.inputBooking.endDate,
-                    roomId = availableRoom.id,
-                    customerid = (uint)UserId
-                };
+                //Booking booking = new()
+                //{
+                //    startDate = input.inputBooking.startDate,
+                //    endDate = input.inputBooking.endDate,
+                //    roomId = availableRoom.id,
+                //    customerid = (uint)UserId
+                //};
 
 
-                /*****CREATE BOOKING*****/
-                var json = JsonSerializer.Serialize(booking);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                ///*****CREATE BOOKING*****/
+                //var json = JsonSerializer.Serialize(booking);
+                //var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
-                var response = await client.PostAsync("Bookings", content);
+                //HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
+                //var response = await client.PostAsync("Bookings", content);
 
-                await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
+                //await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
             } else
             {
                 await JsRuntime.InvokeVoidAsync("alert", "Du skal være logget ind!"); // Alert
