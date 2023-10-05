@@ -2,6 +2,6 @@
 {
     public class Admin : User
     {
-        void resolveTicket() { }
+        //TODO: Hvis ticket system tilføjes, lav tilladelser her.
     }
 }

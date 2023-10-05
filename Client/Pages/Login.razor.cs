@@ -27,6 +27,7 @@ namespace Client.Pages
 					{
 						GlobalAuthState.UserId = adminuser.id;
 						GlobalAuthState.Name = adminuser.name;
+						GlobalAuthState.isAdmin = true;
 						StateHasChanged();
                         NavigationManager.NavigateTo("/admin");
 
@@ -35,7 +36,7 @@ namespace Client.Pages
 				}
 				catch 
 				{
-					errorMessage = "Invalid credentials. Please check your email and password.";
+					errorMessage = "Ugyldige legitimationsoplysninger. Venligst tjek din e-mail og adgangskode.";
 				}
 
 				try
@@ -51,25 +52,24 @@ namespace Client.Pages
 				    
 					if (customeruser != null)
 					{  
-						GlobalAuthState.Name = customeruser.name;
 						GlobalAuthState.UserId = customeruser.id;
-						Console.WriteLine(GlobalAuthState.Name);
+                        GlobalAuthState.Name = customeruser.name;
 
                         StateHasChanged();
 						NavigationManager.NavigateTo("/");
 
-						return;
+                        return;
 					}
 				}
 				catch 
 				{
-					errorMessage = "Invalid credentials. Please check your email and password.";
+					errorMessage = "Ugyldige legitimationsoplysninger. Venligst tjek din e-mail og adgangskode.";
 				}
 			}
 			else
 			{
-				// Handle empty or invalid input
-				errorMessage = "Please enter your email and password.";
+				// Handle empty input
+				errorMessage = "Indtast venligst din e-mail og adgangskode.";
 			}
 		}
 
@@ -79,7 +79,8 @@ namespace Client.Pages
 			{
 				customeruser = null; // Clear the authenticated user
 				adminuser = null; // Clear the authenticated user
-				GlobalAuthState.UserId = null;
+				GlobalAuthState.Name = "";
+				GlobalAuthState.UserId= null;
 				StateHasChanged();
 			}
 			catch (Exception ex)

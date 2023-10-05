@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Data;
 using Models;
+using Newtonsoft.Json;
 
 namespace API.Controllers
 {
@@ -33,28 +34,38 @@ namespace API.Controllers
         }
 
         // GET: api/Admins
-        [HttpGet("{email}/{password}")]
-		public async Task<ActionResult<Admin>> GetAdmin(String email, String password)
+        [HttpGet("getFromEmail/{email}/{password}")]
+        public async Task<IActionResult> GetUserByEmailPassword(String email, String password)
         {
             if (_context.Admin == null)
             {
                 return NotFound();
             }
 
-            var admin = _context.Admin.Where(item => item.email == email && item.password == password).ToArray();
+            dynamic user;
+            bool isAdmin = true;
 
-            if (admin == null || admin.Length != 1)
+            user = await _context.Admin.Where(item => item.email == email && item.password == password).ToListAsync();
+
+            if (user == null || user.Count != 1)
             {
-                Console.WriteLine("abac");
-                return NotFound();
+                user = await _context.Customer.Where(item => item.email == email && item.password == password).ToListAsync();
+                isAdmin = false;
+                if (user == null || user.Count != 1)
+                {
+                    return NotFound();
+                }
             }
 
-            return admin.First();
+            Console.WriteLine(user[0].GetType());
+            var a = Ok(new { isAdmin, user });
+
+            return a;
         }
 
         // GET: api/Admins/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Admin>> GetAdmin(int id)
+        public async Task<ActionResult<Admin>> GetAdmin(uint id)
         {
           if (_context.Admin == null)
           {
@@ -73,7 +84,7 @@ namespace API.Controllers
         // PUT: api/Admins/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdmin(int id, Admin admin)
+        public async Task<IActionResult> PutAdmin(uint id, Admin admin)
         {
             if (id != admin.id)
             {
@@ -118,7 +129,7 @@ namespace API.Controllers
 
         // DELETE: api/Admins/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdmin(int id)
+        public async Task<IActionResult> DeleteAdmin(uint id)
         {
             if (_context.Admin == null)
             {
@@ -136,7 +147,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        private bool AdminExists(int id)
+        private bool AdminExists(uint id)
         {
             return (_context.Admin?.Any(e => e.id == id)).GetValueOrDefault();
         }
