@@ -16,9 +16,9 @@ namespace Client.Pages
 
                 try
                 {
-                    var response = await Http.GetFromJsonAsync<dynamic>($"https:/localhost:7285/api/Customers/{GlobalAuthState.UserId}");
-
-                    Console.WriteLine(response);
+ 
+                    var response = (await Http.GetFromJsonAsync<Customer>($"https://localhost:7285/api/Customers/{GlobalAuthState.UserId}"));
+                    
 
                     if (response != null)
                     {
@@ -54,7 +54,7 @@ namespace Client.Pages
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             // Use HttpClient to send a POST request to your Swagger API
-            var response = await client.PostAsync($"api/Customers/{GlobalAuthState.UserId}", content);
+            var response = await client.PutAsync($"api/Customers/{GlobalAuthState.UserId}", content);
 
             if (response.IsSuccessStatusCode)
             {

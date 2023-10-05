@@ -55,8 +55,8 @@ namespace Client.Pages
 						GlobalAuthState.UserId = customeruser.id;
                         GlobalAuthState.Name = customeruser.name;
 
-                        StateHasChanged();
 						NavigationManager.NavigateTo("/");
+                        StateHasChanged();
 
                         return;
 					}
