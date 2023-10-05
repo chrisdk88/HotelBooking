@@ -75,7 +75,6 @@ namespace Client.Pages
                 //var response = await client.PostAsync("Bookings", content);
 
               //  await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
-                bookerrormsg = "Booking oprettet!";
 				NavigationManager.NavigateTo("/payment");
 				StateHasChanged();
 
