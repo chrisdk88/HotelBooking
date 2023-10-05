@@ -16,9 +16,9 @@ namespace Client.Pages
 
                 try
                 {
-                    var response = await Http.GetFromJsonAsync<Customer>($"https:/localhost:7268/api/Customers/{GlobalAuthState.UserId}");
+                    var response = await Http.GetFromJsonAsync<dynamic>($"https:/localhost:7285/api/Customers/{GlobalAuthState.UserId}");
 
-                    Console.WriteLine(response.phoneNumber);
+                    Console.WriteLine(response);
 
                     if (response != null)
                     {
@@ -32,7 +32,7 @@ namespace Client.Pages
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("PISSSS");
+                    Console.WriteLine(ex);
                 }
             }
         }
