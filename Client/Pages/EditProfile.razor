@@ -1,5 +1,81 @@
-﻿<h3>EditProfile</h3>
+﻿@page "/editprofile";
+@using Models;
+@using Client.Shared.Utilities;
+@using System.Net.Http.Json;
+@inject IJSRuntime JsRuntime
+@inject HttpClient Http;
+
+<h3>EditProfile</h3>
 
 @code {
+    private Customer customer = new Customer();
 
+    protected override async Task OnInitializedAsync()
+    {
+        await getUserById();
+    }
 }
+
+<EditForm Model="@customer">
+    <div class="container text-center mb-4">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <div class="card-body p-4 p-md-5 text-black FormBgColor">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Ret informationer</h3>
+                        @if (customer == null)
+                        {
+                            <p><em>Loading...</em></p>
+                        }
+                        else
+                        {
+                            <form class="px-md-2">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formName">Navn</label>
+                                    <InputText required type="text" id="formName" class="form-control" placeholder="Navn" @bind-Value="customer.name" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formEmail">Email</label>
+                                    <InputText required type="email" id="formEmail" class="form-control" placeholder="Email" @bind-Value="customer.email" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formPassword">Password</label>
+                                    <InputText required type="password" id="formPassword" class="form-control" placeholder="Password" @bind-Value="customer.password" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formPhoneNumber">Tlf. nr.</label>
+                                    <InputNumber required type="tel" id="formPhoneNumber" class="form-control" placeholder="Tlf. nr." @bind-Value="customer.phoneNumber" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formAge">Alder</label>
+                                    <InputNumber required type="number" id="formAge" class="form-control" placeholder="Alder" @bind-Value="customer.age" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formAddress">Adresse</label>
+                                    <InputText required type="text" id="formAddress" class="form-control" placeholder="Adresse" @bind-Value="customer.address" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formZipCode">Post nr.</label>
+                                    <InputText required type="number" id="formZipCode" class="form-control" placeholder="Post nr." @bind-Value="customer.zipcode" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formCity">By</label>
+                                    <InputText required type="text" id="formCity" class="form-control" placeholder="By" @bind-Value="customer.city" />
+                                </div>
+                                @if (true)
+                                {
+                                    Console.WriteLine(GlobalAuthState.UserId);
+                                    Console.WriteLine("Test");
+                                    Console.WriteLine(customer.name);
+                                    Console.WriteLine(customer.email);
+                                    Console.WriteLine(customer.password);
+                                }
+                                <button type="submit" class="btn btn-success btn-lg mb-1" @onclick="saveEditProfileChanges">Ret oplysninger</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
