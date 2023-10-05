@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Data;
 using Models;
+using Newtonsoft.Json;
 
 namespace API.Controllers
 {
@@ -33,22 +34,33 @@ namespace API.Controllers
         }
 
         // GET: api/Admins
-        [HttpGet("{email}/{password}")]
-		public async Task<ActionResult<Admin>> GetAdmin(String email, String password)
+        [HttpGet("getFromEmail/{email}/{password}")]
+        public async Task<IActionResult> GetUserByEmailPassword(String email, String password)
         {
             if (_context.Admin == null)
             {
                 return NotFound();
             }
 
-            var admin = await _context.Admin.Where(item => item.email == email && item.password == password).ToListAsync();
+            dynamic user;
+            bool isAdmin = true;
 
-            if (admin == null || admin.Count() != 1)
+            user = await _context.Admin.Where(item => item.email == email && item.password == password).ToListAsync();
+
+            if (user == null || user.Count != 1)
             {
-                return NotFound();
+                user = await _context.Customer.Where(item => item.email == email && item.password == password).ToListAsync();
+                isAdmin = false;
+                if (user == null || user.Count != 1)
+                {
+                    return NotFound();
+                }
             }
 
-            return admin.First();
+            Console.WriteLine(user[0].GetType());
+            var a = Ok(new { isAdmin, user });
+
+            return a;
         }
 
         // GET: api/Admins/5
