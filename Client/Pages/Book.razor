@@ -46,23 +46,15 @@
 									<img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
 								</div>
 								<div class="col-sm">
-									@room.name
-									@room.bedAmount
-									@room.price
+									Type: @room.name <br/>
+									Senge: @room.bedAmount <br/>
+									Pris: @room.price <br/>
 								</div>
 								<div class="col-sm">
 									@if (GlobalAuthState.UserId != null)
 									{
-
-										<button type="submit" class="btn btn-primary" value="Book" onclick="()=>input.typeId = room.id">Book</button>
-									if (!string.IsNullOrEmpty(bookerrormsg))
-										{
-											<div class="alert alert-danger">
-												@bookerrormsg
-											</div>
-										}
+										<button type="submit" class="btn btn-primary" value="Book" @onclick="()=>input.typeId = room.id">Book</button>
 									}
-
 								</div>
 							</div>
 						</div>

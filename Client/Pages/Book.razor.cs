@@ -6,6 +6,7 @@ using Client.Shared.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Reflection.Metadata;
+using System.Diagnostics.Metrics;
 
 namespace Client.Pages
 {
@@ -40,42 +41,35 @@ namespace Client.Pages
             uint? UserId = GlobalAuthState.UserId;
             if (UserId != null)
             {
-                //String startString = input.inputBooking.startDate.ToShortDateString().Replace("/", "-");
-                //String endString = input.inputBooking.endDate.ToShortDateString().Replace("/", "-");
-                //Console.WriteLine(startString.ToString());
                 try
                 {
+                    Console.WriteLine(input.typeId);
                     availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId!}"))!;
                 } catch {
-                   // await JsRuntime.InvokeVoidAsync("alert", "Der er ingen ledige rum!"); // Alert
+                    // await JsRuntime.InvokeVoidAsync("alert", "Der er ingen ledige rum!"); // Alert
                     bookerrormsg = "Der er ingen ledige rum!";
                     StateHasChanged();
 					return;
                 }
-
-                var a = (await Http.GetFromJsonAsync<dynamic>($"https://localhost:7285/api/Admins/getFromEmail/k@k.k/k"))!;
-                Console.WriteLine(a);
-                var b = JsonSerializer.Serialize<Dictionary<Dictionary<String, bool>, Dictionary<String, dynamic>>>(a);
-                Console.WriteLine(b);
-                // Create booking to post
-                //Booking booking = new()
-                //{
-                //    startDate = input.inputBooking.startDate,
-                //    endDate = input.inputBooking.endDate,
-                //    roomId = availableRoom.id,
-                //    customerid = (uint)UserId
-                //};
+                
+                /*****Create booking to post*****/
+                Booking booking = new()
+                {
+                    startDate = input.inputBooking.startDate,
+                    endDate = input.inputBooking.endDate,
+                    roomId = availableRoom.id,
+                    customerid = (uint)UserId
+                };
 
 
-                ///*****CREATE BOOKING*****/
-                //var json = JsonSerializer.Serialize(booking);
-                //var content = new StringContent(json, Encoding.UTF8, "application/json");
+                /*****CREATE BOOKING*****/
+                var json = JsonSerializer.Serialize(booking);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                //HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
-                //var response = await client.PostAsync("Bookings", content);
+                HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
+                var response = await client.PostAsync("Bookings", content);
 
               //  await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
-                bookerrormsg = "Booking oprettet!";
 				NavigationManager.NavigateTo("/payment");
 				StateHasChanged();
 
