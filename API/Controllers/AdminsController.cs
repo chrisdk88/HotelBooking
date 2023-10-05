@@ -49,18 +49,15 @@ namespace API.Controllers
 
             if (user == null || user.Count != 1)
             {
-                user = await _context.Customer.Where(item => item.email == email && item.password == password).ToListAsync();
+                List<Customer> customer = await _context.Customer.Where(item => item.email == email && item.password == password).ToListAsync();
                 isAdmin = false;
-                if (user == null || user.Count != 1)
+                if (customer == null || customer.Count != 1)
                 {
                     return NotFound();
                 }
+                return Ok(new { customer = customer.First() });
             }
-
-            Console.WriteLine(user[0].GetType());
-            var a = Ok(new { isAdmin, user });
-
-            return a;
+            return Ok(new { admin = user.First });
         }
 
         // GET: api/Admins/5
