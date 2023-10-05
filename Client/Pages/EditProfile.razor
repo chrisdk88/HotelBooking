@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="formPassword">Password</label>
-                                    <InputText required type="password" id="formPassword" class="form-control" placeholder="Password" @bind-Value="customer.password" />
+                                    <InputText required type="password" id="formPassword" class="form-control" placeholder="Password" @bind-Value="customer.password" @onchange="()=>newPass = true" />
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="formPhoneNumber">Tlf. nr.</label>

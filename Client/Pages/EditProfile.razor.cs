@@ -9,6 +9,7 @@ namespace Client.Pages
 {
     public partial class EditProfile
     {
+        public bool newPass = false;
         private async Task getUserById()
         {
             using (var httpClient = new HttpClient())
@@ -41,12 +42,7 @@ namespace Client.Pages
 
         private async Task saveEditProfileChanges()
         {
-            //hash the password
-            var sha = SHA256.Create();
-            var passwordBytes = Encoding.Default.GetBytes(customer.password);
-            var hashedPasswordBytes = sha.ComputeHash(passwordBytes);
-            customer.password = BitConverter.ToString(hashedPasswordBytes).Replace("-", "").ToLower();
-
+            
             // Serialize the userModel to JSON
             string json = System.Text.Json.JsonSerializer.Serialize(customer);
 
@@ -63,6 +59,14 @@ namespace Client.Pages
             else
             {
                 //NavigationManager.NavigateTo("/signup");
+            }
+            if (newPass)
+            {
+                //hash the password
+                var sha = SHA256.Create();
+                var passwordBytes = Encoding.Default.GetBytes(customer.password);
+                var hashedPasswordBytes = sha.ComputeHash(passwordBytes);
+                customer.password = BitConverter.ToString(hashedPasswordBytes).Replace("-", "").ToLower();
             }
         }
     }
