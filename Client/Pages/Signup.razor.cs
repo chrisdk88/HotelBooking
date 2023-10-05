@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Models; // Assuming Customer is in this namespace
+using Models; 
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text; // Required for Encoding
@@ -31,13 +31,11 @@ namespace Client.Pages
 			if (response.IsSuccessStatusCode)
             {
                 // Registration successful
-                // You can redirect to a success page or display a success message here
                 NavigationManager.NavigateTo("/");
             }
             else
             {
                 // Registration failed
-                // Handle errors, display error messages, etc.
                 NavigationManager.NavigateTo("/signup");
             }
 		}
