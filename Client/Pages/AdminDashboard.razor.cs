@@ -13,6 +13,13 @@ namespace Client.Pages
             public int typeId;
             public int roomNumber;
         }
+
+        public async Task<List<Room>?> GetListOfRooms()
+        {
+            var allRooms = await Http.GetFromJsonAsync<List<Room>>("https://localhost:7285/api/Rooms");
+
+            return allRooms;
+        }
         public async Task addRoom()
         {
             Room room = new Room()
