@@ -60,8 +60,8 @@ namespace API.Controllers
             }
 
 
-            DateTime start = DateTime.Now;
-            DateTime end = DateTime.Now;
+            DateTime start = DateTime.Today.AddHours(12);
+            DateTime end = DateTime.Today.AddHours(12);
             List<Booking>? allBookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).Where(item => item.room.type.id == typeId).ToListAsync();
             List<Room>? allRooms = await _context.Room.Include(item => item.type).Where(item => item.typeId == typeId).ToListAsync();
 
@@ -71,9 +71,10 @@ namespace API.Controllers
                 for (int index = 0; index < allRooms.Count(); index++)
                 {
                     var tempRoom = allRooms[index];
-                    if (tempRoom == tempBooking.room 
-                        //&& start > tempBooking.endDate && tempBooking.startDate > end
-                        )
+                    Console.WriteLine(start >= tempBooking.endDate);
+                    Console.WriteLine(tempBooking.startDate >= end);
+                    Console.WriteLine(start > tempBooking.endDate && tempBooking.startDate > end);
+					if (tempRoom == tempBooking.room && start > tempBooking.endDate && tempBooking.startDate > end)
                     {
                         allRooms.RemoveAt(index);
                     }

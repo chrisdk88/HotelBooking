@@ -2,7 +2,7 @@
 @using Client.Pages;
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/profile"><p>@GlobalAuthState.Name </p></a>
+        <a class="navbar-brand" href="/mybookings"><p>@GlobalAuthState.Name </p></a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,7 +38,7 @@
         @if (GlobalAuthState.UserId != null)
         {
             <div class="nav-item px-3">
-                <NavLink class="nav-link" href="profile">
+                <NavLink class="nav-link" href="mybookings">
                     <span class="oi oi-calendar" @onclick="UpdateComponent" aria-hidden="true"></span> Se booking
                 </NavLink>
             </div>

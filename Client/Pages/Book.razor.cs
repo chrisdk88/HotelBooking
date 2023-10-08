@@ -17,8 +17,8 @@ namespace Client.Pages
         {
             inputBooking = new Booking()
             {
-                startDate = DateTime.Now,
-                endDate = DateTime.Now.AddDays(1)
+                startDate = DateTime.Today.AddHours(12),
+                endDate = DateTime.Today.AddHours(12).AddDays(1)
             },
         };
 	
