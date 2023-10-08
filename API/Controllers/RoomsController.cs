@@ -62,18 +62,35 @@ namespace API.Controllers
 
             DateTime start = DateTime.Today.AddHours(12);
             DateTime end = DateTime.Today.AddHours(12);
-            List<Booking>? allBookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).Where(item => item.room.type.id == typeId).ToListAsync();
+
+            /*****Get all bookings, include all objects within*****/
+            List<Booking>? allBookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
+            /*****Sort bookings to only ones with typeId*****/
+            allBookings = allBookings.Where(item => item.room.type.id == typeId).ToList();
+
+            /*****Get all rooms*****/
             List<Room>? allRooms = await _context.Room.Include(item => item.type).Where(item => item.typeId == typeId).ToListAsync();
 
+
+            /*
+             bookinglist = getBookings();
+             roomlist = getRooms();
+             foreach item in roomlist 
+                if(bookinglist.where(booking => booking.room == item).isnotempty) 
+                    roomlist.remove(item)
+
+             if(roomlist.isnotempty) 
+                book
+             else 
+                ingen ledige rooms
+             */
             for (int i = 0; i < allBookings.Count; i++)
             {
                 var tempBooking = allBookings[i];
                 for (int index = 0; index < allRooms.Count(); index++)
                 {
                     var tempRoom = allRooms[index];
-                    Console.WriteLine(start >= tempBooking.endDate);
-                    Console.WriteLine(tempBooking.startDate >= end);
-                    Console.WriteLine(start > tempBooking.endDate && tempBooking.startDate > end);
+
 					if (tempRoom == tempBooking.room && start > tempBooking.endDate && tempBooking.startDate > end)
                     {
                         allRooms.RemoveAt(index);
