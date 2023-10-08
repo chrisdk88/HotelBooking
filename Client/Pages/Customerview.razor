@@ -39,10 +39,8 @@
 </div>
 
 @code {
-    private List<Booking>? bookings;
-
     protected override async Task OnInitializedAsync()
     {
-        bookings = await GetUserBookings();
+        await GetUserBookings();
     }
 }

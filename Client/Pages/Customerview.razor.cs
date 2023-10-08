@@ -11,13 +11,13 @@ namespace Client.Pages
 {
     public partial class Customerview
     {
+        public List<Booking>? bookings;
         public async Task<List<Booking>?> GetUserBookings()
         {
             var userId = GlobalAuthState.UserId;
             if (userId != null)
             {
-                var allTypes = await Http.GetFromJsonAsync<List<Booking>>($"https://localhost:7285/api/Bookings/user/{userId}");
-                return allTypes;
+                bookings = await Http.GetFromJsonAsync<List<Booking>>($"https://localhost:7285/api/Bookings/user/{userId}");
             }
             return null;
         }
@@ -32,9 +32,11 @@ namespace Client.Pages
             
             if (response.IsSuccessStatusCode)
             {
+                var userId = GlobalAuthState.UserId;
+                bookings = await Http.GetFromJsonAsync<List<Booking>>($"https://localhost:7285/api/Bookings/user/{userId}");
+                StateHasChanged();
                 await JsRuntime.InvokeVoidAsync("alert", "Booking annulleret!"); // Alert
             }
-
 
             return;
         }
