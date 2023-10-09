@@ -12,14 +12,13 @@ namespace Client.Pages
     public partial class Customerview
     {
         public List<Booking>? bookings;
-        public async Task<List<Booking>?> GetUserBookings()
+        public async Task GetUserBookings()
         {
             var userId = GlobalAuthState.UserId;
             if (userId != null)
             {
                 bookings = await Http.GetFromJsonAsync<List<Booking>>($"https://localhost:7285/api/Bookings/user/{userId}");
             }
-            return null;
         }
 
 

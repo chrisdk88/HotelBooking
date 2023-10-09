@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Reflection.Metadata;
 using System.Diagnostics.Metrics;
+using System.Web;
 
 namespace Client.Pages
 {
@@ -30,7 +31,9 @@ namespace Client.Pages
 
         public async Task<List<RoomType>?> GetListOfTypes()
         {
-            var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
+			Console.WriteLine(DateTime.Today.ToShortDateString().Replace("/", "-"));
+			Console.WriteLine(HttpUtility.UrlEncode(DateTime.Today.ToShortDateString().Replace("/", "-")));
+			var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
 
             return allTypes;
         }

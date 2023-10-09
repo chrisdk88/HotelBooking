@@ -64,13 +64,24 @@ namespace API.Controllers
             DateTime end = DateTime.Today.AddHours(12);
 
             /*****Get all bookings, include all objects within*****/
-            List<Booking>? allBookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
-            /*****Sort bookings to only ones with typeId*****/
-            allBookings = allBookings.Where(item => item.room.type.id == typeId).ToList();
+            List<Booking>? bookingList = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
 
             /*****Get all rooms*****/
-            List<Room>? allRooms = await _context.Room.Include(item => item.type).Where(item => item.typeId == typeId).ToListAsync();
+            List<Room>? roomList = await _context.Room.Include(item => item.type).ToListAsync();
 
+            foreach(Room room in roomList)
+            {
+                if (bookingList.Where(booking => booking.room == room).Count() > 0)
+                {
+                    roomList.Remove(room);
+                }
+            }
+
+            if (roomList.Count <= 0)
+            {
+                return NotFound();
+            }
+            return roomList.First();
 
             /*
              bookinglist = getBookings();
@@ -84,30 +95,6 @@ namespace API.Controllers
              else 
                 ingen ledige rooms
              */
-            for (int i = 0; i < allBookings.Count; i++)
-            {
-                var tempBooking = allBookings[i];
-                for (int index = 0; index < allRooms.Count(); index++)
-                {
-                    var tempRoom = allRooms[index];
-
-					if (tempRoom == tempBooking.room && start > tempBooking.endDate && tempBooking.startDate > end)
-                    {
-                        allRooms.RemoveAt(index);
-                    }
-                }
-                if (allRooms.Contains(tempBooking.room!))
-                {
-                    allRooms.Remove(tempBooking.room!);
-                }
-            }
-
-            if (allRooms.Count <= 0)
-            {
-                return NotFound();
-            }
-
-            return allRooms[0];
         }
 
         // PUT: api/Rooms/5

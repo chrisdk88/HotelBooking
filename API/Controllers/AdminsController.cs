@@ -34,31 +34,18 @@ namespace API.Controllers
         }
 
         // GET: api/Admins
-        [HttpGet("getFromEmail/{email}/{password}")]
-        public async Task<IActionResult> GetUserByEmailPassword(String email, String password)
+        [HttpGet("{email}/{password}")]
+        public async Task<ActionResult<Admin>> GetAdminByEmailPassword(String email, String password)
         {
-            if (_context.Admin == null)
-            {
-                return NotFound();
-            }
+			if (_context.Admin == null)
+			{
+				return NotFound();
+			}
 
-            dynamic user;
-            bool isAdmin = true;
+			var admin = await _context.Admin.Where(item => item.email == email && item.password == password).ToListAsync();
 
-            user = await _context.Admin.Where(item => item.email == email && item.password == password).ToListAsync();
-
-            if (user == null || user.Count != 1)
-            {
-                List<Customer> customer = await _context.Customer.Where(item => item.email == email && item.password == password).ToListAsync();
-                isAdmin = false;
-                if (customer == null || customer.Count != 1)
-                {
-                    return NotFound();
-                }
-                return Ok(new { customer = customer.First() });
-            }
-            return Ok(new { admin = user.First });
-        }
+			return admin == null || admin.Count() != 1 ? NotFound() : admin.First();
+		}
 
         // GET: api/Admins/5
         [HttpGet("{id}")]
