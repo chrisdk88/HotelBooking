@@ -10,10 +10,8 @@ namespace Client.Pages
     public partial class Signup
     {
         private HttpClient client = new HttpClient() { BaseAddress = new Uri("https://localhost:7285/") };
-        string errormsg;
         private async Task RegisterUser()
         {
-          
             //hash the password
             var sha = SHA256.Create();
 			var passwordBytes = Encoding.Default.GetBytes(customer.password);

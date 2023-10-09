@@ -10,5 +10,7 @@
         public Admin? admin{ get; set; }
         public uint roomId { get; set; }
         public Room? room { get; set; }
+        public uint? adminid { get; set; }
+        public Admin? admin { get; set; }
     }
 }
