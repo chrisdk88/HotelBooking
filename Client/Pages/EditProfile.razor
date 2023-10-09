@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="formPassword">Password</label>
-                                    <InputText required type="password" id="formPassword" class="form-control" placeholder="Password" @bind-Value="customer.password" @onchange="()=>newPass = true" />
+                                    <InputText required type="password" id="formPassword" class="form-control" placeholder="Password" @bind-Value="customer.password" @onchange="()=>Console.WriteLine(newPass)" />
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="formPhoneNumber">Tlf. nr.</label>
@@ -62,14 +62,6 @@
                                     <label class="form-label" for="formCity">By</label>
                                     <InputText required type="text" id="formCity" class="form-control" placeholder="By" @bind-Value="customer.city" />
                                 </div>
-                                @if (true)
-                                {
-                                    Console.WriteLine(GlobalAuthState.UserId);
-                                    Console.WriteLine("Test");
-                                    Console.WriteLine(customer.name);
-                                    Console.WriteLine(customer.email);
-                                    Console.WriteLine(customer.password);
-                                }
                                 <button type="submit" class="btn btn-success btn-lg mb-1" @onclick="saveEditProfileChanges">Ret oplysninger</button>
                             </form>
                         }

@@ -24,11 +24,6 @@ namespace Client.Pages
                     if (response != null)
                     {
                         customer = response;
-                        Console.WriteLine($"Du er inde og brugeren id er {GlobalAuthState.UserId}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Virker ikke, du kommer ikke ind");
                     }
                 }
                 catch (Exception ex)
@@ -42,7 +37,15 @@ namespace Client.Pages
 
         private async Task saveEditProfileChanges()
         {
-            
+            if (newPass)
+            {
+                //hash the password
+                var sha = SHA256.Create();
+                var passwordBytes = Encoding.Default.GetBytes(customer.password);
+                var hashedPasswordBytes = sha.ComputeHash(passwordBytes);
+                var hashedPassword = BitConverter.ToString(hashedPasswordBytes).Replace("-", "").ToLower();
+                customer.password = hashedPassword;
+            }
             // Serialize the userModel to JSON
             string json = System.Text.Json.JsonSerializer.Serialize(customer);
 
@@ -51,23 +54,6 @@ namespace Client.Pages
 
             // Use HttpClient to send a POST request to your Swagger API
             var response = await client.PutAsync($"api/Customers/{GlobalAuthState.UserId}", content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                //NavigationManager.NavigateTo("/");
-            }
-            else
-            {
-                //NavigationManager.NavigateTo("/signup");
-            }
-            if (newPass)
-            {
-                //hash the password
-                var sha = SHA256.Create();
-                var passwordBytes = Encoding.Default.GetBytes(customer.password);
-                var hashedPasswordBytes = sha.ComputeHash(passwordBytes);
-                customer.password = BitConverter.ToString(hashedPasswordBytes).Replace("-", "").ToLower();
-            }
         }
     }
 }

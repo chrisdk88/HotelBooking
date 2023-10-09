@@ -17,8 +17,8 @@ namespace Client.Pages
         {
             inputBooking = new Booking()
             {
-                startDate = DateTime.Now,
-                endDate = DateTime.Now.AddDays(1)
+                startDate = DateTime.Today.AddHours(12),
+                endDate = DateTime.Today.AddHours(12).AddDays(1)
             },
         };
 	
@@ -43,10 +43,8 @@ namespace Client.Pages
             {
                 try
                 {
-                    Console.WriteLine(input.typeId);
                     availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId!}"))!;
                 } catch {
-                    // await JsRuntime.InvokeVoidAsync("alert", "Der er ingen ledige rum!"); // Alert
                     bookerrormsg = "Der er ingen ledige rum!";
                     StateHasChanged();
 					return;
