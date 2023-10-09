@@ -4,6 +4,7 @@
 @inherits LayoutComponentBase
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 
+
 <PageTitle>Opret</PageTitle>
 
 <EditForm Model="@customer"> 
@@ -25,6 +26,7 @@
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formEmail">Email</label>
                                     <InputText required type="email" id="formEmail" class="form-control" placeholder="Email" @bind-Value="customer.email" />
+                                    
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="formPassword">Password</label>
@@ -62,4 +64,5 @@
 
 @code {
     private Customer customer = new Customer();
+    private User user = new User();
 }

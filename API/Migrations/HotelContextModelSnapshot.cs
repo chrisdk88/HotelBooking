@@ -60,7 +60,10 @@ namespace API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
 
-                    b.Property<long>("customerid")
+                    b.Property<long?>("adminid")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("customerid")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("endDate")
@@ -73,6 +76,8 @@ namespace API.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
+
+                    b.HasIndex("adminid");
 
                     b.HasIndex("customerid");
 
@@ -212,17 +217,21 @@ namespace API.Migrations
 
             modelBuilder.Entity("Models.Booking", b =>
                 {
+                    b.HasOne("Models.Admin", "admin")
+                        .WithMany()
+                        .HasForeignKey("adminid");
+
                     b.HasOne("Models.Customer", "customer")
                         .WithMany()
-                        .HasForeignKey("customerid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("customerid");
 
                     b.HasOne("Models.Room", "room")
                         .WithMany()
                         .HasForeignKey("roomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("admin");
 
                     b.Navigation("customer");
 

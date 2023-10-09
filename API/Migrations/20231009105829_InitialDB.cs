@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -122,18 +122,23 @@ namespace API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     startDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     endDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    customerid = table.Column<long>(type: "bigint", nullable: false),
-                    roomId = table.Column<long>(type: "bigint", nullable: false)
+                    customerid = table.Column<long>(type: "bigint", nullable: true),
+                    roomId = table.Column<long>(type: "bigint", nullable: false),
+                    adminid = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Booking", x => x.id);
                     table.ForeignKey(
+                        name: "FK_Booking_Admin_adminid",
+                        column: x => x.adminid,
+                        principalTable: "Admin",
+                        principalColumn: "id");
+                    table.ForeignKey(
                         name: "FK_Booking_Customer_customerid",
                         column: x => x.customerid,
                         principalTable: "Customer",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_Booking_Room_roomId",
                         column: x => x.roomId,
@@ -146,6 +151,11 @@ namespace API.Migrations
                 name: "IX_Admin_Hotelid",
                 table: "Admin",
                 column: "Hotelid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Booking_adminid",
+                table: "Booking",
+                column: "adminid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_customerid",
@@ -177,10 +187,10 @@ namespace API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Admin");
+                name: "Booking");
 
             migrationBuilder.DropTable(
-                name: "Booking");
+                name: "Admin");
 
             migrationBuilder.DropTable(
                 name: "Customer");
