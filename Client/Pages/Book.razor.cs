@@ -31,8 +31,8 @@ namespace Client.Pages
 
         public async Task<List<RoomType>?> GetListOfTypes()
         {
-			Console.WriteLine(DateTime.Today.ToShortDateString().Replace("/", "-"));
-			Console.WriteLine(HttpUtility.UrlEncode(DateTime.Today.ToShortDateString().Replace("/", "-")));
+			Console.WriteLine(DateTime.Today.ToUniversalTime());
+			Console.WriteLine(HttpUtility.UrlEncode("abc"));
 			var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
 
             return allTypes;

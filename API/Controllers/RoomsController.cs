@@ -66,22 +66,23 @@ namespace API.Controllers
             /*****Get all bookings, include all objects within*****/
             List<Booking>? bookingList = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
 
-            /*****Get all rooms*****/
-            List<Room>? roomList = await _context.Room.Include(item => item.type).ToListAsync();
+            /*****Get all rooms, Make list for all usefull rooms*****/
+            List<Room>? roomList = await _context.Room.Include(item => item.type).Where(item => item.typeId == typeId).ToListAsync();
+            List<Room> finalRooms = new();
 
             foreach(Room room in roomList)
             {
-                if (bookingList.Where(booking => booking.room == room).Count() > 0)
+                if (bookingList.Where(booking => booking.room == room).Count() < 1)
                 {
-                    roomList.Remove(room);
+                    finalRooms.Add(room);
                 }
             }
 
-            if (roomList.Count <= 0)
+            if (finalRooms.Count < 1)
             {
                 return NotFound();
             }
-            return roomList.First();
+            return finalRooms.First();
 
             /*
              bookinglist = getBookings();
