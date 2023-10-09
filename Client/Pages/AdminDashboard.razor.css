@@ -1,5 +1,14 @@
 ﻿.div-style {
-    min-height: 400px;
-    overflow: hidden;
+    max-height: 400px;
+    overflow: auto;
     background-color: black;
+    overflow-x: hidden;
+}
+
+.bgGray {
+    background-color: lightgray;
+}
+
+.bgGrayDark {
+    background-color: gray;
 }

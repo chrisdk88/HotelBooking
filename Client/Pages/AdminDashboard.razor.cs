@@ -2,23 +2,34 @@
 using Models;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 
 namespace Client.Pages
 {
     public partial class AdminDashboard
     {
         private HttpClient client = new HttpClient() { BaseAddress = new Uri("https://localhost:7285/") };
-        public class input 
+        public List<Room>? rooms;
+
+        public Input input = new()
+        {
+            inputBooking = new Booking()
+            {
+                startDate = DateTime.Today.AddHours(12),
+                endDate = DateTime.Today.AddHours(12).AddDays(7)
+            },
+        };
+        public class Input 
         {
             public int typeId;
             public int roomNumber;
+            
+            public Booking inputBooking;
         }
 
-        public async Task<List<Room>?> GetListOfRooms()
+        public async Task GetListOfRooms()
         {
-            var allRooms = await Http.GetFromJsonAsync<List<Room>>("https://localhost:7285/api/Rooms");
-
-            return allRooms;
+            rooms = await Http.GetFromJsonAsync<List<Room>>("https://localhost:7285/api/Rooms");
         }
         public async Task addRoom()
         {
@@ -36,6 +47,36 @@ namespace Client.Pages
 
             // Use HttpClient to send a POST request to your Swagger API
             var response = await client.PostAsync("api/Rooms", content);
+
+            await GetListOfRooms();
+            StateHasChanged();
+        }
+        public async Task deleteRoom(uint id)
+        {
+            // Create a DELETE request to the API to delete the room
+            var response = await client.DeleteAsync($"api/Rooms/{id}");
+
+            await GetListOfRooms();
+            StateHasChanged();
+        }
+        public async Task inactiveRoom(uint id)
+        {
+            uint? UserId = GlobalAuthState.UserId;
+            /*****Create booking to post*****/
+            Booking booking = new()
+            {
+                startDate = input.inputBooking.startDate,
+                endDate = input.inputBooking.endDate,
+                roomId = id,
+                customerid = (uint)UserId
+            };
+
+            /*****CREATE BOOKING*****/
+            var json = JsonSerializer.Serialize(booking);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
+            var response = await client.PostAsync("Bookings", content);
         }
     }
 }
