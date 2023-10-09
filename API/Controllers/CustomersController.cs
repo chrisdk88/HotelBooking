@@ -15,7 +15,7 @@ namespace API.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly HotelContext _context;
-       
+
         public CustomersController(HotelContext context)
         {
             _context = context;
@@ -25,10 +25,10 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer()
         {
-          if (_context.Customer == null)
-          {
-              return NotFound();
-          }
+            if (_context.Customer == null)
+            {
+                return NotFound();
+            }
             return await _context.Customer.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(uint id)
         {
-          if (_context.Customer == null)
-          {
-              return NotFound();
-          }
+            if (_context.Customer == null)
+            {
+                return NotFound();
+            }
             var customer = await _context.Customer.FindAsync(id);
 
             if (customer == null)
@@ -58,11 +58,12 @@ namespace API.Controllers
             {
                 return NotFound();
             }
-            
+
             var customer = await _context.Customer.Where(item => item.email == email && item.password == password).ToListAsync();
 
             return customer == null || customer.Count() != 1 ? NotFound() : customer.First();
         }
+
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -100,10 +101,16 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
-          if (_context.Customer == null)
-          {
-              return Problem("Entity set 'HotelContext.Customer'  is null.");
-          }
+            if (_context.Customer == null)
+            {
+                return Problem("Entity set 'HotelContext.Customer'  is null.");
+            }
+            var res = await _context.Customer.Where(item => item.email == customer.email).ToListAsync();
+            if (res.Count > 0)
+            {
+                return Problem("email is being used");
+            }
+            
             _context.Customer.Add(customer);
             await _context.SaveChangesAsync();
 
