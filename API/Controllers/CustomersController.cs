@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Data;
 using Models;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace API.Controllers
 {
@@ -105,12 +106,14 @@ namespace API.Controllers
             {
                 return Problem("Entity set 'HotelContext.Customer'  is null.");
             }
+
             var res = await _context.Customer.Where(item => item.email == customer.email).ToListAsync();
+
             if (res.Count > 0)
             {
                 return Problem("email is being used");
             }
-            
+
             _context.Customer.Add(customer);
             await _context.SaveChangesAsync();
 
