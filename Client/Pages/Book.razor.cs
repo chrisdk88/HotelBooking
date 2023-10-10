@@ -46,7 +46,7 @@ namespace Client.Pages
             {
                 try
                 {
-                    availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{4}"))!;
+                    availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId}"))!;
                 } catch {
                     if (!bookerrormsg.ContainsKey(input.typeId))
                     {
