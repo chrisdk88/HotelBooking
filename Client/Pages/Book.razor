@@ -11,7 +11,7 @@
 <h1>Booking</h1>
 @if (GlobalAuthState.UserId == null)
 {
-	<p class="btn btn-danger">Man skal være logget ind for at kunne booke <a class="text-white" href="/login">log på her</a></p>
+	<a href="/login" class="btn btn-danger text-white">Man skal være logget ind for at kunne booke <u>log på her</u></a>
 }
 <EditForm Model="@input" OnValidSubmit="@sendRequest">
 	<div class="container">
@@ -41,6 +41,9 @@
 					@foreach (RoomType room in types)
 					{
 						<div class="container, card">
+							<div class="alert alert-danger">
+								@bookerrormsg
+							</div>
 							<div class="row">
 								<div class="col-sm">
 									<img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
