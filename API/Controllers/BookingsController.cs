@@ -104,7 +104,6 @@ namespace API.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
