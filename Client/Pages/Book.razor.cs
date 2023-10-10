@@ -38,7 +38,7 @@ namespace Client.Pages
             return allTypes;
         }
 		Room availableRoom;
-        string bookerrormsg;
+        Dictionary<uint, string> bookerrormsg = new();
 		public async Task sendRequest()
         {
             uint? UserId = GlobalAuthState.UserId;
@@ -46,9 +46,13 @@ namespace Client.Pages
             {
                 try
                 {
-                    availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId!}"))!;
+                    availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{4}"))!;
                 } catch {
-                    bookerrormsg = "Der er ingen ledige rum!";
+                    if (!bookerrormsg.ContainsKey(input.typeId))
+                    {
+                        bookerrormsg.Add(key: input.typeId, value: "Der er ingen ledige rum!");
+                    }
+                    //bookerrormsg = ;
                     StateHasChanged();
 					return;
                 }

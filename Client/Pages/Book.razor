@@ -41,9 +41,12 @@
 					@foreach (RoomType room in types)
 					{
 						<div class="container, card">
-							<div class="alert alert-danger">
-								@bookerrormsg
-							</div>
+							@if (bookerrormsg.ContainsKey(room.id))
+							{
+								<div class="alert alert-danger">
+									@bookerrormsg[room.id]
+								</div>
+							}
 							<div class="row">
 								<div class="col-sm">
 									<img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg" style="height:100px;">
