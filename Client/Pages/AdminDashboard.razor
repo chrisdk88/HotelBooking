@@ -11,13 +11,11 @@
 
 @code
 {
-    private input i = new();
-
-    private List<Room>? rooms;
+    private Input i = new();
 
     protected override async Task OnInitializedAsync()
     {
-        rooms = await GetListOfRooms();
+        await GetListOfRooms();
     }
 }
 
@@ -33,7 +31,7 @@
             else
             {
                 <EditForm Model="@i">
-                    <div class="bg-secondary mb-3">
+                    <div class="bgGray mb-3">
                         <h2>Tilføj et rum</h2>
                         <div class="">
                             <div class="form-outline mb-4">
@@ -49,25 +47,42 @@
                     </div>
                     @if (rooms != null)
                     {
-                        <div class="div-style bg-danger">
-                            @foreach (var room in rooms.Where(item => item.type.name == "Standard"))
-                            {
-                                <p>@room.roomNum</p>
-                                <button class="btn btn-success">Slet</button>
-                                <button class="btn btn-success">Optag</button>
-                            }
-                            @foreach (var room in rooms.Where(item => item.type.name == "Premium"))
-                            {
-                                <p>@room.roomNum</p>
-                                <button class="btn btn-success">Slet</button>
-                                <button class="btn btn-success">Optag</button>
-                            }
-                            @foreach (var room in rooms.Where(item => item.type.name == "Deluxe"))
-                            {
-                                <p>@room.roomNum</p>
-                                <button class="btn btn-success">Slet</button>
-                                <button class="btn btn-success">Optag</button>
-                            }
+                        <div class="div-style bgGray col-12 mb-3">
+                            <div class="row">
+                                <div class="col-sm-4 col-12">
+                                    <h1>Standard</h1>
+                                    @foreach (var room in rooms.Where(item => item.type.name == "Standard"))
+                                    {
+                                        <div class="bgGrayDark rounded-3 mb-3 p-2">
+                                            <p>Værelse @room.roomNum</p>
+                                            <button class="btn btn-success" @onclick="() => deleteRoom(room.id)">Slet</button>
+                                            <button class="btn btn-success" @onclick="() => inactiveRoom(room.id)">Optag</button>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-sm-4 col-12">
+                                    <h1>Premium</h1>
+                                    @foreach (var room in rooms.Where(item => item.type.name == "Premium"))
+                                    {
+                                        <div class="bgGrayDark rounded-3 mb-3 p-2">
+                                            <p>Værelse @room.roomNum</p>
+                                            <button class="btn btn-success" @onclick="() => deleteRoom(room.id)">Slet</button>
+                                            <button class="btn btn-success" @onclick="() => inactiveRoom(room.id)">Optag</button>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-sm-4 col-12">
+                                    <h1>Deluxe</h1>
+                                    @foreach (var room in rooms.Where(item => item.type.name == "Deluxe"))
+                                    {
+                                        <div class="bgGrayDark rounded-3 mb-3 p-2">
+                                            <p>Værelse @room.roomNum</p>
+                                            <button class="btn btn-success" @onclick="() => deleteRoom(room.id)">Slet</button>
+                                            <button class="btn btn-success" @onclick="() => inactiveRoom(room.id)">Optag</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     }
                 </EditForm>

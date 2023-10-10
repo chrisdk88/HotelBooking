@@ -32,16 +32,14 @@ namespace Client.Pages
 
         public async Task<List<RoomType>?> GetListOfTypes()
         {
-            Console.WriteLine(DateTime.Today.ToShortDateString().Replace("/", "-"));
-            Console.WriteLine(HttpUtility.UrlEncode(DateTime.Today.ToShortDateString().Replace("/", "-")));
-            var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
+			Console.WriteLine(DateTime.Today.ToUniversalTime());
+			Console.WriteLine(HttpUtility.UrlEncode("abc"));
+			var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
 
             return allTypes;
         }
-        public Booking? booking { get; set; }
-
-        Room availableRoom;
-        string bookerrormsg;
+		Room availableRoom;
+        Dictionary<uint, string> bookerrormsg = new();
 		public async Task sendRequest()
         {
             uint? UserId = GlobalAuthState.UserId;
@@ -49,9 +47,13 @@ namespace Client.Pages
             {
                 try
                 {
-                    availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId!}"))!;
+                    availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId}"))!;
                 } catch {
-                    bookerrormsg = "Der er ingen ledige rum!";
+                    if (!bookerrormsg.ContainsKey(input.typeId))
+                    {
+                        bookerrormsg.Add(key: input.typeId, value: "Der er ingen ledige rum!");
+                    }
+                    //bookerrormsg = ;
                     StateHasChanged();
 					return;
                 }

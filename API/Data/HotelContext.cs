@@ -8,7 +8,6 @@ namespace API.Data
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Booking> Booking { get; set; }
         public DbSet<Customer> Customer { get; set; }
-        public DbSet<Hotel> Hotel { get; set; }
         public DbSet<Room> Room { get; set; }
         public DbSet<Models.RoomType>? RoomType { get; set; }
         public HotelContext(DbContextOptions options) : base(options) { }      
