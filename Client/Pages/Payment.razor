@@ -16,7 +16,7 @@
             <div class="col-12">
                 <div class="d-flex flex-column">
                     <p class="text mb-1">Navn på kort</p>
-                    <input class="form-control mb-3" type="text" placeholder="Name" value="navn">
+                    <input class="form-control mb-3" type="text" placeholder="Name">
                 </div>
             </div>
             <div class="col-12">
@@ -39,7 +39,7 @@
             </div>
             <div class="col-12">
                 <div class="btn btn-primary mb-3" @onclick="ShowAlert">
-                    <span class="ps-3" onclick="@book.sendRequest">Pris: @roomType.price</span>
+                    <span class="ps-3" onclick="@createbooking">Pris: @roomType.price</span>
                     <span class="fas fa-arrow-right"></span>
                 </div>
             </div>

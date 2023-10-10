@@ -11,6 +11,7 @@ using System.Web;
 
 namespace Client.Pages
 {
+    
     public partial class Book
     {
 
@@ -31,13 +32,15 @@ namespace Client.Pages
 
         public async Task<List<RoomType>?> GetListOfTypes()
         {
-			Console.WriteLine(DateTime.Today.ToShortDateString().Replace("/", "-"));
-			Console.WriteLine(HttpUtility.UrlEncode(DateTime.Today.ToShortDateString().Replace("/", "-")));
-			var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
+            Console.WriteLine(DateTime.Today.ToShortDateString().Replace("/", "-"));
+            Console.WriteLine(HttpUtility.UrlEncode(DateTime.Today.ToShortDateString().Replace("/", "-")));
+            var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
 
             return allTypes;
         }
-		Room availableRoom;
+        public Booking? booking { get; set; }
+
+        Room availableRoom;
         string bookerrormsg;
 		public async Task sendRequest()
         {
@@ -52,26 +55,17 @@ namespace Client.Pages
                     StateHasChanged();
 					return;
                 }
-                
+
                 /*****Create booking to post*****/
-                Booking booking = new()
+                booking = new()
                 {
                     startDate = input.inputBooking.startDate,
                     endDate = input.inputBooking.endDate,
                     roomId = availableRoom.id,
                     customerid = (uint)UserId
                 };
-
-
-                /*****CREATE BOOKING*****/
-                var json = JsonSerializer.Serialize(booking);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
-                var response = await client.PostAsync("Bookings", content);
-
-              //  await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
-				NavigationManager.NavigateTo("/payment");
+                //  await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
+                NavigationManager.NavigateTo("/payment");
 				StateHasChanged();
 
 			} else
@@ -80,11 +74,10 @@ namespace Client.Pages
                 NavigationManager.NavigateTo("/login");
             }
         }
-		
-		public bool isBookedInPeriod(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+   
+        public bool isBookedInPeriod(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
         {
             return start1 > end2 && start2 > end1;
         }
- 
     }
 }
