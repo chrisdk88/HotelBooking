@@ -1,12 +1,8 @@
 ﻿using Models;
 using System.Net.Http.Json;
-using System.Text.Json;
-using System.Text;
 using Client.Shared.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System.Reflection.Metadata;
-using System.Diagnostics.Metrics;
 using System.Web;
 
 namespace Client.Pages
@@ -41,6 +37,13 @@ namespace Client.Pages
         Dictionary<uint, string> bookerrormsg = new();
 		public async Task sendRequest()
         {
+            if ((input.inputBooking.endDate - input.inputBooking.startDate).TotalDays < 1)
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Datoerne er ikke gyldige!"); // Alert
+                return;
+            }
+
+
             uint? UserId = GlobalAuthState.UserId;
             if (UserId != null)
             {
@@ -52,7 +55,6 @@ namespace Client.Pages
                     {
                         bookerrormsg.Add(key: input.typeId, value: "Der er ingen ledige rum!");
                     }
-                    //bookerrormsg = ;
                     StateHasChanged();
 					return;
                 }
@@ -66,15 +68,10 @@ namespace Client.Pages
                     customerid = (uint)UserId
                 };
 
+                /*****Save needed data in container*****/
+                BookingStateContainer.SetValue(booking);
+                BookingStateContainer.SetPrice(availableRoom.type.price);
 
-                /*****CREATE BOOKING*****/
-                var json = JsonSerializer.Serialize(booking);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
-                var response = await client.PostAsync("Bookings", content);
-
-              //  await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
 				NavigationManager.NavigateTo("/payment");
 				StateHasChanged();
 
@@ -84,10 +81,21 @@ namespace Client.Pages
                 NavigationManager.NavigateTo("/login");
             }
         }
-		
+
+		protected override async Task OnInitializedAsync()
+		{
+            BookingStateContainer.OnStateChange += StateHasChanged;
+			types = await GetListOfTypes();
+		}
+
 		public bool isBookedInPeriod(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
         {
             return start1 > end2 && start2 > end1;
+        }
+
+        public void Dispose()
+        {
+			BookingStateContainer.OnStateChange -= StateHasChanged;
         }
  
     }

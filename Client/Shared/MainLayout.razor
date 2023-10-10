@@ -4,7 +4,14 @@
 
 <div class="page">
 	<div class="sidebar">
-		<NavMenu />
+		@if (GlobalAuthState.isAdmin)
+		{
+			<NavMenu/>
+		}
+		else
+		{
+			<NavMenu />
+		}
 	</div>
 
 	<main>

@@ -1,9 +1,11 @@
 ﻿@page "/book"
 @inject HttpClient Http
+@inject IJSRuntime JsRuntime
 @using Models;
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
-@inject IJSRuntime JsRuntime
 @using Client.Shared.Utilities
+@implements IDisposable
+@inject Client.Containers.BookingStateContainer BookingStateContainer;
 
 
 <PageTitle>Andet Hotel Booking</PageTitle>
@@ -21,11 +23,11 @@
 					<div class="row">
 						<div class="col-sm">
 							<span>Check In</span><br />
-							<InputDate required min="@input.inputBooking.startDate.ToString("yyyy-MM-dd")" @bind-Value="input.inputBooking.startDate"></InputDate>
+							<InputDate required min="@DateTime.Today.AddHours(12).ToString("yyyy-MM-dd")" @bind-Value="input.inputBooking.startDate"></InputDate>
 						</div>
 						<div class="col-sm">
 							<span>Check Out</span><br />
-							<InputDate required min="@input.inputBooking.endDate.ToString("yyyy-MM-dd")" @bind-Value="@input.inputBooking.endDate"></InputDate>
+							<InputDate required min="@DateTime.Today.AddHours(36).ToString("yyyy-MM-dd")" @bind-Value="@input.inputBooking.endDate"></InputDate>
 						</div>
 					</div>
 				</div>
@@ -54,7 +56,7 @@
 								<div class="col-sm">
 									Type: @room.name <br/>
 									Senge: @room.bedAmount <br/>
-									Pris: @room.price <br/>
+									Pris pr. nat: @room.price <br/>
 								</div>
 								<div class="col-sm">
 									@if (GlobalAuthState.UserId != null)
@@ -74,10 +76,4 @@
 
 @code {
 	private List<RoomType>? types;
-	private uint? roomWithMessage;
-	protected override async Task OnInitializedAsync()
-	{
-		types = await GetListOfTypes();
-	}
-
 }

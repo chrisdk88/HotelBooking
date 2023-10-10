@@ -1,48 +1,56 @@
 ﻿@page "/payment"
 @inject HttpClient Http
-@using Models;
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 @using Client.Shared.Utilities
 @using Client.Pages
-@code{
-    RoomType roomType = new();
-    Book book = new();
+@inject Containers.BookingStateContainer BookingStateContainer
+
+
+@if(booking == null)
+{
+    <p><em>Loading...</em></p>
 }
-<div class="container p-0">
-    <div class="card px-4">
-        <p class="h8 py-3">betaling</p>
-        <div class="row gx-3">
-            <div class="col-12">
-                <div class="d-flex flex-column">
-                    <p class="text mb-1">Navn på kort</p>
-                    <input class="form-control mb-3" type="text" placeholder="Name" value="navn">
+else
+{
+    <div class="container p-0">
+        <div class="card px-4">
+            <p class="h8 py-3">betaling</p>
+            <div class="row gx-3">
+                <div class="col-12">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">Navn på kort</p>
+                        <input class="form-control mb-3" type="text" placeholder="Name" value="navn">
+                    </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <div class="d-flex flex-column">
-                    <p class="text mb-1">Kortnummer</p>
-                    <input class="form-control mb-3" type="number" placeholder="1234 5678 435678">
+                <div class="col-12">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">Kortnummer</p>
+                        <input class="form-control mb-3" type="number" placeholder="1234 5678 435678">
+                    </div>
                 </div>
-            </div>
-            <div class="col-6">
-                <div class="d-flex flex-column">
-                    <p class="text mb-1">Udløbs dato</p>
-                    <input class="form-control mb-3" type="text" placeholder="MM/YYYY">
+                <div class="col-6">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">Udløbs dato</p>
+                        <input class="form-control mb-3" type="text" placeholder="MM/YYYY">
+                    </div>
                 </div>
-            </div>
-            <div class="col-6">
-                <div class="d-flex flex-column">
-                    <p class="text mb-1">CVV/CVC</p>
-                    <input class="form-control mb-3 pt-2 " type="number" placeholder="***">
+                <div class="col-6">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">CVV/CVC</p>
+                        <input class="form-control mb-3 pt-2 " type="number" placeholder="***">
+                    </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <div class="btn btn-primary mb-3" @onclick="ShowAlert">
-                    <span class="ps-3" onclick="@book.sendRequest">Pris: @roomType.price</span>
-                    <span class="fas fa-arrow-right"></span>
+                <div class="col-12">
+                    <div class="btn btn-primary mb-3" @onclick="createBooking">
+                        <span class="ps-3">
+                            @*Udregn pris i alt for alle dage*@
+                            Pris: @((booking.endDate - booking.startDate).TotalDays * BookingStateContainer.Price)
+                        </span>
+                        <span class="fas fa-arrow-right"></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}

@@ -15,8 +15,8 @@
         }
         else
         {
-            <em>
-                <h3>Her kan du se fremtidige reservationer</h3>
+            <h3>Her kan du se fremtidige reservationer</h3>
+            @if (bookings.Count > 0) {
                 @foreach (var item in bookings!)
                 {
                     <div class="mb-3 w-100 p-3 rounded bg-light">
@@ -33,7 +33,10 @@
                         </div>
                     </div>
                 }
-            </em>
+            } else
+            {
+                <p>Du har ikke nogle reservationer</p>
+            }
         }
     </div>
 </div>
