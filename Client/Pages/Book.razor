@@ -27,7 +27,7 @@
 						</div>
 						<div class="col-sm">
 							<span>Check Out</span><br />
-							<InputDate required min="@DateTime.Today.AddHours(36).ToString("yyyy-MM-dd")" @bind-Value="@input.inputBooking.endDate"></InputDate>
+							<InputDate required min="@input.inputBooking.startDate.AddDays(1).ToString("yyyy-MM-dd")" @bind-Value="@input.inputBooking.endDate"></InputDate>
 						</div>
 					</div>
 				</div>

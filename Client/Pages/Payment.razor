@@ -45,7 +45,7 @@ else
                     <div class="btn btn-primary mb-3" @onclick="createBooking">
                         <span class="ps-3">
                             @*Udregn pris i alt for alle dage*@
-                            Pris: @((booking.endDate - booking.startDate).TotalDays * BookingStateContainer.Price)
+                            Pris: @(Math.Ceiling((booking.endDate - booking.startDate).TotalDays) * BookingStateContainer.Price)
                         </span>
                         <span class="fas fa-arrow-right"></span>
                     </div>
