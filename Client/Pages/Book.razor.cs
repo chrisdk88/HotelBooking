@@ -4,6 +4,7 @@ using Client.Shared.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Web;
+using System.Globalization;
 
 namespace Client.Pages
 {
@@ -49,8 +50,12 @@ namespace Client.Pages
             {
                 try
                 {
-                    availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId}"))!;
-                } catch {
+                    String start = input.inputBooking.startDate.ToString("yyyy-MM-dd HH:mm:ss");
+                    String end = input.inputBooking.endDate.ToString("yyyy-MM-dd HH:mm:ss");
+					availableRoom = (await Http.GetFromJsonAsync<Room>($"https://localhost:7285/api/Rooms/GetType/{(uint)input.typeId}/{start}/{end}"))!;
+                } 
+                catch 
+                {
                     if (!bookerrormsg.ContainsKey(input.typeId))
                     {
                         bookerrormsg.Add(key: input.typeId, value: "Der er ingen ledige rum!");

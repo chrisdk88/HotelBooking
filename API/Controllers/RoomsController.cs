@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Data;
 using Models;
+using System.Globalization;
 
 namespace API.Controllers
 {
@@ -50,19 +51,20 @@ namespace API.Controllers
             return room;
         }
 
-        // GET api/Rooms/RoomWithType/1/01-01-0001/01-01-0001
-        [HttpGet("GetType/{typeId}")]
-        public async Task<ActionResult<Room>> GetAvailableRoomWithType(uint typeId)
+		// GET api/Rooms/RoomWithType/1/2023-10-12T12:00:00Z/2023-10-12T12:00:00Z
+		[HttpGet("GetType/{typeId}/{start}/{end}")]
+        public async Task<ActionResult<Room>> GetAvailableRoomWithType(uint typeId, String start, String end)
         {
-            RemoveOldBooking();
+            await RemoveOldBooking();
             if (_context.Booking == null || _context.Room == null)
             {
                 return NotFound();
             }
 
+            
+			DateTime startDate = DateTime.ParseExact(start.Replace(".", ":"), "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
+			DateTime endDate = DateTime.ParseExact(end.Replace(".", ":"), "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
 
-            DateTime start = DateTime.Today.AddHours(12);
-            DateTime end = DateTime.Today.AddHours(12);
 
             /*****Get all bookings, include all objects within*****/
             List<Booking>? bookingList = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
@@ -71,32 +73,19 @@ namespace API.Controllers
             List<Room>? roomList = await _context.Room.Include(item => item.type).Where(item => item.typeId == typeId).ToListAsync();
             List<Room> finalRooms = new();
 
-            foreach(Room room in roomList)
+			foreach (Room room in roomList)
             {
-                if (bookingList.Where(booking => booking.room == room).Count() < 1)
+                if (bookingList.Where(booking => booking.room == room && startDate < booking.endDate && endDate > booking.startDate).Count() < 1)
                 {
                     finalRooms.Add(room);
                 }
-            }
+			}
 
             if (finalRooms.Count < 1)
             {
                 return NotFound();
             }
             return finalRooms.First();
-
-            /*
-             bookinglist = getBookings();
-             roomlist = getRooms();
-             foreach item in roomlist 
-                if(bookinglist.where(booking => booking.room == item).isnotempty) 
-                    roomlist.remove(item)
-
-             if(roomlist.isnotempty) 
-                book
-             else 
-                ingen ledige rooms
-             */
         }
 
         // PUT: api/Rooms/5
@@ -170,7 +159,7 @@ namespace API.Controllers
             return (_context.Room?.Any(e => e.id == id)).GetValueOrDefault();
         }
 
-		private async void RemoveOldBooking()
+		private async Task RemoveOldBooking()
 		{
 			List<Booking>? bookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type)?.ToListAsync();
 			if (bookings == null && bookings.Count > 0)
