@@ -54,6 +54,7 @@ namespace API.Controllers
         [HttpGet("GetType/{typeId}")]
         public async Task<ActionResult<Room>> GetAvailableRoomWithType(uint typeId)
         {
+            RemoveOldBooking();
             if (_context.Booking == null || _context.Room == null)
             {
                 return NotFound();
@@ -168,5 +169,23 @@ namespace API.Controllers
         {
             return (_context.Room?.Any(e => e.id == id)).GetValueOrDefault();
         }
-    }
+
+		private async void RemoveOldBooking()
+		{
+			List<Booking>? bookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type)?.ToListAsync();
+			if (bookings == null && bookings.Count > 0)
+			{
+				return;
+			}
+			foreach (Booking booking in bookings)
+			{
+				if (booking.endDate.Date <= DateTime.Today.AddHours(booking.endDate.Hour))
+				{
+					_context.Booking.Remove(booking);
+				}
+			}
+			await _context.SaveChangesAsync();
+			return;
+		}
+	}
 }

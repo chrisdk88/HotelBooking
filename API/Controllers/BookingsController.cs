@@ -25,19 +25,22 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBooking()
         {
-            if (_context.Booking == null) 
+            RemoveOldBooking();
+            List<Booking> bookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
+
+            if (bookings == null || bookings.Count < 1) 
             {
                 return NotFound();
             }
 
-            List<Booking> bookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type).ToListAsync();
             return bookings;
         }
 
-        // GET: api/Bookings/5
-        [HttpGet("{id}")]
+		// GET: api/Bookings/5
+		[HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBooking(uint id)
         {
+          RemoveOldBooking();
           if (_context.Booking == null)
           {
               return NotFound();
@@ -56,6 +59,7 @@ namespace API.Controllers
         [HttpGet("user/{id}")]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookingFromUserID(uint id)
         {
+            RemoveOldBooking();
             if (_context.Booking == null)
             {
                 return NotFound();
@@ -82,7 +86,9 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBooking(uint id, Booking booking)
         {
-            if (id != booking.id)
+            RemoveOldBooking();
+
+			if (id != booking.id)
             {
                 return BadRequest();
             }
@@ -112,6 +118,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
+          RemoveOldBooking();
           if (_context.Booking == null)
           {
               return Problem("Entity set 'HotelContext.Booking'  is null.");
@@ -142,6 +149,7 @@ namespace API.Controllers
 
             _context.Booking.Remove(booking);
             await _context.SaveChangesAsync();
+            RemoveOldBooking();
 
             return NoContent();
         }
@@ -150,5 +158,23 @@ namespace API.Controllers
         {
             return (_context.Booking?.Any(e => e.id == id)).GetValueOrDefault();
         }
-    }
+
+        private async void RemoveOldBooking()
+        {
+			List<Booking>? bookings = await _context.Booking.Include(item => item.customer).Include(item => item.room).Include(item => item.room.type)?.ToListAsync();
+			if (bookings == null && bookings.Count > 0)
+			{
+                return;
+			}
+			foreach (Booking booking in bookings)
+			{
+				if (booking.endDate.Date <= DateTime.Today.AddHours(booking.endDate.Hour))
+				{
+					_context.Booking.Remove(booking);
+				}
+			}
+			await _context.SaveChangesAsync();
+            return;
+		}
+	}
 }
