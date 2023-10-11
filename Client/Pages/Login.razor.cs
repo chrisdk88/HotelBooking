@@ -28,8 +28,8 @@ namespace Client.Pages
 						GlobalAuthState.UserId = adminuser.id;
 						GlobalAuthState.Name = adminuser.name;
 						GlobalAuthState.isAdmin = true;
-						StateHasChanged();
                         NavigationManager.NavigateTo("/admin");
+                        StateHasChanged();
 
                         return;
 					}

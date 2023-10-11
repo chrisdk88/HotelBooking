@@ -36,7 +36,8 @@ namespace Client.Pages
         }
 		Room availableRoom;
         Dictionary<uint, string> bookerrormsg = new();
-		public async Task sendRequest()
+        public Booking booking { get; set; }
+        public async Task sendRequest()
         {
             if ((input.inputBooking.endDate - input.inputBooking.startDate).TotalDays < 1)
             {
