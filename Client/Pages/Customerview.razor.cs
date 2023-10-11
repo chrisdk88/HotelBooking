@@ -2,10 +2,6 @@
 using Microsoft.JSInterop;
 using Models;
 using System.Net.Http.Json;
-using Microsoft.JSInterop;
-using static Client.Pages.Book;
-using System.Text.Json;
-using System.Text;
 
 namespace Client.Pages
 {
@@ -17,7 +13,13 @@ namespace Client.Pages
             var userId = GlobalAuthState.UserId;
             if (userId != null)
             {
-                bookings = await Http.GetFromJsonAsync<List<Booking>>($"https://localhost:7285/api/Bookings/user/{userId}");
+                try
+                {
+                    bookings = await Http.GetFromJsonAsync<List<Booking>>($"https://localhost:7285/api/Bookings/user/{userId}");
+                } catch
+                {
+                    bookings = new();
+                }
             }
         }
 
@@ -34,7 +36,7 @@ namespace Client.Pages
                 var userId = GlobalAuthState.UserId;
                 bookings = await Http.GetFromJsonAsync<List<Booking>>($"https://localhost:7285/api/Bookings/user/{userId}");
                 StateHasChanged();
-                await JsRuntime.InvokeVoidAsync("alert", "Booking annulleret!"); // Alert
+                await JsRuntime.InvokeVoidAsync("alert", "Reservation annulleret!"); // Alert
             }
 
             return;

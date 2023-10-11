@@ -1,17 +1,12 @@
 ﻿using Models;
 using System.Net.Http.Json;
-using System.Text.Json;
-using System.Text;
 using Client.Shared.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System.Reflection.Metadata;
-using System.Diagnostics.Metrics;
 using System.Web;
 
 namespace Client.Pages
 {
-    
     public partial class Book
     {
 
@@ -43,6 +38,13 @@ namespace Client.Pages
         public Booking booking { get; set; }
         public async Task sendRequest()
         {
+            if ((input.inputBooking.endDate - input.inputBooking.startDate).TotalDays < 1)
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Datoerne er ikke gyldige!"); // Alert
+                return;
+            }
+
+
             uint? UserId = GlobalAuthState.UserId;
             if (UserId != null)
             {
@@ -54,13 +56,12 @@ namespace Client.Pages
                     {
                         bookerrormsg.Add(key: input.typeId, value: "Der er ingen ledige rum!");
                     }
-                    //bookerrormsg = ;
                     StateHasChanged();
 					return;
                 }
-
+                
                 /*****Create booking to post*****/
-                booking = new()
+                Booking booking = new()
                 {
                     startDate = input.inputBooking.startDate,
                     endDate = input.inputBooking.endDate,
@@ -68,8 +69,11 @@ namespace Client.Pages
                     customerid = (uint)UserId
                 };
 
-                //  await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
-                NavigationManager.NavigateTo("/payment");
+                /*****Save needed data in container*****/
+                BookingStateContainer.SetValue(booking);
+                BookingStateContainer.SetPrice(availableRoom.type.price);
+
+				NavigationManager.NavigateTo("/payment");
 				StateHasChanged();
 
 			} else
@@ -78,10 +82,22 @@ namespace Client.Pages
                 NavigationManager.NavigateTo("/login");
             }
         }
-   
-        public bool isBookedInPeriod(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+
+		protected override async Task OnInitializedAsync()
+		{
+            BookingStateContainer.OnStateChange += StateHasChanged;
+			types = await GetListOfTypes();
+		}
+
+		public bool isBookedInPeriod(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
         {
             return start1 > end2 && start2 > end1;
         }
+
+        public void Dispose()
+        {
+			BookingStateContainer.OnStateChange -= StateHasChanged;
+        }
+ 
     }
 }

@@ -1,32 +1,39 @@
 ﻿
 using Microsoft.JSInterop;
-using Client.Pages;
+using Models;
 using System.Text.Json;
 using System.Text;
-using Models;
-using Microsoft.AspNetCore.Components;
+
 
 namespace Client.Pages
 {
 	public partial class Payment
 	{
-        private  void ShowAlert()
+        private Booking? booking = null;
+
+        protected override void OnInitialized()
         {
-            JSRuntime.InvokeVoidAsync("alert", "Booking oprettet");
+            base.OnInitialized();
+            try
+            {
+                booking = BookingStateContainer.Value;
+            } catch
+            {
+                Console.WriteLine("error");
+            }
         }
-        [Parameter]
-        public Booking Value { get; set; }
-        public void SetValue(Booking value)
+        
+        private async void createBooking()
         {
-            this.Value = value;
-        }
-        private async Task createbooking()
-        {
-            var json = JsonSerializer.Serialize(Value);
+            /*****CREATE BOOKING*****/
+            var json = JsonSerializer.Serialize(booking);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpClient client = new() { BaseAddress = new Uri("https://localhost:7285/api/") };
             var response = await client.PostAsync("Bookings", content);
+
+            await JSRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
+            NavigationManager.NavigateTo("/");
         }
     }
 }
