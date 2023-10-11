@@ -1,8 +1,9 @@
 ﻿@using Models;
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime
-
+@using Client.Shared.Utilities
 @page "/mybookings"
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 
 <PageTitle>Customer view</PageTitle>
 
@@ -48,5 +49,10 @@
     protected override async Task OnInitializedAsync()
     {
         await GetUserBookings();
+        if (GlobalAuthState.UserId == null)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+
     }
 }

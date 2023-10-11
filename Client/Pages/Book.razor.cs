@@ -28,8 +28,6 @@ namespace Client.Pages
 
         public async Task<List<RoomType>?> GetListOfTypes()
         {
-			Console.WriteLine(DateTime.Today.ToUniversalTime());
-			Console.WriteLine(HttpUtility.UrlEncode("abc"));
 			var allTypes = await Http.GetFromJsonAsync<List<RoomType>>("https://localhost:7285/api/RoomTypes");
 
             return allTypes;
@@ -68,8 +66,8 @@ namespace Client.Pages
                 /*****Create booking to post*****/
                 Booking booking = new()
                 {
-                    startDate = input.inputBooking.startDate,
-                    endDate = input.inputBooking.endDate,
+                    startDate = input.inputBooking.startDate.Date.AddHours(12 ),
+                    endDate = input.inputBooking.endDate.Date.AddHours(12),
                     roomId = availableRoom.id,
                     customerid = (uint)UserId
                 };

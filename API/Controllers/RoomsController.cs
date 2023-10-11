@@ -75,7 +75,7 @@ namespace API.Controllers
 
 			foreach (Room room in roomList)
             {
-                if (bookingList.Where(booking => booking.room == room && startDate < booking.endDate && endDate > booking.startDate).Count() < 1)
+                if (bookingList.Where(booking => booking.room == room && (startDate <= booking.startDate && endDate <= booking.endDate)).Count() < 1)
                 {
                     finalRooms.Add(room);
                 }
