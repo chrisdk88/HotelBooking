@@ -81,6 +81,7 @@ namespace Client.Pages
 				adminuser = null; // Clear the authenticated user
 				GlobalAuthState.Name = "";
 				GlobalAuthState.UserId= null;
+				GlobalAuthState.isAdmin = false;
 				StateHasChanged();
 			}
 			catch (Exception ex)

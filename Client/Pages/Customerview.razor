@@ -26,9 +26,12 @@
                         </div>
                         <div>
                             @* If startdate is in the future, they have ability to cancel the reservation *@
-                            @if (true)
+                            @if ((item.startDate - DateTime.Today.AddHours(item.startDate.Hour)).TotalDays >= 7)
                             {
                                 <button class="btn btn-success" @onclick="()=>cancelBooking(item.id)">Annullere bookingen</button>
+                            } else
+                            {
+                                <u>Kan ikke annullere reservationen, da der er mindre end en uge til opholdet</u>
                             }
                         </div>
                     </div>
