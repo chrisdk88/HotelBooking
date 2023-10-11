@@ -4,9 +4,11 @@
 
 <div class="page">
 	<div class="sidebar">
-		@if (GlobalAuthState.isAdmin)
+		@if (GlobalAuthState.UserId != null)
 		{
-			<NavMenu/>
+			<div>
+				<NavMenu/>
+			</div>
 		}
 		else
 		{
