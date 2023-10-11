@@ -15,8 +15,11 @@ namespace Client.Pages
             JSRuntime.InvokeVoidAsync("alert", "Booking oprettet");
         }
         [Parameter]
-        public Booking Value { get; set; } 
-
+        public Booking Value { get; set; }
+        public void SetValue(Booking value)
+        {
+            this.Value = value;
+        }
         private async Task createbooking()
         {
             var json = JsonSerializer.Serialize(Value);

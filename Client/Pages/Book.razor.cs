@@ -40,7 +40,8 @@ namespace Client.Pages
         }
 		Room availableRoom;
         Dictionary<uint, string> bookerrormsg = new();
-		public async Task sendRequest()
+        public Booking booking { get; set; }
+        public async Task sendRequest()
         {
             uint? UserId = GlobalAuthState.UserId;
             if (UserId != null)
@@ -66,6 +67,7 @@ namespace Client.Pages
                     roomId = availableRoom.id,
                     customerid = (uint)UserId
                 };
+
                 //  await JsRuntime.InvokeVoidAsync("alert", "Booking oprettet!"); // Alert
                 NavigationManager.NavigateTo("/payment");
 				StateHasChanged();
